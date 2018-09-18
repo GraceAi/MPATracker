@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h4 class="modal-title">Edit Location</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div id="map" style="background: gray">
+    <div id="topbar">
+      <button class="action-button esri-icon-blank-map-pin" id="pointButton" type="button"
+        title="Draw point" ></button>
+      <button class="action-button esri-icon-polygon" id="polygonButton" type="button"
+        title="Draw polygon"></button>
+      <button class="action-button esri-icon-trash" id="resetBtn" type="button" title="Clear all graphics"></button>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="save()">OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

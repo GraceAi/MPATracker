@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h4 class="modal-title">New Contract</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-sm-4 col-form-label">Contract #</label>
+    <div class="col-sm-8">
+      <input #no="ngModel" class="form-control" required appContractNoValidator = {{contracts}} [(ngModel)]="contract_no">
+      <div *ngIf="no.invalid && (no.dirty || no.touched)" class="validate-error">
+        <div *ngIf="no.errors.required">
+          Contract No. is required.
+        </div>
+        <div *ngIf="no.errors?.contractDuplicate">
+          Contract No. is duplicate.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
+  <button type="button" class="btn btn-secondary" mat-dialog-close={{contract_no}}>OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

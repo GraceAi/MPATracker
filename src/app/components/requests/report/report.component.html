@@ -1,0 +1,32 @@
+<app-filter></app-filter>
+<mat-sidenav-container class="detailContainer">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <mat-nav-list>
+      <a mat-list-item [class.active]="tab0" (click) = 'displayCategoryRequestReport()' title="View Total number of requests by Cateory" >Requests by Category</a>
+      <a mat-list-item [class.active]="tab1" (click) = 'displayRequesterRequestReport()' title="View Total number of requests by Requester">Requests by Requester</a>
+      <a mat-list-item [class.active]="tab2" (click) = 'displayReviewerRequestReport()' title="View Total number of assigned/pending requests by Reviewer">Assigned Requests by Reviewer</a>
+      <a mat-list-item [class.active]="tab3" (click) = 'displayCategoryResponseReport()' title="View Minimum/average/maximum response time by Category">Min/Avg/Max response time by Category</a>
+      <a mat-list-item [class.active]="tab4" (click) = 'displayReviewerResponseReport()' title="View Minimum/average/maximum response time by Reviewer">Min/Avg/Max response time by Reviewer</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <!-- <router-outlet></router-outlet> -->
+    <div class="center-div page-title">{{subtitle}}</div>
+    <div class="container">
+      <div class = "row">
+        <div class="col-lg-6">
+          <app-chart></app-chart>
+        </div>
+        <div class="col-lg-6">
+          <div class="table-container mat-elevation-z8">
+            <app-report-table></app-report-table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="center-div">
+      <button type="button" class="btn btn-secondary" (click)="printReport()" title="View/Print Report"><i class="fa fa-files-o"></i>View/Print Report</button>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

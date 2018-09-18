@@ -1,0 +1,12 @@
+.detailContainer {
+  background: #dcdcdc;
+  position: absolute;
+  bottom: 0;
+  top: 260px;
+  left: 20px;
+  right: 20px;
+}
+
+.sidenav{
+  width:260px;
+}

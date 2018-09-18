@@ -1,0 +1,9 @@
+<div class="page-title sub-navbar">Location
+    <i class="fa fa-question-circle" placement="right" ngbPopover="View/Add/Remove Points/Polygons" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div id="mapDiv">
+</div>
+<div class="center-div">
+    <button type="button" class="btn btn-secondary" title="Edit Graphic" id="btnEdit" (click)="openLocationDialog()" [hidden]="hide" title="Edit Location points/polygons">
+      <i class="fa fa-pencil" aria-hidden="true"></i> Edit Location </button>
+</div>

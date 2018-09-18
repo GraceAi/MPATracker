@@ -1,0 +1,64 @@
+<ng-template #popContent>To add or remove a Sidetab to or from a Category:
+<br>1. Select a <b>Category</b> from the dropdown menu.
+<br>2. Select the <b>Sidetab</b> from either the Assgined Side-tabs table or Available Side-tabs table.
+<br>3. Click <b>Add</b> button or <b>Remove</b> button from that specific Category.
+<br>4. Click <b>Save</b> button.</ng-template>
+
+<div class="page-title sub-navbar">Side-tabs
+    <i class="fa fa-question-circle" placement="right" [ngbPopover]="popContent" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div class = "container">
+  <div class="col-md-8">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Category</label>
+      <div ngbDropdown class="col-sm-10">
+        <button class="btn btn-outline" id="categoryMenu" ngbDropdownToggle  title="Select a Category to view/add/remove assigned side-tabs.">{{selectedCategory.category_name}}</button>
+        <div ngbDropdownMenu aria-labelledby="categoryMenu">
+          <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row assign-table">
+    <div class="col-md-4">
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="assignedSidetabDataSource" matSort>
+
+          <ng-container matColumnDef="tabs">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Side-Tabs </th>
+            <td mat-cell *matCellDef="let element"> {{element.sidetab_name}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row" [class.selected-row]="selectedAssignedSidetab === row" (click)="onSelectAssignedSidetab(row)"></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-2 assign-btn-group">
+      <div class = "btn-group-vertical">
+        <button type="button" class="btn btn-secondary" (click)="addAssignedSidetab()"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i> Add   </button>
+        <br>
+        <button type="button" class="btn btn-secondary" (click)="removeAssignedSidetab()"><i class="fa fa-chevron-right" aria-hidden="true"></i> Remove </button>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="table-container mat-elevation-z8">
+        <table mat-table [dataSource]="availableSidetabDataSource" matSort>
+          <ng-container matColumnDef="tabs">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Available Side-Tabs </th>
+            <td mat-cell *matCellDef="let element"> {{element.sidetab_name}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row" [class.selected-row]="selectedAvailableSidetab=== row" (click)="onSelectAvailableSidetab(row)"></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="right-div">
+    <button type="button" class="btn btn-secondary" (click)="assignSidetabsByCategoryId()"><i class="fa fa-floppy-o"></i> Save </button>
+    <button type="button" class="btn btn-secondary" (click)="cancelAssign()"><i class="fa fa-undo"></i> Cancel </button>
+  </div>
+</div>

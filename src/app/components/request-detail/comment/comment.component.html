@@ -1,0 +1,19 @@
+<div style="min-height:100px; margin-bottom:20px;">
+  <div class="page-title sub-navbar">Comments
+      <i class="fa fa-question-circle" placement="right" ngbPopover="View/Add Comments" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+  </div>
+  <div class="commentDiv" *ngFor="let comment of comments">
+    <p>
+      {{comment.comment_text}}
+    </p>
+    <p><b>
+      {{comment.user_name}}
+    </b></p>
+    <p><b>
+      {{comment.comment_date | date: 'shortDate'}}
+    </b></p>
+  </div>
+</div>
+<div class="center-div">
+ <button type="button" class="btn btn-secondary" (click)="openNewCommentDialog()" title="Add new comment"><i class="fa fa-comment"></i> Add Comment </button>
+</div>

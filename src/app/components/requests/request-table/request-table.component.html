@@ -1,0 +1,69 @@
+<div class="table-container mat-elevation-z8">
+  <table mat-table [dataSource]="requestDataSource" matSort>
+
+    <ng-container matColumnDef="high_priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+      <td mat-cell *matCellDef="let element"><i *ngIf= element.high_priority class="fa fa-flag" aria-hidden="true" style="color:#f44336;"></i></td>
+    </ng-container>
+
+    <ng-container matColumnDef="sequence_id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ER No. </th>
+      <td mat-cell *matCellDef="let element"><a routerLink="/request/{{element.request_id}}/role/{{role_id}}" title="Click the ER No. to view request details"> {{element.sequence_id}} </a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="create_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Request Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.create_date | date: 'shortDate'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Task Description </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="requestor_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Requester </th>
+      <td mat-cell *matCellDef="let element"> {{ element.requestor_name }} </td>
+      <!-- <td mat-cell *matCellDef="let element"> {{ element.requester }} <br> ({{ element.department}})</td> -->
+    </ng-container>
+
+    <ng-container matColumnDef="deptmt_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Dept. </th>
+      <td mat-cell *matCellDef="let element"> {{ element.deptmt_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="location_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+      <td mat-cell *matCellDef="let element"> {{ element.location_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category_code">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+      <td mat-cell *matCellDef="let element"> {{element.category_code}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="str_reviewers">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Engineering Task Manager </th>
+      <td mat-cell *matCellDef="let element"> {{element.str_reviewers}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status_desc">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status_desc}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="complete_date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Completion Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.complete_date | date: 'shortDate'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Notes </th>
+      <td mat-cell *matCellDef="let element"> {{element.notes}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
+    <tr mat-row [class.overdue-row]="(row.status_id === 2 || row.status_id === 3) && row.is_overdue" *matRowDef="let row; columns: columns;" class="element-row"></tr>
+    <!-- <tr mat-row [ngClass]="{'overdue-row': (row.status_id === 2 || row.status_id === 3) && row.is_overdue}" *matRowDef="let row; columns: requesterColumns;" class="element-row" [class.selected-row]="selectedRow === row" (click)="selectedRow = row"></tr> -->
+  </table>
+</div>

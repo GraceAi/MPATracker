@@ -1,1 +1,204 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://js.arcgis.com/4.8/esri/css/main.css');
+
+app-root {
+  background-color:#f1f1f1;
+  display:flex;
+  flex-direction:column;
+  position:absolute;
+  top:125px;
+  bottom:0;
+  left:0;
+  right:0;
+}
+app-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  color: #fff;
+}
+
+app-request-table{
+  display:flex;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+app-request-detail{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+app-report-print{
+    margin-top: -136px;
+}
+
+.mat-drawer{
+    background-color:#f1f1f1;
+}
+
+.btn-outline{
+  background-color: #fff;
+  border:1px solid #ced4da;
+}
+
+.sub-navbar{
+  background-color:#ffc152;
+}
+
+.validate-error{
+  color:red;
+}
+
+.dropdown-menu{
+  z-index:2;
+  width:93%;
+}
+
+.datepicker-menu .dropdown-menu{
+  width:auto;
+}
+
+.input-group-append .btn, .input-group-prepend .btn{
+  z-index:inherit;
+}
+
+.page-title{
+    font-size:20px;
+    padding: .5rem 1rem;
+}
+
+/*.sidenav{
+  width: 260px;
+  box-shadow: 6px 0 6px rgba(0,0,0,.1);
+}*/
+.container .right-div{
+  margin-top:20px;
+}
+.right-div{
+  text-align:right;
+}
+.right-div .btn{
+   margin-right:20px;
+}
+.center-div{
+  display: flex;
+  justify-content: center;
+}
+
+.center-div .btn{
+   margin-right:20px;
+}
+
+.selected-row{
+  background-color:#ffc152;
+}
+.form-group label{
+  padding-left:0;
+  text-align:right;
+  font-weight: bold;
+}
+.form-check-input{
+  margin-top:12px;
+}
+.dropdown-toggle{
+  width:100%;
+  text-align:left;
+}
+.dropdown-toggle::after{
+  margin-top: 9px;
+  float:right;
+}
+
+.mat-list-item.active{
+  background-color: #b0b0b0!important;
+}
+.mat-list-item.active:hover{
+  background-color: #b0b0b0!important;
+}
+.mat-list-item:not(.active):hover{
+  background-color: #dcdcdc!important;
+}
+
+.mat-nav-list .mat-list-item{
+  font-weight:bold;
+  border-top:1px solid black;
+}
+.mat-nav-list{
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  padding-top:0 !important;
+}
+
+table {
+  width: 100%;
+}
+
+tr.mat-header-row{
+  height:38px!important;
+}
+
+.mat-row:nth-child(even):not(.selected-row):not(.overdue-row){
+  background-color:#D9D9D9;
+}
+
+.mat-sort-header-arrow{
+  color:white;
+}
+
+th.mat-header-cell{
+  font-size:14px;
+  color: white;
+  font-weight: bold;
+  background-color: #545b62;
+}
+
+.mat-cell .fa{
+  cursor:pointer;
+  font-size:18px;
+}
+
+.assign-table{
+  margin-left:11.111%;
+  margin-top:30px;
+}
+
+.container{
+  margin-top:20px;
+  margin-bottom:20px;
+}
+
+.table-container {
+  background-color: #fff;
+  width: 100%;
+  height: 400px;
+  overflow: auto;
+}
+
+.assign-btn-group{
+  text-align:center;
+  margin-top:100px;
+}
+
+.fa{
+  margin-right:5px;
+}
+
+.fa-question-circle{
+  margin-right:8px;
+  color:#17a2b8;
+}
+
+.my-popover-class{
+  max-width:500px;
+  background: aliceblue;
+  font-size: 125%;
+}
+.my-popover-class .arrow::after {
+  border-top-color: aliceblue;
+}

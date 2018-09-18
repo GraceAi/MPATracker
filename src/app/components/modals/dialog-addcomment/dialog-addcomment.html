@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Comment</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group">
+    <label class="col-form-label">Add a comment</label>
+    <textarea #comment="ngModel" class="form-control" rows="10" required [(ngModel)]="comment_text"></textarea>
+    <div *ngIf="comment.invalid && (comment.dirty || comment.touched)" class="validate-error">
+      <div *ngIf="comment.errors.required">
+        Comment is required.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
+  <button type="button" class="btn btn-secondary" mat-dialog-close={{comment_text}}>OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

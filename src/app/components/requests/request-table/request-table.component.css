@@ -1,0 +1,18 @@
+a{
+  text-decoration: underline;
+}
+
+tr.element-row:not(.overdue-row):hover {
+  background: #f5f5f5;
+}
+
+tr.element-row:not(.overdue-row):active {
+  background: #efefef;
+}
+.overdue-row{
+  background-color:rgba(244,67,54,0.33);
+}
+
+.table-container{
+  height:600px;
+}

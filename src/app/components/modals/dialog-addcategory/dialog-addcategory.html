@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Name</label>
+    <div class="col-sm-9">
+      <input #name="ngModel" required class="form-control" [(ngModel)]="category.category_name">
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validate-error">
+        <div *ngIf="name.errors.required">
+          Category Name is required.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Code</label>
+    <div class="col-sm-9">
+      <input #code="ngModel" required class="form-control" [(ngModel)]="category.category_code">
+      <div *ngIf="code.invalid && (code.dirty || code.touched)" class="validate-error">
+        <div *ngIf="code.errors.required">
+          Category Code is required.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Due Date</label>
+    <div class="col-sm-9">
+      <input #days="ngModel" required class="form-control" [(ngModel)]="category.max_request_days">
+      <div *ngIf="days.invalid && (days.dirty || days.touched)" class="validate-error">
+        <div *ngIf="days.errors.required">
+          Due Date is required.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary"  (click)="save()">OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

@@ -1,0 +1,12 @@
+<mat-sidenav-container class="detailContainer">
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item [class.active]="roletab" (click)='displayAdminRoleTab()' routerLink="./roles" title="Manage User Roles">Roles</a>
+      <a mat-list-item [class.active]="cattab" (click)='displayAdminCategoryTab()'routerLink="./category" title="Manage Request Categories">Category</a>
+      <a mat-list-item [class.active]="sidetab"(click)='displayAdminSideTab()'routerLink="./sidetabs" title="Manage SideTabs by Category">Side-Tabs</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

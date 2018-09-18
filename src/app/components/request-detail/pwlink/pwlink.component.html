@@ -1,0 +1,36 @@
+<div class="page-title sub-navbar">PW Links
+    <i class="fa fa-question-circle" placement="right" ngbPopover="View/Add/Edit/Delete/Download Documents" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div class = "container">
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="pwLinkDataSource" matSort>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> URL Links </th>
+        <td mat-cell *matCellDef="let element"><a href="{{element.link_name}}"> {{element.link_name}} </a></td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.link_desc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" (click) = "editLink(element)"><i class="fa fa-pencil" aria-hidden="true" title="Edit PW Link"></i></td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" (click) = "deleteLink(element)" ><i class="fa fa-trash" aria-hidden="true" title="Delete PW Link"></i></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+    </table>
+  </div>
+</div>
+<div class="center-div" [hidden]="hide">
+  <!-- <button type="button" class="btnDetail btn btn-outline-dark"> Edit PW Link/URL </button> -->
+  <button type="button" class="btn btn-secondary" (click)="openAddPwLinkDialog()" title="Add PW Link/URL"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add PW Link/URL </button>
+</div>

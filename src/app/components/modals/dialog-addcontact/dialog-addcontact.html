@@ -1,0 +1,25 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Contact</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-sm-1 col-form-label">Name</label>
+    <div ngbDropdown class="col-sm-9">
+      <button class="btn btn-outline" id="contactMenu" ngbDropdownToggle>{{selectedContact.contact_details}}</button>
+      <div ngbDropdownMenu aria-labelledby="contactMenu">
+        <button class="dropdown-item" *ngFor="let contact of contacts" (click)="onChangeContact(contact)">{{contact.contact_details}}</button>
+      </div>
+    </div>
+    <button type="button" class="close" aria-label="true" (click)="openNewContactDialog()">
+      <i class="col-sm-2 fa fa-plus" aria-hidden="true" style="display:block;"></i>
+    </button>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
+  <button type="button" class="btn btn-secondary" mat-dialog-close={{selectedContact.contact_id}}>OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

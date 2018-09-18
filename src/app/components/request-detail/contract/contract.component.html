@@ -1,0 +1,25 @@
+<div class="page-title sub-navbar">Contracts
+    <i class="fa fa-question-circle" placement="right" ngbPopover="View/Add/Delete Contracts" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div class = "container col-md-2">
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="contractDataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="contract_no">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contracts </th>
+        <td mat-cell *matCellDef="let element"> {{element.contract_no}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" (click) = "deleteContract(element)"><i class="fa fa-trash" aria-hidden="true"></i></td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row"></tr>
+    </table>
+  </div>
+</div>
+<div class="center-div" [hidden]="hide">
+  <button type="button" class="btn btn-secondary" (click)="openNewContractDialog()" title="Add new contract number"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add Contract </button>
+</div>
