@@ -6,44 +6,47 @@
         <b><i class="fa fa-search"></i> Search Panel</b>
       </mat-panel-title>
       <mat-panel-description>
-        {{panelOpenState ? 'To close the search panel, click anywhere in the panel header' : 'To search for a specific request, open the search panel by clicking anywhere in the search panel header.'}}
+        <div class="d-none d-md-block">{{panelOpenState ? 'To close the search panel, click anywhere in the panel header' : 'To search for a specific request, open the search panel by clicking anywhere in the search panel header.'}}</div>
       </mat-panel-description>
     </mat-expansion-panel-header>
     <!-- <form #searchForm="ngForm"> -->
       <div class="form-row">
-        <div class="form-group row col-md-3">
-          <label class="col-sm-4 col-form-label">ER No.</label>
-          <div class="col-sm-8"><input class="form-control" [(ngModel)]="searchCriteria.sequence_id"></div>
+        <div class="form-group row col-lg-6 col-md-6">
+          <label class="col-lg-3 col-md-6 col-sm-3 col-form-label">ER No.</label>
+          <div class="col-lg-8 col-md-6 col-sm-8"><input class="form-control" [(ngModel)]="searchCriteria.sequence_id"></div>
         </div>
-        <div class="form-group row col-md-6">
-          <label class="col-sm-2 col-form-label">Task Manager</label>
-          <div class="col-sm-10"><input class="form-control"  [(ngModel)]="searchCriteria.str_reviewers"></div>
+        <div class="form-group row col-lg-6 col-md-6">
+          <label class="col-lg-4 col-md-6 col-sm-3 col-form-label">Task Manager</label>
+          <div class="col-lg-8 col-md-6 col-sm-8"><input class="form-control"  [(ngModel)]="searchCriteria.str_reviewers"></div>
         </div>
-        <div class="form-group row col-md-3">
-          <label class="col-sm-4 col-form-label">Category</label>
-          <div ngbDropdown class="col-sm-8">
+
+      </div>
+      <div class="form-row">
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Location</label>
+          <div ngbDropdown class="col-lg-8 col-md-8 col-sm-8">
+            <button class="btn btn-outline" id="locationMenu" ngbDropdownToggle>{{selectedLocation}}</button>
+            <div ngbDropdownMenu aria-labelledby="locationMenu">
+              <button class="dropdown-item" (click)="onChangeLocation(null)">All</button>
+              <button class="dropdown-item" *ngFor="let location of locations" (click)="onChangeLocation(location)">{{location.location_name}}</button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-4 col-md-3 col-sm-3 col-form-label">Category</label>
+          <div ngbDropdown class="col-lg-8 col-md-8 col-sm-8">
             <button class="btn btn-outline" id="categoryMenu" ngbDropdownToggle>{{selectedCategory}}</button>
             <div ngbDropdownMenu aria-labelledby="categoryMenu">
-              <button class="dropdown-item" (click)="onChangeCategory(null)">Select...</button>
+              <button class="dropdown-item" (click)="onChangeCategory(null)">All</button>
               <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_code}}</button>
             </div>
           </div>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Location</label>
-          <div ngbDropdown class="col-sm-9">
-            <button class="btn btn-outline" id="locationMenu" ngbDropdownToggle>{{selectedLocation}}</button>
-            <div ngbDropdownMenu aria-labelledby="locationMenu">
-              <button class="dropdown-item" (click)="onChangeLocation(null)">Select...</button>
-              <button class="dropdown-item" *ngFor="let location of locations" (click)="onChangeLocation(location)">{{location.location_name}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Request Date</label>
-          <div class="col-sm-4 input-group  datepicker-menu">
+        <div class="form-group row col-lg-9 col-md-12">
+          <label class="col-lg-2 col-md-3 col-sm-3 col-form-label form-label-sm">Request Date</label>
+          <div class="col-lg-4 col-md-4 col-sm-4 input-group  datepicker-menu">
             <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_request_date_start="ngbDatepicker"  [(ngModel)]="searchCriteria.create_date_start">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="dp_request_date_start.toggle()" type="button">
@@ -51,8 +54,8 @@
               </button>
             </div>
           </div>
-          <div class="col-sm-1">-</div>
-          <div class="col-sm-4 input-group datepicker-menu">
+          <label class="col-lg-1 col-md-1 col-sm-1 col-form-label form-label-center">to</label>
+          <div class="col-lg-4 col-md-4 col-sm-4 input-group datepicker-menu">
             <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_request_date_end="ngbDatepicker"  [(ngModel)]="searchCriteria.create_date_end">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="dp_request_date_end.toggle()" type="button">
@@ -61,32 +64,22 @@
             </div>
           </div>
         </div>
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Status</label>
-          <div ngbDropdown class="col-sm-9">
+      </div>
+      <div class="form-row">
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Status</label>
+          <div ngbDropdown class="col-lg-8 col-md-8 col-sm-8">
             <button class="btn btn-outline" id="statusMenu" ngbDropdownToggle>{{selectedStatus}}</button>
             <div ngbDropdownMenu aria-labelledby="statusMenu">
-              <button class="dropdown-item" (click)="onChangeStatus(null)">Select...</button>
+              <button class="dropdown-item" (click)="onChangeStatus(null)">All</button>
               <button class="dropdown-item" *ngFor="let status of statuses" (click)="onChangeStatus(status)">{{status.status_desc}}</button>
             </div>
           </div>
         </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Department</label>
-          <div ngbDropdown class="col-sm-9">
-            <button class="btn btn-outline" id="deptMenu" ngbDropdownToggle>{{selectedDept}}</button>
-            <div ngbDropdownMenu aria-labelledby="deptMenu">
-              <button class="dropdown-item" (click)="onChangeDept(null)">Select...</button>
-              <button class="dropdown-item" *ngFor="let dept of departments" (click)="onChangeDept(dept)">{{dept.deptmt_name}}</button>
-            </div>
-          </div>
-        </div>
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Complete Date</label>
-          <div class="col-sm-9 input-group  datepicker-menu">
-            <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_complete_date="ngbDatepicker"  [(ngModel)]="searchCriteria.complete_date">
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-4 col-md-3 col-sm-3 col-form-label">Completion Date</label>
+          <div class="col-lg-8 col-md-4 col-sm-8 input-group  datepicker-menu">
+            <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_complete_date="ngbDatepicker"  [(ngModel)]="searchCriteria.complete_date_display">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" (click)="dp_complete_date.toggle()" type="button">
                 <img [src]="calendaIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
@@ -94,36 +87,49 @@
             </div>
           </div>
         </div>
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Contract No.</label>
-          <div class="col-sm-9"><input class="form-control" [(ngModel)]="searchCriteria.contract_no"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Department</label>
+          <div ngbDropdown class="col-lg-8 col-md-8 col-sm-8">
+            <button class="btn btn-outline" id="deptMenu" ngbDropdownToggle>{{selectedDept}}</button>
+            <div ngbDropdownMenu aria-labelledby="deptMenu">
+              <button class="dropdown-item" (click)="onChangeDept(null)">All</button>
+              <button class="dropdown-item" *ngFor="let dept of departments" (click)="onChangeDept(dept)">{{dept.deptmt_name}}</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row col-lg-6 col-md-6">
+          <label class="col-lg-4 col-md-6 col-sm-3 col-form-label">Contract No.</label>
+          <div class="col-lg-8 col-md-6 col-sm-8"><input class="form-control" [(ngModel)]="searchCriteria.contract_no"></div>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group row col-md-4">
-          <label class="col-sm-3 col-form-label">Requester</label>
-          <div ngbDropdown class="col-sm-9">
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Requester</label>
+          <div ngbDropdown class="col-lg-8 col-md-8 col-sm-8">
             <button class="btn btn-outline" id="requesterMenu" ngbDropdownToggle>{{selectedRequester}}</button>
             <div ngbDropdownMenu aria-labelledby="requesterMenu">
-              <button class="dropdown-item" (click)="onChangeRequester(null)">Select...</button>
+              <button class="dropdown-item" (click)="onChangeRequester(null)">All</button>
               <button class="dropdown-item" *ngFor="let requester of requesters" (click)="onChangeRequester(requester)">{{requester.fname}} {{requester.lname}}</button>
             </div>
           </div>
         </div>
-        <div class="form-group row col-md-4">
-          <label class="col-sm-8 col-form-label">High Priority</label>
-          <div class="col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="searchCriteria.high_priority"></div>
+        <div class="form-group row col-lg-6 col-md-9">
+          <label class="col-lg-4 col-md-4 col-sm-3 col-form-label">High Priority</label>
+          <div class="col-lg-2 col-md-2 col-sm-3"><input type="checkbox" class="form-check-input" [(ngModel)]="searchCriteria.high_priority"></div>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group row col-md-6">
-          <label class="col-sm-2 col-form-label">Task Description</label>
-          <div class="col-sm-10"><input type="text" class="form-control"  [(ngModel)]="searchCriteria.notes"></div>
+        <div class="form-group row col-lg-6 col-md-12">
+          <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Task Description</label>
+          <div class="col-sm-8"><input type="text" class="form-control"  [(ngModel)]="searchCriteria.description"></div>
         </div>
       </div>
       <div class="center-div">
         <button class="btn btn-secondary" (click)="searchRequests()" title="Search requests by criteria"><i class="fa fa-search"></i> Search</button>
-        <button class="btn btn-secondary" (click)="resetSearch()" title="Clear all criterias"><i class="fa fa-undo"></i> Reset</button>
+        <button class="btn btn-secondary" (click)="resetSearch()" title="Clear all criteria"><i class="fa fa-undo"></i> Reset</button>
       </div>
   <!-- </form> -->
   </mat-expansion-panel>

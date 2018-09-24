@@ -92,8 +92,8 @@ export class RequestTableComponent implements OnInit, OnChanges{
         let startDate = this.requestFilter["create_date_start"];
         let endDate = this.requestFilter["create_date_end"];
         if(startDate != null && endDate != null){
-          if(new Date(data.create_date) >= new Date(startDate.year, startDate.month - 1, startDate.day)
-            && new Date(data.create_date) <= new Date(endDate.year, endDate.month - 1, endDate.day))
+          if(new Date(data.create_date).setHours(0,0,0,0) >= new Date(startDate.year, startDate.month - 1, startDate.day).setHours(0, 0, 0, 0)
+            && new Date(data.create_date).setHours(0,0,0,0) <= new Date(endDate.year, endDate.month - 1, endDate.day).setHours(0, 0, 0, 0))
             {
               show = true;
             }
@@ -103,7 +103,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
             }
         }
         else if(startDate == null && endDate != null){
-          if(new Date(data.create_date) <= new Date(endDate.year, endDate.month - 1, endDate.day))
+          if(new Date(data.create_date).setHours(0,0,0,0) <= new Date(endDate.year, endDate.month - 1, endDate.day).setHours(0, 0, 0, 0))
             {
               show = true;
             }
@@ -113,7 +113,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
             }
         }
         else if(startDate != null && endDate == null){
-          if(new Date(data.create_date) >= new Date(startDate.year, startDate.month - 1, startDate.day))
+          if(new Date(data.create_date).setHours(0,0,0,0) >= new Date(startDate.year, startDate.month - 1, startDate.day).setHours(0, 0, 0, 0))
             {
               show = true;
             }
@@ -146,6 +146,19 @@ export class RequestTableComponent implements OnInit, OnChanges{
         }
         else if(this.requestFilter[property]){
           if(data[property] == null || !data[property])
+          {
+            show = false;
+            break;
+          }
+        }
+      }
+      if(property == "complete_date_display"){
+        if(this.requestFilter[property] == null || this.requestFilter[property].length == 0)
+          show = true;
+        else {
+          console.log(new Date(data.complete_date).setHours(0,0,0,0));
+          console.log(new Date(this.requestFilter[property].year, this.requestFilter[property].month - 1, this.requestFilter[property].day).setHours(0, 0, 0, 0));
+          if(new Date(data.complete_date).setHours(0,0,0,0) != new Date(this.requestFilter[property].year, this.requestFilter[property].month - 1, this.requestFilter[property].day).setHours(0, 0, 0, 0))
           {
             show = false;
             break;

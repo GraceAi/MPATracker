@@ -1,12 +1,5 @@
-
-.resultBar{
-  height:30px;
-  margin:20px;
-}
-.resultcount{
-  float:left;
-}
-
-.btnNewRequest{
+.fa-question-circle{
   float:right;
+  margin-left:5px;
+  margin-top:4px;
 }

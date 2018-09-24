@@ -11,7 +11,7 @@
       <input #link="ngModel" required appPWLinkValidator class="form-control" [(ngModel)]="pwLink.link_name" [disabled] = "editMode" placeholder="pw:">
       <div *ngIf="link.invalid && (link.dirty || link.touched)" class="validate-error">
         <div *ngIf="link.errors.required">
-          PW Link is required.
+          PW link is required.
         </div>
         <div *ngIf="link.errors?.linkValid">
           Link must starts with pw/PW.

@@ -47,11 +47,6 @@ export class PwlinkComponent implements OnInit {
         this.displayedColumns.push('edit');
         this.displayedColumns.push('delete');
       }
-      /*else if(this.authService.unlocked){
-        this.hide = false;
-        this.displayedColumns.push('edit');
-        this.displayedColumns.push('delete');
-      }*/
     }
     else if(this.role_id == 2){
       if(this.status_id == 2 || this.status_id == 3){

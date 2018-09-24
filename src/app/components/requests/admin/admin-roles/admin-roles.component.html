@@ -1,7 +1,7 @@
-<ng-template #popContent>To add or remove a User to or from a Role:
-<br>1. Select a <b>Role</b> from the dropdown menu.
-<br>2. Select the <b>User</b> from either the Assigned Users table or Available Users table.
-<br>3. Click <b>Add</b> button or <b>Remove</b> button from that specific Role.
+<ng-template #popContent>To add or remove a user to or from a role:
+<br>1. Select a <b>role</b> from the dropdown menu.
+<br>2. Select the <b>user</b> from either the assigned users table or available users table.
+<br>3. Click <b>Add</b> button or <b>Remove</b> button from that specific role.
 <br>4. Click <b>Save</b> button.</ng-template>
 
 <div class="page-title sub-navbar">Roles
@@ -12,7 +12,7 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Role</label>
       <div ngbDropdown class="col-sm-10">
-        <button class="btn btn-outline" id="roleMenu" ngbDropdownToggle placement="right" ngbPopover="Select a Role to view/add/remove assigned users." triggers="mouseenter:mouseleave">{{selectedRole.role_name}}</button>
+        <button class="btn btn-outline" id="roleMenu" ngbDropdownToggle placement="right" ngbPopover="Select a role to view/add/remove assigned users." triggers="mouseenter:mouseleave">{{selectedRole.role_name}}</button>
         <div ngbDropdownMenu aria-labelledby="roleMenu">
           <button class="dropdown-item" *ngFor="let role of roles" (click)="onChangeRole(role)">{{role.role_name}}</button>
         </div>
@@ -22,7 +22,7 @@
 
   <div class="row assign-table">
     <div class="col-md-4">
-      <input class="form-control" (keyup)="applyAssignedFilter($event.target.value)" placeholder="type to filter assigned users" style="margin-bottom:10px">
+      <input class="form-control" (keyup)="applyAssignedFilter($event.target.value)" placeholder="Type to filter assigned users" style="margin-bottom:10px">
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="assignedUserDataSource">
 
@@ -40,14 +40,14 @@
 
     <div class="col-md-2 assign-btn-group">
       <div class = "btn-group-vertical">
-        <button type="button" class="btn btn-secondary" (click)="addAssignedUser()"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i> Add   </button>
+        <button type="button" class="btn btn-secondary" (click)="addAssignedUser()" title="Add users to assigned users table on the left"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i> Add   </button>
         <br>
-        <button type="button" class="btn btn-secondary" (click)="removeAssignedUser()"> Remove <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-secondary" (click)="removeAssignedUser()" title="Remove users from available users table on the right"> <i class="fa fa-chevron-right" aria-hidden="true"></i> Remove</button>
       </div>
     </div>
 
     <div class="col-md-4">
-      <input class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="type to filter available users" style="margin-bottom:10px">
+      <input class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="Type to filter available users" style="margin-bottom:10px">
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="availableUserDataSource">
           <ng-container matColumnDef="user">
@@ -63,7 +63,7 @@
   </div>
 
   <div class="right-div">
-    <button type="button" class="btn btn-secondary" (click)="assignUsersByRoleId()"><i class="fa fa-floppy-o"></i> Save </button>
-    <button type="button" class="btn btn-secondary" (click)="cancelAssign()"><i class="fa fa-undo"></i> Cancel </button>
+    <button type="button" class="btn btn-secondary" (click)="assignUsersByRoleId()" title="Save assigned users"><i class="fa fa-floppy-o"></i> Save </button>
+    <button type="button" class="btn btn-secondary" (click)="cancelAssign()" title="Cancel"><i class="fa fa-undo"></i> Cancel </button>
   </div>
 </div>

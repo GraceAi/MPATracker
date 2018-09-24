@@ -1,5 +1,13 @@
+.modal-header{
+  padding-top:0;
+  padding-bottom:0;
+}
+.modal-footer{
+  padding-bottom:0;
+}
+
 #map {
-  height: 300px;
+  height: 520px;
   width: 100%;
 }
 

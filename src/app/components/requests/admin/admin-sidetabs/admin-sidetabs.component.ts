@@ -29,7 +29,7 @@ export class AdminSidetabsComponent implements OnInit {
   ngOnInit() {
     this.categories = this.authService.categories;
     this.selectedCategory = new Category();
-    this.selectedCategory.category_name = "select...";
+    this.selectedCategory.category_name = "Select...";
     this.availableSidetabDataSource = new MatTableDataSource(this.authService.allSidetabs);
   }
 

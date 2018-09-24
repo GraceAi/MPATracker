@@ -26,6 +26,7 @@ export class LocationMapDialog  {
       ])
       .then(([Map, Basemap, MapView, SketchViewModel, Graphic, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
       let editGraphic;
+      let deleted = false;
       // GraphicsLayer to hold graphics created via sketch view model
       const tempGraphicsLayer = new GraphicsLayer();
       if(data.length > 0){
@@ -121,9 +122,11 @@ export class LocationMapDialog  {
         function updateGraphic(event) {
           // event.graphic is the graphic that user clicked on and its geometry
           // has not been changed. Update its geometry and add it to the layer
-          event.graphic.geometry = event.geometry;
-          tempGraphicsLayer.add(event.graphic);
-          // set the editGraphic to null update is complete or cancelled.
+          if(!deleted){
+            event.graphic.geometry = event.geometry;
+            tempGraphicsLayer.add(event.graphic);
+            // set the editGraphic to null update is complete or cancelled.
+          }
           editGraphic = null;
         }
 
@@ -133,6 +136,8 @@ export class LocationMapDialog  {
         function setUpClickHandler() {
           view.on("click", function(event) {
             view.hitTest(event).then(function(response) {
+              deleted= false;
+              setActiveButton(null);
               let results = response.results;
               // Found a valid graphic
               if (results.length && results[results.length - 1]
@@ -175,9 +180,12 @@ export class LocationMapDialog  {
         // reset button
         //**************
         document.getElementById("resetBtn").onclick = function() {
-          sketchViewModel.reset();
-          tempGraphicsLayer.removeAll();
           setActiveButton(this);
+          if(editGraphic){
+            deleted = true;
+            tempGraphicsLayer.remove(editGraphic);
+            sketchViewModel.reset();
+          }
         };
 
         function setActiveButton(selectedButton) {

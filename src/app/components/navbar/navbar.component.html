@@ -1,13 +1,13 @@
 <div class="navbar flex-column flex-md-row bg-secondary">
-  <a routerLink="/home" title="back to home page"><img
+  <a class="d-none d-lg-block" title="Back to home page" (click)='backToHome()'><img
        [src]="logoPath"  height="61" width=128>
        </a>
-  <div class="page-title">Engineer Response Desk Log</div>
+  <div class="header-title">Engineering Response Desk Portal</div>
 
-  <button type="button" class="btn btn-outline search-container">
+  <button type="button" class="btn btn-outline search-container d-none d-md-block d-lg-block">
     <i class="fa fa-user-o" aria-hidden="true"></i>
-    {{username}}
+    <span>{{username}}</span>
   </button>
 </div>
 
-<div class="navbar bg-info center-div page-title">{{title}}</div>
+<div class="navbar bg-navbar center-div page-title">{{title}}</div>

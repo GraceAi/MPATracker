@@ -121,7 +121,7 @@ export class LocationComponent implements OnInit {
                     color: "darkorange",
                     style: "solid",
                     outline: {  // autocasts as new SimpleLineSymbol()
-                      color: "darkorange",
+                      color: "gray",
                       width: 1
                     }
                   };
@@ -148,7 +148,7 @@ export class LocationComponent implements OnInit {
       })
   }
   openLocationDialog() {
-    const dialogRef = this.dialog.open(LocationMapDialog, { data: this.map.layers.items[2].graphics.items, width: '600px'});
+    const dialogRef = this.dialog.open(LocationMapDialog, { data: this.map.layers.items[2].graphics.items, width: '900px', height: '700px'});
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         let new_points:RequestLocation[] = [];

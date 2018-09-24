@@ -1,5 +1,5 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
-import { MatSort, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import { Role, User } from '../../../../classes/domain';
 import { RequestService } from '../../../../services/request.service';
@@ -21,7 +21,6 @@ export class AdminRolesComponent implements OnInit {
   filteredUsers:User[];
   selectedAssignedUser:any;
   selectedAvailableUser:any;
-  //@ViewChild(MatSort) sort: MatSort;
   constructor(
    private requestService: RequestService,
    private authService: AuthenticationService,
@@ -30,7 +29,7 @@ export class AdminRolesComponent implements OnInit {
   ngOnInit() {
     this.roles = this.authService.allRoles;
     this.selectedRole = new Role();
-    this.selectedRole.role_name = "select...";
+    this.selectedRole.role_name = "Select...";
     this.availableUserDataSource = new MatTableDataSource(this.authService.allUsers);
   }
 
@@ -104,7 +103,7 @@ export class AdminRolesComponent implements OnInit {
   assignUsersByRoleId(){
     this.requestService.assignUsersByRoleId(this.selectedRole.role_id, this.assignedUsers).subscribe(result => {
       if(result == "Success"){
-        const dialogRef = this.dialog.open(NotificationDialog, { data: "Role Assign is successful." , width: '600px'});
+        const dialogRef = this.dialog.open(NotificationDialog, { data: "Role assign is successful." , width: '600px'});
       }
       else if(result.ok == false){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});

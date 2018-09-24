@@ -1,5 +1,5 @@
 {
-  "service_url": "http://eco-web08/MPAERD/api/",
+  "service_url": "http://localhost/ERD/api/",
   "pt_feature_layer":"https://apps.ecointegration.com:8443/arcgis/rest/services/MPA/ERD_TASK_LOC/MapServer/0",
   "poly_feature_layer":"https://apps.ecointegration.com:8443/arcgis/rest/services/MPA/ERD_TASK_LOC/MapServer/1",
   "base_layer":"https://geodata.md.gov/imap/rest/services/Transportation/MD_ColorBasemap/MapServer"

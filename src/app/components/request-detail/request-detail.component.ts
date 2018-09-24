@@ -87,7 +87,7 @@ export class RequestDetailComponent implements OnInit {
   }
 
   submitRequest() {
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Submit Request Confirmation", message: "Are you sure you want to Submit this request?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Submit Request Confirmation", message: "Are you sure you want to submit this request?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -97,7 +97,7 @@ export class RequestDetailComponent implements OnInit {
         this.requestService.submitRequest(general).subscribe(result => {
           if(result.length > 0){
             const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
-            this.router.navigate(['/home']);
+            this.toHomePage();
           }
           else if(!result.ok){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -108,7 +108,7 @@ export class RequestDetailComponent implements OnInit {
     }
 
   completeRequest(){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Complete Request Confirmation", message: "Are you sure you want to Complete this request?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Complete Request Confirmation", message: "Are you sure you want to complete this request?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -118,7 +118,7 @@ export class RequestDetailComponent implements OnInit {
         this.requestService.completeRequest(general).subscribe(result => {
           if(result.length > 0){
             const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
-            this.router.navigate(['/home']);
+            this.toHomePage();
           }
           else if(!result.ok){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -129,22 +129,16 @@ export class RequestDetailComponent implements OnInit {
 
   }
   closeRequest(){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Close Request Confirmation", message: "Are you sure you want to close?"}, width: '600px'});
-
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.router.navigate(['/home']);
-      }
-    });
+    this.toHomePage();
   }
   deleteRequest() {
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Request Confirmation", message: "Are you sure you want to Delete this request?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Request Confirmation", message: "Are you sure you want to delete this request?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.requestService.deleteRequest(this.request_id).subscribe(result => {
           if(result.length >= 0){
-            this.router.navigate(['/home']);
+            this.toHomePage();
           }
           else if(!result.ok){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -163,6 +157,15 @@ export class RequestDetailComponent implements OnInit {
         this.authService.setUnlock(true);
       }
     });
+  }
+
+  toHomePage(){
+    if(this.role_id == 1)
+      this.router.navigate(['/home/tab/1']);
+    else if(this.role_id == 2)
+      this.router.navigate(['/home/tab/2']);
+    else if(this.role_id == 3)
+      this.router.navigate(['/home/tab/5']);
   }
 
 }

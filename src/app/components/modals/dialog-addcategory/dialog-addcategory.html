@@ -11,7 +11,7 @@
       <input #name="ngModel" required class="form-control" [(ngModel)]="category.category_name">
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validate-error">
         <div *ngIf="name.errors.required">
-          Category Name is required.
+          Category name is required.
         </div>
       </div>
     </div>
@@ -19,24 +19,28 @@
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Code</label>
     <div class="col-sm-9">
-      <input #code="ngModel" required class="form-control" [(ngModel)]="category.category_code">
+      <input #code="ngModel" required appCategoryValidator={{currentCode}} class="form-control" [(ngModel)]="category.category_code">
       <div *ngIf="code.invalid && (code.dirty || code.touched)" class="validate-error">
         <div *ngIf="code.errors.required">
-          Category Code is required.
+          Category code is required.
         </div>
+        <div *ngIf="code.errors?.codeDuplicate">
+           Category code already exists.
+         </div>
       </div>
     </div>
   </div>
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">Due Date</label>
-    <div class="col-sm-9">
-      <input #days="ngModel" required class="form-control" [(ngModel)]="category.max_request_days">
+    <div class="col-sm-4">
+      <input #days="ngModel" required class="form-control" [(ngModel)]="category.max_request_days" type="number" min=1>
       <div *ngIf="days.invalid && (days.dirty || days.touched)" class="validate-error">
         <div *ngIf="days.errors.required">
-          Due Date is required.
+          Due date is required.
         </div>
       </div>
     </div>
+    <label class="col-sm-1 col-form-label">days</label>
   </div>
 </div>
 <div class="modal-footer">

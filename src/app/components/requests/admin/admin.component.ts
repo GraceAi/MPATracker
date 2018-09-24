@@ -23,7 +23,6 @@ export class AdminComponent implements OnInit {
 
           let lastslashindex = this.router.url.lastIndexOf('/');
           let tabname= this.router.url.substring(lastslashindex  + 1);
-          console.log(tabname);
           if(tabname == "roles")
             this.roletab = true;
           else if(tabname == "category")

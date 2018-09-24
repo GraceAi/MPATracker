@@ -136,9 +136,6 @@ export class AuthenticationService {
               data : data,
               backgroundColor: colors
           }]
-      },
-      options: {
-        responsive: true
       }
     }
     this.chartDataSource.next(chartData);
@@ -182,7 +179,7 @@ export class AuthenticationService {
         datasets : datasetsArray
       },
       options: {
-        responsive: true,
+        //responsive: true,
           scales: {
             xAxes: [{
               stacked: true,
@@ -210,17 +207,20 @@ export class AuthenticationService {
       {
         label: 'Min Time',
         backgroundColor: this.COLORS[0],
-        data: minTimeArray
+        data: minTimeArray,
+        stack: 'Stack 0',
       },
       {
         label: 'Avg Time',
         backgroundColor: this.COLORS[1],
-        data: avgTimeArray
+        data: avgTimeArray,
+        stack: 'Stack 1',
       },
       {
         label: 'Max Time',
         backgroundColor: this.COLORS[2],
-        data: maxTimeArray
+        data: maxTimeArray,
+        stack: 'Stack 2',
       }
     )
 
@@ -229,10 +229,6 @@ export class AuthenticationService {
       data: {
         labels : labels,
         datasets : datasetsArray
-      },
-      options: {
-        responsive: true
-
       }
     }
     this.chartDataSource.next(chartData);

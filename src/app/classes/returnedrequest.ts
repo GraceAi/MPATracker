@@ -16,13 +16,13 @@ export class ReturnedRequest {
   status_id:number;
   status_desc:string;
   complete_date:string;
-  notes:string;
   high_priority:boolean;
   location_id:number;
   location_name:string;
   Contracts:string[]
   create_date_start:NgbDateStruct;
   create_date_end:NgbDateStruct;
+  complete_date_display:NgbDateStruct;
   //complete_date_start:NgbDateStruct;
   //complete_date_end:NgbDateStruct;
   contract_no:string;

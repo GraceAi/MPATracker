@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
   styleUrls: ['./all-request.component.css']
 })
 export class AllRequestComponent implements OnInit {
-  searchCriteria: ReturnedRequest;
+  searchCriteria: string;
   role_id:number = 3;
   resultCount:string;
   constructor(private authService: AuthenticationService,
@@ -20,13 +20,12 @@ export class AllRequestComponent implements OnInit {
   ngOnInit() {
     this.route.data
         .subscribe((data: { title: string }) => {
-          console.log(data.title);
           this.authService.setTitle(data.title);
         });
   }
 
   searchRequesterRequest(criteria:ReturnedRequest) {
-      this.searchCriteria = criteria;
+      this.searchCriteria = JSON.stringify(criteria);
   }
 
   searchResultCount(count:number) {

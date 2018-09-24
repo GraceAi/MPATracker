@@ -49,11 +49,6 @@ export class DocumentComponent implements OnInit {
         this.displayedColumns.push('edit');
         this.displayedColumns.push('delete');
       }
-      /*else if(this.authService.unlocked){
-        this.hide = false;
-        this.displayedColumns.push('edit');
-        this.displayedColumns.push('delete');
-      }*/
     }
     else if(this.role_id == 2){
       if(this.status_id == 2 || this.status_id == 3){
@@ -80,7 +75,7 @@ export class DocumentComponent implements OnInit {
   }
 
   downloadDocument(element:any){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Download Document Confirmation", message: "Are you sure you want to download this Document?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Download Document Confirmation", message: "Are you sure you want to download this document?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -101,7 +96,7 @@ export class DocumentComponent implements OnInit {
   }
 
   deleteDocument(element:any){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Document Confirmation", message: "Are you sure you want to delete this Document?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Document Confirmation", message: "Are you sure you want to delete this document?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){

@@ -41,7 +41,7 @@ const routes: Routes = [
            {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'My Assigned Requests'}},
            {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'All Requests'}},
            {path: 'tab/4', component: AssignerRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'Assigner'}},
-           {path: 'tab/6', component: ReportComponent,canActivate: [ReportViewerAuthGuard], pathMatch: 'full', data : { title : 'Report'}},
+           {path: 'tab/6', component: ReportComponent,canActivate: [ReportViewerAuthGuard], pathMatch: 'full', data : { title : 'Reports'}},
            {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Administrator Access'},
               children: [
                 {
@@ -62,10 +62,10 @@ const routes: Routes = [
           children: [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
                 {path: 'general', component: GeneralInfoComponent, pathMatch: 'full'},
-                {path: 'contact', component: ContactComponent, pathMatch: 'full'},
-                {path: 'contract', component: ContractComponent, pathMatch: 'full'},
-                {path: 'document', component: DocumentComponent, pathMatch: 'full'},
-                {path: 'comment', component: CommentComponent, pathMatch: 'full'},
+                {path: 'contacts', component: ContactComponent, pathMatch: 'full'},
+                {path: 'contracts', component: ContractComponent, pathMatch: 'full'},
+                {path: 'documents', component: DocumentComponent, pathMatch: 'full'},
+                {path: 'comments', component: CommentComponent, pathMatch: 'full'},
                 {path: 'links', component: PwlinkComponent, pathMatch: 'full'},
                 {path: 'location', component: LocationComponent, pathMatch: 'full'},
                 {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'},

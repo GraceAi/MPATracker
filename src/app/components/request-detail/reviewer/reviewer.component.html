@@ -8,7 +8,7 @@
 <div class = "container">
   <div class="row assign-table">
     <div class="col-md-4">
-      <input class="form-control" (keyup)="applyAssignedFilter($event.target.value)" placeholder="search assigned reviewers" style="margin-bottom:10px">
+      <input class="form-control" (keyup)="applyAssignedFilter($event.target.value)" placeholder="Search assigned reviewers" style="margin-bottom:10px">
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="reviewerDataSource" matSort>
 
@@ -26,14 +26,14 @@
 
     <div class="col-md-2 assign-btn-group" >
       <div class = "btn-group-vertical">
-        <button type="button" class="btn btn-secondary" (click)="addAssignedReviewer()" title="Add Reviewers to Assigned Reviewers table on the left"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i> Add   </button>
+        <button type="button" class="btn btn-secondary" (click)="addAssignedReviewer()" title="Add reviewers to assigned reviewers table on the left"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i>Add</button>
         <br>
-        <button type="button" class="btn btn-secondary" (click)="removeAssignedReviewer()" title="Remove Reviewers from Available Reviewers table on the right"><i class="fa fa-chevron-right" aria-hidden="true"></i> Remove </button>
+        <button type="button" class="btn btn-secondary" (click)="removeAssignedReviewer()" title="Remove reviewers from available reviewers table on the right"> <i class="fa fa-chevron-right" aria-hidden="true"></i>Remove</button>
       </div>
     </div>
 
     <div class="col-md-4">
-      <input class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="search available reviewers" style="margin-bottom:10px">
+      <input class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="Search available reviewers" style="margin-bottom:10px">
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="availableReviewerDataSource" matSort>
           <ng-container matColumnDef="reviewer">
@@ -48,8 +48,8 @@
 
     </div>
   </div>
-</div>
-<div class="center-div" [hidden]="hide">
-  <button type="button" class="btn btn-secondary" (click)="assignReviewers()" title="Save Assigned Reviewers"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
-  <button type="button" class="btn btn-secondary" (click)="cancelAssign()" title="Cancel"><i class="fa fa-undo" aria-hidden="true"></i> Cancel </button>
+  <div class="right-div" [hidden]="hide">
+    <button type="button" class="btn btn-secondary" (click)="assignReviewers()" title="Save assigned reviewers" title="Save assigned reviewers"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+    <button type="button" class="btn btn-secondary" (click)="cancelAssign()" title="Cancel" title="Cancel"><i class="fa fa-undo" aria-hidden="true"></i> Cancel </button>
+  </div>
 </div>

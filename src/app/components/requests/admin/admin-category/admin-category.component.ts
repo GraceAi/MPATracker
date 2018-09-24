@@ -35,7 +35,12 @@ export class AdminCategoryComponent implements OnInit {
             this.categoryDataSource.sort = this.sort;
           }
           else if(result.ok == false){
-            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            if(result.error.ExceptionMessage.includes("unique constraint")){
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: assigned category code already in use", width: '600px'});
+            }
+            else {
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            }
           }
         });
       }
@@ -53,7 +58,12 @@ export class AdminCategoryComponent implements OnInit {
             this.categoryDataSource.sort = this.sort;
           }
           else if(result.ok == false){
-            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            if(result.error.ExceptionMessage.includes("unique constraint")){
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: assigned category code already in use", width: '600px'});
+            }
+            else {
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            }
           }
         });
       }

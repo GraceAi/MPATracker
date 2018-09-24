@@ -26,7 +26,6 @@ export class RequesterRequestComponent implements OnInit {
     ngOnInit() {
       this.route.data
           .subscribe((data: { title: string }) => {
-            console.log(data.title);
             this.authService.setTitle(data.title);
           });
     }

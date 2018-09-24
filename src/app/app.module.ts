@@ -52,6 +52,8 @@ import { ReportPrintComponent } from './components/requests/report/report-print/
 import { pwlinkValidatorDirective } from './components/directives/pw-name.directive';
 import { contactEmailValidatorDirective } from './components/directives/contact-validator.directive';
 import { contractNoValidatorDirective } from './components/directives/contract-validator.directive';
+import { categoryCodeValidatorDirective } from './components/directives/category-validator.directive';
+import { RemoveUnderscorePipe } from './components/directives/remove-underscore.pipe';
 import { RequesterAuthGuard }   from './services/requester-auth-guard.service';
 import { ReviewerAuthGuard}   from './services/reviewer-auth-guard.service';
 import { AssignerAuthGuard}   from './services/assigner-auth-guard.service';
@@ -105,6 +107,8 @@ import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-
     pwlinkValidatorDirective,
     contactEmailValidatorDirective,
     contractNoValidatorDirective,
+    categoryCodeValidatorDirective,
+    RemoveUnderscorePipe,
     PageNotAuthorizedComponent
 
   ],

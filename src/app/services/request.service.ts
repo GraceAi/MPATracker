@@ -362,7 +362,7 @@ export class RequestService {
 
   updateLocationPt(locationPt:any, request_id:number): Observable<any>{
     let body = JSON.stringify(locationPt);
-    const url = this.erdTrackerServicesUrl + "Request/UpdateTaskLocationPoint?unlock=" + this.unlocked + "&request_id=" + request_id;
+    const url = this.erdTrackerServicesUrl + "Request/UpdateTaskLocationPoint?request_id=" + request_id + "&unlock=" + this.unlocked;
     return this.http.post(url, body, this.httpOptions)
     .pipe(
       catchError(this.handleError('updateLocationPt', []))
@@ -371,7 +371,7 @@ export class RequestService {
 
   updateLocationPoly(locationPoly:any, request_id:number): Observable<any>{
     let body = JSON.stringify(locationPoly);
-    const url = this.erdTrackerServicesUrl + "Request/UpdateTaskLocationPoly?unlock=" + this.unlocked + "&request_id=" + request_id;
+    const url = this.erdTrackerServicesUrl + "Request/UpdateTaskLocationPoly?request_id=" + request_id + "&unlock=" + this.unlocked;
     return this.http.post(url, body, this.httpOptions)
     .pipe(
       catchError(this.handleError('updateLocationPoly', []))
@@ -441,9 +441,9 @@ export class RequestService {
             filter((a:ReturnedRequest) =>
             criteria == null || ((a.category_id == criteria.cat_id || criteria.cat_id == null)
             && (a.requestor_id == criteria.requestor_id || criteria.requestor_id == null)
-            && (a.str_reviewers == null || a.str_reviewers.includes(criteria.reviewer_name) || criteria.reviewer_name == null)
-            && (new Date(a.create_date) >= criteria.start_date || criteria.start_date == null)
-            && (new Date(a.create_date) <= criteria.end_date || criteria.end_date == null))),
+            && ((a.str_reviewers != null && a.str_reviewers.includes(criteria.reviewer_name)) || criteria.reviewer_name == null)
+            && (new Date(a.create_date).setHours(0, 0, 0, 0) >= criteria.start_date || criteria.start_date == null)
+            && (new Date(a.create_date).setHours(0, 0, 0, 0) <= criteria.end_date || criteria.end_date == null))),
             groupBy((a:ReturnedRequest) => a.category_code),
             mergeMap(group => group.pipe(toArray()))
           );
@@ -463,9 +463,9 @@ export class RequestService {
             filter((a:ReturnedRequest) =>
             criteria == null || ((a.category_id == criteria.cat_id || criteria.cat_id == null)
             && (a.requestor_id == criteria.requestor_id || criteria.requestor_id == null)
-            && (a.str_reviewers == null || a.str_reviewers.includes(criteria.reviewer_name) || criteria.reviewer_name == null)
-            && (new Date(a.create_date) >= criteria.start_date || criteria.start_date == null)
-            && (new Date(a.create_date) <= criteria.end_date || criteria.end_date == null))),
+            && ((a.str_reviewers != null && a.str_reviewers.includes(criteria.reviewer_name)) || criteria.reviewer_name == null)
+            && (new Date(a.create_date).setHours(0, 0, 0, 0) >= criteria.start_date || criteria.start_date == null)
+            && (new Date(a.create_date).setHours(0, 0, 0, 0) <= criteria.end_date || criteria.end_date == null))),
             groupBy((a:ReturnedRequest) => a.requestor_id),
             mergeMap(group => group.pipe(toArray()))
           );

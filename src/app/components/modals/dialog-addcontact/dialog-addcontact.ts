@@ -6,6 +6,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { DomainService } from '../../../services/domain.service';
 import { RequestService } from '../../../services/request.service';
 import { NewContactDialog } from '../../../components/modals/dialog-newcontact/dialog-newcontact';
+import { NotificationDialog } from '../../../components/modals/dialog-notification/dialog-notification';
 
 @Component({
   selector: 'dialog-addcontact',
@@ -35,7 +36,12 @@ export class AddContactDialog {
         if(result.email != null){
           this.requestService.newRequestContact(result).subscribe(contact => {
             if(contact.ok == false){
-              console.log(contact.message);
+              if(contact.error.ExceptionMessage.includes("unique constraint")){
+                const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: contact email already exists", width: '600px'});
+              }
+              else {
+                const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + contact.message, width: '600px'});
+              }
             }
             else if(contact!= null){
               this.domainService.getContacts(this.authService.appSettings.service_url)

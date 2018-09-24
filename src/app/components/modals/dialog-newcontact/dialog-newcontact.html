@@ -26,7 +26,7 @@
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">E-mail</label>
     <div class="col-sm-9">
-      <input #email="ngModel" required email appEmailValidator class="form-control" [(ngModel)]="contact.email" [disabled] = "editMode" [ngModelOptions]="{ updateOn: 'blur' }" placeholder="a@b.com">
+      <input #email="ngModel" required email appEmailValidator class="form-control" [(ngModel)]="contact.email" [disabled] = "editMode" placeholder="a@b.com">
       <div *ngIf="email.invalid && (email.dirty || email.touched)" class="validate-error">
         <div *ngIf="email.errors.required">
           Email is required.

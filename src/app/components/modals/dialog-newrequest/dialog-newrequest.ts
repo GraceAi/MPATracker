@@ -14,7 +14,7 @@ export class NewRequestDialog {
      @Inject(MAT_DIALOG_DATA) data
     ) {
       this.selectedCategory = new Category();
-      this.selectedCategory.category_name = "select...";
+      this.selectedCategory.category_name = "Select...";
       this.categories = data.categories;
     }
 

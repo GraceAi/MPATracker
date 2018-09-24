@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MatSort, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import { User, Category } from '../../../classes/domain';
 import { RequestService } from '../../../services/request.service';
@@ -22,7 +22,6 @@ export class AssignerRequestComponent implements OnInit {
   filteredReviewers:User[];
   selectedAutoAssignedReviewer:any;
   selectedAvailableReviewer:any;
-  @ViewChild(MatSort) sort: MatSort;
   constructor(private requestService: RequestService,
               private authService: AuthenticationService,
               private router: Router,
@@ -36,9 +35,9 @@ export class AssignerRequestComponent implements OnInit {
         });
     this.categories = this.authService.categories;
     this.selectedCategory = new Category();
-    this.selectedCategory.category_name = "select...";
+    this.selectedCategory.category_name = "Select...";
     this.availableReviewerDataSource = new MatTableDataSource(this.authService.allReviewers);
-    this.availableReviewerDataSource.sort = this.sort;
+    //this.availableReviewerDataSource.sort = this.sort;
   }
 
   onSelectAutoAssignedReviewer(row:any){
@@ -57,7 +56,7 @@ export class AssignerRequestComponent implements OnInit {
       this.availableReviewerDataSource = new MatTableDataSource(this.filteredReviewers);
 
       this.selectedAvailableReviewer = null;
-      this.autoAssignedReviewerDataSource.sort = this.sort;
+      //this.autoAssignedReviewerDataSource.sort = this.sort;
     }
 
   }
@@ -70,7 +69,7 @@ export class AssignerRequestComponent implements OnInit {
       this.availableReviewerDataSource = new MatTableDataSource(this.filteredReviewers);
 
       this.selectedAutoAssignedReviewer = null;
-      this.autoAssignedReviewerDataSource.sort = this.sort;
+      //this.autoAssignedReviewerDataSource.sort = this.sort;
     }
   }
 
@@ -93,7 +92,7 @@ export class AssignerRequestComponent implements OnInit {
       this.autoAssignedReviewers = result;
       this.autoAssignedReviewerDataSource = new MatTableDataSource(result);
       this.availableReviewerDataSource = new MatTableDataSource(this.filteredReviewers);
-      this.autoAssignedReviewerDataSource.sort = this.sort;
+      //this.autoAssignedReviewerDataSource.sort = this.sort;
     });
   }
 

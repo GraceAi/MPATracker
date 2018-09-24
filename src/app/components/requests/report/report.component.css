@@ -1,12 +1,28 @@
+@media (min-width: 992px){
+  .col-lg-4{
+    padding-left:0;
+    padding-right:8px;
+  }
+}
 .detailContainer {
-  background: #dcdcdc;
-  position: absolute;
-  bottom: 0;
-  top: 260px;
-  left: 20px;
-  right: 20px;
+  width: 100%;
+  background-color: #dcdcdc;
+}
+.container{
+  margin-top:10px;
+}
+.reportContainer{
+  background-color: inherit;
 }
 
+.col-lg-8{
+  padding-left:0;
+  padding-right:0px;
+}
 .sidenav{
   width:260px;
+}
+
+.report-list .mat-list-item{
+  height:68px;
 }

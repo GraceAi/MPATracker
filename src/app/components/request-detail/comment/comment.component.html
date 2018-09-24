@@ -1,6 +1,6 @@
 <div style="min-height:100px; margin-bottom:20px;">
   <div class="page-title sub-navbar">Comments
-      <i class="fa fa-question-circle" placement="right" ngbPopover="View/Add Comments" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+      <i class="fa fa-question-circle" placement="right" ngbPopover="View/add comments" popoverClass="my-popover-class" autoClose="true" container="body"></i>
   </div>
   <div class="commentDiv" *ngFor="let comment of comments">
     <p>
@@ -10,7 +10,7 @@
       {{comment.user_name}}
     </b></p>
     <p><b>
-      {{comment.comment_date | date: 'shortDate'}}
+      {{comment.comment_date | date: 'short'}}
     </b></p>
   </div>
 </div>

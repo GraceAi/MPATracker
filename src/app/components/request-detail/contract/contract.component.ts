@@ -44,10 +44,6 @@ export class ContractComponent implements OnInit {
         this.hide = false;
         this.displayedColumns.push('delete');
       }
-      /*else if(this.authService.unlocked){
-        this.hide = false;
-        this.displayedColumns.push('delete');
-      }*/
     }
     else if(this.role_id == 2){
       if(this.status_id == 2 || this.status_id == 3){
@@ -71,7 +67,7 @@ export class ContractComponent implements OnInit {
   }
 
   deleteContract(element:any){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Confirmation", message: "Are you sure you want to delete this Contract No.?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Confirmation", message: "Are you sure you want to delete this contract number?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
@@ -105,7 +101,13 @@ export class ContractComponent implements OnInit {
             this.contractDataSource.sort = this.sort;
           }
           else if(result.ok == false){
-            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            //const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            if(result.error.ExceptionMessage.includes("unique constraint")){
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: contract number already exists in this request", width: '600px'});
+            }
+            else {
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            }
           }
         });
       }

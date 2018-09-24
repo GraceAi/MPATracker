@@ -18,11 +18,11 @@ export class SearchPanelComponent implements OnInit {
   departments:Department[];
   locations:Location[];
   requesters:User[];
-  selectedCategory:string = "Select...";
-  selectedStatus:string = "Select...";
-  selectedDept:string = "Select...";
-  selectedLocation:string = "Select...";
-  selectedRequester:string = "Select...";
+  selectedCategory:string = "All";
+  selectedStatus:string = "All";
+  selectedDept:string = "All";
+  selectedLocation:string = "All";
+  selectedRequester:string = "All";
   panelOpenState = false;
   private calendaIconPath = "./assets/img/calendar-icon.svg";
 
@@ -42,7 +42,7 @@ export class SearchPanelComponent implements OnInit {
 
   onChangeCategory(category:Category){
     if(category == null){
-      this.selectedCategory = "Select...";
+      this.selectedCategory = "All";
       this.searchCriteria.category_code = null;
     }
     else {
@@ -52,7 +52,7 @@ export class SearchPanelComponent implements OnInit {
   }
   onChangeStatus(status:Status){
     if(status == null){
-      this.selectedStatus = "Select...";
+      this.selectedStatus = "All";
       this.searchCriteria.status_id = null;
     }
     else {
@@ -63,7 +63,7 @@ export class SearchPanelComponent implements OnInit {
   }
   onChangeDept(dept:Department){
     if(dept == null){
-      this.selectedDept = "Select...";
+      this.selectedDept = "All";
       this.searchCriteria.deptmt_id = null;
     }
     else{
@@ -73,7 +73,7 @@ export class SearchPanelComponent implements OnInit {
   }
   onChangeLocation(loc:Location){
     if(loc == null){
-      this.selectedLocation = "Select...";
+      this.selectedLocation = "All";
       this.searchCriteria.location_id = null;
     }
     else{
@@ -83,7 +83,7 @@ export class SearchPanelComponent implements OnInit {
   }
   onChangeRequester(requester:User){
     if(requester == null){
-      this.selectedRequester = "Select...";
+      this.selectedRequester = "All";
       this.searchCriteria.requestor_id = null;
     }
     else{
@@ -96,11 +96,11 @@ export class SearchPanelComponent implements OnInit {
   }
   resetSearch(){
     this.searchCriteria = new ReturnedRequest();
-    this.selectedCategory = "Select...";
-    this.selectedLocation = "Select...";
-    this.selectedStatus = "Select...";
-    this.selectedDept = "Select...";
-    this.selectedRequester = "Select...";
+    this.selectedCategory = "All";
+    this.selectedLocation = "All";
+    this.selectedStatus = "All";
+    this.selectedDept = "All";
+    this.selectedRequester = "All";
     this.searchRequest.emit(this.searchCriteria);
   }
 

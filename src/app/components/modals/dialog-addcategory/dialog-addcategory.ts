@@ -10,6 +10,7 @@ export class AddCategoryDialog {
   category:Category = new Category();
   title:string = "New Category";
   editMode:boolean = false;
+  currentCode:string;
   constructor(
     public dialogRef: MatDialogRef<AddCategoryDialog>,
     @Inject(MAT_DIALOG_DATA) data
@@ -18,6 +19,7 @@ export class AddCategoryDialog {
         this.category = data;
         this.editMode = true;
         this.title = "Edit Category";
+        this.currentCode = data.category_code;
       }
     }
     save() {

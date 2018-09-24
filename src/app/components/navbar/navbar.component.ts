@@ -21,4 +21,10 @@ export class NavbarComponent implements OnInit {
     this.username = this.authService.username;
   }
 
+  backToHome(){
+    if(!this.router.url.includes("home")){
+      this.router.navigate(['/home']);
+    }
+  }
+
 }

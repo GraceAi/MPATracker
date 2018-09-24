@@ -1,7 +1,10 @@
 .filter-container{
   background-color:#fff;
-  margin: 20px;
   padding-bottom: 10px;
+}
+.filter-container .form-row{
+  margin-left:20px;
+  margin-right:20px;
 }
 .sub-navbar{
   padding:0.25rem 1rem;

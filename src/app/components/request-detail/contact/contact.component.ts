@@ -48,11 +48,6 @@ export class ContactComponent implements OnInit {
         this.displayedColumns.push("edit");
         this.displayedColumns.push("delete");
       }
-      /*else if(unlocked){
-        this.hide = false;
-        this.displayedColumns.push("edit");
-        this.displayedColumns.push("delete");
-      }*/
     }
     else if(this.role_id == 2){
       if(this.status_id == 2 || this.status_id == 3){
@@ -77,7 +72,7 @@ export class ContactComponent implements OnInit {
   }
 
   deleteContact(element:any){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Contact Confirmation", message: "Are you sure you want to delete this Contact?"}, width: '600px'});
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Contact Confirmation", message: "Are you sure you want to delete this contact?"}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){

@@ -10,7 +10,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
   styleUrls: ['./reviewer-request.component.css']
 })
 export class ReviewerRequestComponent implements OnInit {
-  searchCriteria: ReturnedRequest;
+  searchCriteria: string;
   role_id:number = 2;
   resultCount:string;
   constructor(private router: Router,
@@ -19,13 +19,12 @@ export class ReviewerRequestComponent implements OnInit {
   ngOnInit() {
     this.route.data
         .subscribe((data: { title: string }) => {
-          console.log(data.title);
           this.authService.setTitle(data.title);
         });
   }
 
   searchRequesterRequest(criteria:ReturnedRequest) {
-      this.searchCriteria = criteria;
+      this.searchCriteria = JSON.stringify(criteria);
   }
 
   searchResultCount(count:number) {
