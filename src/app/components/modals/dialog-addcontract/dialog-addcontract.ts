@@ -7,6 +7,7 @@ import { RequestContract } from '../../../classes/request';
   templateUrl: './dialog-addcontract.html',
 })
 export class AddContractDialog {
+  contract_no:string;
   contracts:any = [];
   constructor(
     public dialogRef: MatDialogRef<AddContractDialog>,

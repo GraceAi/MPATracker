@@ -97,7 +97,8 @@ export class AdminSidetabsComponent implements OnInit {
   }
 
   cancelAssign(){
-    //location.reload();
+    if(this.selectedCategory.category_id != null)
+      this.getSidetabsByCategoryId(this.selectedCategory.category_id);
   }
 
 }

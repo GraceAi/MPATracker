@@ -23,11 +23,12 @@ export class FilterComponent implements OnInit {
   selectedCategory:string = "All";
   selectedRequester:string = "All";
   selectedReviewer:string = "All";
-  private calendaIconPath = "./assets/img/calendar-icon.svg";
+  calendarIconPath:string;
   constructor(private requestService: RequestService,
     private authService: AuthenticationService) { }
 
   ngOnInit() {
+    this.calendarIconPath = this.authService.calendarIconPath;
     this.categories = this.authService.categories;
     this.requesters = this.authService.requesters;
     this.reviewers = this.authService.allReviewers;

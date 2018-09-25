@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class NavbarComponent implements OnInit {
   username:string;
   title:string;
-  private logoPath = "./assets/img/mpa.png";
+  logoPath:string;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private authService: AuthenticationService) { }
@@ -19,6 +19,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.authService.pageTitle.subscribe(title => this.title = title);
     this.username = this.authService.username;
+    this.logoPath = this.authService.logoPath;
   }
 
   backToHome(){

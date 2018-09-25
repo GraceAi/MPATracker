@@ -1,8 +1,9 @@
 <app-search-panel (searchRequest)="searchRequesterRequest($event)"></app-search-panel>
 
-<div class="navbar flex-column flex-md-row">
+<div class="navbar">
   <div><b>{{resultCount}}</b><i class="fa fa-question-circle d-block d-lg-none d-xl-none" placement="right" ngbPopover="(Please note: overdue requests will be highlighted in pink and high priority requests will be red-flagged)" popoverClass="my-popover-class" autoClose="true" container="body"></i></div>
   <div class="d-none d-lg-block">(Please note: overdue requests will be highlighted in pink and high priority requests will be red-flagged)</div>
+  <div></div>
 </div>
 
 <app-request-table [searchCriteria]="searchCriteria" [role_id]="role_id" (resultCount)="searchResultCount($event)"></app-request-table>

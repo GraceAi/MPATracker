@@ -19,12 +19,12 @@ export class ReportTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription_column = this.authService.reportColumn.subscribe(columns => {
-      console.log(`columns: `, columns);
+      //console.log(`columns: `, columns);
       if(columns != null && columns.length > 0)
         this.displayedColumns = columns;
     });
     this.subscription_data = this.authService.reportData.subscribe(data => {
-      console.log(`data: `, data);
+      //console.log(`data: `, data);
       if(data != null)
         this.reportDataSource = new MatTableDataSource(data);
         this.reportDataSource.sort = this.sort;

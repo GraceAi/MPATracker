@@ -100,4 +100,8 @@ export class ReviewerComponent implements OnInit {
     });
   }
 
+  cancelAssign(){
+    this.getRequestReviewers();
+  }
+
 }

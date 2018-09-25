@@ -49,6 +49,8 @@ export class AuthenticationService {
 
   ];
 
+  public logoPath:string = "./assets/img/mpa.png";
+  public calendarIconPath:string ="./assets/img/calendar-icon.svg";
   public appSettings: any;
   public username: string;
   public currentUserRoles: Role[];

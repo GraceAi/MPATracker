@@ -13,11 +13,12 @@ export class ReportPrintComponent implements OnInit {
   subtitle:string;
   username:string;
   currentdate:number;
-  private logoPath = "./assets/img/mpa.png";
+  logoPath:string;
   constructor(private authService: AuthenticationService,
               private router: Router,
               private route: ActivatedRoute) { }
   ngOnInit() {
+    this.logoPath = this.authService.logoPath;
     this.subtitle = "Report for " + this.route.snapshot.paramMap.get('title');
     //this.authService.setTitle("Report for " + this.route.snapshot.paramMap.get('title'));
     this.authService.reportFilter.subscribe(

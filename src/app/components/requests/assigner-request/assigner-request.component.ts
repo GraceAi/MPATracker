@@ -108,7 +108,8 @@ export class AssignerRequestComponent implements OnInit {
   }
 
   cancelAssign(){
-    //location.reload();
+    if(this.selectedCategory.category_id != null)
+      this.getAutoAssignedReviewersByCatId(this.selectedCategory.category_id);
   }
 
 }

@@ -9,9 +9,9 @@ import { AuthenticationService } from '../../../services/authentication.service'
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  private roletab:boolean = false;
-  private cattab:boolean = false;
-  private sidetab:boolean = false;
+  roletab:boolean = false;
+  cattab:boolean = false;
+  sidetab:boolean = false;
   constructor(private authService: AuthenticationService,
               private router: Router,
               private route: ActivatedRoute) { }

@@ -24,11 +24,12 @@ export class SearchPanelComponent implements OnInit {
   selectedLocation:string = "All";
   selectedRequester:string = "All";
   panelOpenState = false;
-  private calendaIconPath = "./assets/img/calendar-icon.svg";
+  calendarIconPath:string;
 
   constructor(private authService: AuthenticationService) { }
   ngOnInit() {
-      this.getDomains();
+    this.calendarIconPath = this.authService.calendarIconPath;
+    this.getDomains();
   }
 
   getDomains()

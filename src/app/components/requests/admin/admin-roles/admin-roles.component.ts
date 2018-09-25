@@ -112,7 +112,8 @@ export class AdminRolesComponent implements OnInit {
   }
 
   cancelAssign(){
-    //location.reload();
+    if(this.selectedRole.role_id != null)
+      this.getAssignedUsersByRoleId(this.selectedRole.role_id);
   }
 
 }

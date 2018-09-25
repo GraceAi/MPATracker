@@ -11,11 +11,11 @@ import { RequestService } from '../../../services/request.service';
   styleUrls: ['./report.component.css']
 })
 export class ReportComponent implements OnInit {
-  private tab0:boolean = false;
-  private tab1:boolean = false;
-  private tab2:boolean = false;
-  private tab3:boolean = false;
-  private tab4:boolean = false;
+  tab0:boolean = false;
+  tab1:boolean = false;
+  tab2:boolean = false;
+  tab3:boolean = false;
+  tab4:boolean = false;
   subtitle:string;
   reportData:any = [];
   chartData:any = [];

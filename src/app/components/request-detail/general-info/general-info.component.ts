@@ -15,6 +15,7 @@ import { NotificationDialog } from '../../../components/modals/dialog-notificati
 })
 export class GeneralInfoComponent implements OnInit {
   role_id:number;
+  create_date:string;
   generalInfo:RequestGeneral = new RequestGeneral();
   selectedDept:string;
   departments:Department[];
@@ -35,6 +36,7 @@ export class GeneralInfoComponent implements OnInit {
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
     this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
           this.status_id = data.requestDetail.generalInfo.status_id;
+          this.create_date = data.requestDetail.generalInfo.create_date.substring(0, 10);
         });
     this.getGeneralInfo(request_id);
 
