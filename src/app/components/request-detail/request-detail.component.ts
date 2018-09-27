@@ -14,7 +14,7 @@ import { NotificationDialog } from '../../components/modals/dialog-notification/
   styleUrls: ['./request-detail.component.css']
 })
 export class RequestDetailComponent implements OnInit {
-  private selectedSideTab:any;
+  //private selectedSideTab:any;
   sideTabs:SideTab[];
   category_id:number;
   request_id:number;
@@ -51,17 +51,17 @@ export class RequestDetailComponent implements OnInit {
               this.authService.setTitle(pageTitle);
             }
             this.setLayout();
-            this.setSelectedTab(this.router.url);
+            //this.setSelectedTab(this.router.url);
           }
         });
   }
 
-  setSelectedTab(url:string){
+  /*setSelectedTab(url:string){
     let lastslashindex = url.lastIndexOf('/');
     let tabname= url.substring(lastslashindex  + 1);
     let index = this.sideTabs.map(function(e) { return e.sidetab_name.toLowerCase(); }).indexOf(tabname);
     this.selectedSideTab = this.sideTabs[index];
-  }
+  }*/
 
   setLayout(){
     this.authService.setUnlock(false);
@@ -79,11 +79,11 @@ export class RequestDetailComponent implements OnInit {
         this.hideCompleteBtn = false;
       }
     }
-    else if(this.role_id == 3){
+    /*else if(this.role_id == 3){
       if(this.status_id == 2 || this.status_id == 3 ){
         this.hideCompleteBtn = false;
       }
-    }
+    }*/
   }
 
   submitRequest() {

@@ -61,6 +61,7 @@ import { AdminAuthGuard}   from './services/admin-auth-guard.service';
 import { ReportViewerAuthGuard}   from './services/reportviewer-auth-guard.service';
 import { RequestDetailAuthGuard}   from './services/request-detail-auth-guard.service';
 import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-not-authorized.component';
+import { AssignerRulesComponent } from './components/requests/assigner-request/assigner-rules/assigner-rules.component';
 
 
 @NgModule({
@@ -109,7 +110,8 @@ import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-
     contractNoValidatorDirective,
     categoryCodeValidatorDirective,
     RemoveUnderscorePipe,
-    PageNotAuthorizedComponent
+    PageNotAuthorizedComponent,
+    AssignerRulesComponent
 
   ],
   imports: [

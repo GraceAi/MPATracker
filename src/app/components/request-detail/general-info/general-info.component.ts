@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
+import { Observable, of } from 'rxjs';
 
 import {RequestGeneral, RequestDetail} from '../../../classes/request';
 import { Department, Location } from '../../../classes/domain';
@@ -17,6 +18,7 @@ export class GeneralInfoComponent implements OnInit {
   role_id:number;
   create_date:string;
   generalInfo:RequestGeneral = new RequestGeneral();
+  origGeneralInfo:RequestGeneral = new RequestGeneral();
   selectedDept:string;
   departments:Department[];
   selectedLoc:string;
@@ -37,6 +39,7 @@ export class GeneralInfoComponent implements OnInit {
     this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
           this.status_id = data.requestDetail.generalInfo.status_id;
           this.create_date = data.requestDetail.generalInfo.create_date.substring(0, 10);
+          this.origGeneralInfo = data.requestDetail.generalInfo;
         });
     this.getGeneralInfo(request_id);
 
@@ -112,6 +115,18 @@ export class GeneralInfoComponent implements OnInit {
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
       }
     });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+    if (this.generalInfo.notes === this.origGeneralInfo.notes && this.generalInfo.high_priority === this.origGeneralInfo.high_priority && this.generalInfo.description === this.origGeneralInfo.description
+    && this.generalInfo.location_id === this.origGeneralInfo.location_id && this.generalInfo.deptmt_id === this.origGeneralInfo.deptmt_id) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    const confirmation = window.confirm('You have unsaved changes. Are you sure you want to leave this page?');
+    return of(confirmation);
   }
 
 }

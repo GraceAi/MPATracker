@@ -38,7 +38,7 @@
             <button class="btn btn-outline" id="categoryMenu" ngbDropdownToggle>{{selectedCategory}}</button>
             <div ngbDropdownMenu aria-labelledby="categoryMenu">
               <button class="dropdown-item" (click)="onChangeCategory(null)">All</button>
-              <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_code}}</button>
+              <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_name}}</button>
             </div>
           </div>
         </div>

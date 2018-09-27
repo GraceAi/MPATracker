@@ -2,7 +2,7 @@
 <mat-sidenav-container class="detailContainer">
   <mat-sidenav mode="side" opened>
     <mat-nav-list>
-      <a mat-list-item [class.active]="selectedSideTab === sidetab" (click)="selectedSideTab = sidetab" routerLink="./{{sidetab.sidetab_name.toLowerCase()}}"
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./{{sidetab.sidetab_name.toLowerCase()}}"
       *ngFor="let sidetab of sideTabs" title={{sidetab.sidetab_name}}>{{sidetab.sidetab_name}}</a>
     </mat-nav-list>
   </mat-sidenav>

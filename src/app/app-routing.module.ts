@@ -30,6 +30,8 @@ import { AdminAuthGuard}   from './services/admin-auth-guard.service';
 import { ReportViewerAuthGuard}   from './services/reportviewer-auth-guard.service';
 import { RequestDetailAuthGuard}   from './services/request-detail-auth-guard.service';
 import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-not-authorized.component';
+import { AssignerRulesComponent } from './components/requests/assigner-request/assigner-rules/assigner-rules.component';
+import { CanDeactivateGuard}   from './services/can-deactivate.guard';
 
 const routes: Routes = [
   //{ path: '**', component: PageNotFoundComponent },
@@ -38,37 +40,36 @@ const routes: Routes = [
   { path: 'home', component: RequestsComponent, resolve: { tabs: RequestResolver },
          children: [
            {path: 'tab/1', component: RequesterRequestComponent, canActivate: [RequesterAuthGuard], pathMatch: 'full', data : { title : 'My Request List'}},
-           {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'My Assigned Requests'}},
-           {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'All Requests'}},
-           {path: 'tab/4', component: AssignerRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'Assigner'}},
+           {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'Requests for Review'}},
+           {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'Requests for Assignment'}},
+           {path: 'tab/4', component: AssignerRequestComponent,canActivate: [AssignerAuthGuard], data : { title : 'Assign Default Reviewers'},
+               children: [
+                     {path: '', redirectTo: 'rules', pathMatch: 'full'},
+                     {path: 'rules', component: AssignerRulesComponent, pathMatch: 'full'}
+                   ]
+            },
            {path: 'tab/6', component: ReportComponent,canActivate: [ReportViewerAuthGuard], pathMatch: 'full', data : { title : 'Reports'}},
-           {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Administrator Access'},
-              children: [
-                {
-                  path: '',
-                  //canActivateChild: [AdminAuthGuard],
-                  children: [
-                    {path: '', redirectTo: 'roles', pathMatch: 'full'},
-                    {path: 'roles', component: AdminRolesComponent, pathMatch: 'full'},
-                    {path: 'category', component: AdminCategoryComponent, pathMatch: 'full'},
-                    {path: 'sidetabs', component: AdminSidetabsComponent, pathMatch: 'full'}
-                  ]
-                }
-              ]
+           {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Admin Settings'},
+               children: [
+                 {path: '', redirectTo: 'roles', pathMatch: 'full'},
+                 {path: 'roles', component: AdminRolesComponent, pathMatch: 'full'},
+                 {path: 'category', component: AdminCategoryComponent, pathMatch: 'full'},
+                 {path: 'sidetabs', component: AdminSidetabsComponent, pathMatch: 'full'}
+               ]
          }]
   },
   { path: 'report/print/:title', component: ReportPrintComponent, pathMatch: 'full'},
   { path: 'request/:requestId/role/:roleId', component: RequestDetailComponent, canActivate: [RequestDetailAuthGuard], resolve: { requestDetail: RequestDetailResolver } ,
           children: [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
-                {path: 'general', component: GeneralInfoComponent, pathMatch: 'full'},
+                {path: 'general', component: GeneralInfoComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'contacts', component: ContactComponent, pathMatch: 'full'},
                 {path: 'contracts', component: ContractComponent, pathMatch: 'full'},
                 {path: 'documents', component: DocumentComponent, pathMatch: 'full'},
                 {path: 'comments', component: CommentComponent, pathMatch: 'full'},
                 {path: 'links', component: PwlinkComponent, pathMatch: 'full'},
                 {path: 'location', component: LocationComponent, pathMatch: 'full'},
-                {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'},
+                {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'}
               ]
   }
 ];

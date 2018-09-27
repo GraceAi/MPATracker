@@ -57,7 +57,10 @@ app-report{
 app-report-print{
     margin-top: -136px;
 }
+.mat-dialog-container{
+  overflow:inherit!important;
 
+}
 .form-check-input{
   margin-left:0;
 }

@@ -94,7 +94,7 @@ export class PwlinkComponent implements OnInit {
     const dialogRef = this.dialog.open(AddLinkDialog, {width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result.link_name != null){
+      if(result.link_name != null && result.link_name.length > 0){
         result.request_id = this.request_id;
         this.requestService.addRequestLink(result).subscribe(result => {
           if(result.length >= 0){

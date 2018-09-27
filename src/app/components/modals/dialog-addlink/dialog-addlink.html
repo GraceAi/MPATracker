@@ -8,14 +8,14 @@
   <div class="form-group row">
     <label class="col-sm-3 col-form-label">URL Link</label>
     <div class="col-sm-9">
-      <input #link="ngModel" required appPWLinkValidator class="form-control" [(ngModel)]="pwLink.link_name" [disabled] = "editMode" placeholder="pw:">
+      <input #link="ngModel" required class="form-control" [(ngModel)]="pwLink.link_name" [disabled] = "editMode">
       <div *ngIf="link.invalid && (link.dirty || link.touched)" class="validate-error">
         <div *ngIf="link.errors.required">
-          PW link is required.
+          Link is required.
         </div>
-        <div *ngIf="link.errors?.linkValid">
+        <!-- <div *ngIf="link.errors?.linkValid">
           Link must starts with pw/PW.
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

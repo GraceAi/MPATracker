@@ -15,11 +15,14 @@ export class ReportFilter{
   start_date:number;
   end_date:number;
   cat_id:number;
+  deptmt_id:number;
   requestor_id:number;
   reviewer_id:number;
   requestor_name:string;
   reviewer_name:string;
-  category_code:string;
+  // category_code:string;
+  deptmt_name:string;
+  category_name:string;
   create_date_start:NgbDateStruct;
   create_date_end:NgbDateStruct;
 }

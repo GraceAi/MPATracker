@@ -13,7 +13,7 @@ import { NotificationDialog } from '../../components/modals/dialog-notification/
 })
 export class RequestsComponent implements OnInit {
   tabs: Tab[] = [];
-  selectedTab:any;
+  //selectedTab:any;
   constructor(private authService: AuthenticationService,
               private router: Router,
               private route: ActivatedRoute,
@@ -25,16 +25,15 @@ export class RequestsComponent implements OnInit {
             this.tabs = data.tabs;
             //let max_tabid = Math.max.apply(Math, this.tabs.map(function(o) { return o.tab_id; }));
             //this.selectedTab = this.tabs.find(item => +(item.tab_id) == max_tabid);
-            let tab_index = 0;
             let index = 0;
-            if(this.router.url.includes("tab")){
-              tab_index = +this.router.url.slice(-1);
-              index = this.tabs.map(function(e) { return +e.tab_id; }).indexOf(tab_index);
+            if(!this.router.url.includes("tab")){
+              if(this.tabs[0].tab_id == 4){
+                this.router.navigate(['/home/tab/' + this.tabs[1].tab_id]);
+              }
+              else{
+                this.router.navigate(['/home/tab/' + this.tabs[0].tab_id]);
+              }
             }
-            else {
-              this.router.navigate(['/home/tab/' + this.tabs[index].tab_id]);
-            }
-            this.selectedTab = this.tabs[index];
           }
         });
   }

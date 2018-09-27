@@ -6,7 +6,7 @@ export class EnvironmentSetting{
 }
 
 export class Tab {
-  tab_id: string;
+  tab_id: number;
   tab_name: string;
   tab_desc:string;
 }

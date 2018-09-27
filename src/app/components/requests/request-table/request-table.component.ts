@@ -15,7 +15,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
   @Input() role_id: number;
   requestDataSource:any;
   requestFilter:any;
-  columns: string[] = ['high_priority', 'sequence_id', 'create_date', 'description', 'deptmt_name', 'location_name', 'category_code', 'str_reviewers', 'status_desc', 'complete_date'];
+  columns: string[] = ['high_priority', 'sequence_id', 'create_date', 'requester', 'description', 'deptmt_name', 'location_name', 'category_code', 'str_reviewers', 'status_desc', 'complete_date'];
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(private requestService: RequestService) { }
@@ -34,7 +34,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
   ngOnChanges(changes: SimpleChanges) {
         // only run when property "data" changed
         if (changes['searchCriteria']) {
-          if(this.searchCriteria == null || this.searchCriteria.length == 0){
+          if(this.searchCriteria == null || this.searchCriteria.length == 0 || this.requestDataSource == null){
             this.getRequests();
           }
           else {
@@ -67,12 +67,9 @@ export class RequestTableComponent implements OnInit, OnChanges{
         }
       });
     }
-
-
   }
 
   displayRequest(requests:any){
-    this.resultCount.emit(requests.length);
     this.requestDataSource = new MatTableDataSource(requests);
     this.requestDataSource.sort = this.sort;
     this.requestFilter = new ReturnedRequest();
@@ -81,6 +78,15 @@ export class RequestTableComponent implements OnInit, OnChanges{
         //console.log(filters);
         return this.getFilterResult(data, filters);
       }
+
+    if(this.searchCriteria != null && this.searchCriteria.length > 0){
+      this.requestFilter = JSON.parse(this.searchCriteria);
+      this.requestDataSource.filter = this.searchCriteria;
+      this.resultCount.emit(this.requestDataSource.filteredData.length);
+    }
+    else {
+      this.resultCount.emit(requests.length);
+    }
   }
 
   getFilterResult(data: ReturnedRequest, filters: string):boolean{

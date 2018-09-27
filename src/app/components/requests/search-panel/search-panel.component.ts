@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output  } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatExpansionModule} from '@angular/material';
 
 import {AuthenticationService} from '../../../services/authentication.service';
@@ -12,24 +13,27 @@ import { Status, Department, Category, Location, User } from '../../../classes/d
 })
 export class SearchPanelComponent implements OnInit {
   @Output() searchRequest = new EventEmitter<ReturnedRequest>();
-  searchCriteria = new ReturnedRequest();
+  searchCriteria:any;
   categories:Category[];
   statuses:Status[];
   departments:Department[];
   locations:Location[];
   requesters:User[];
-  selectedCategory:string = "All";
-  selectedStatus:string = "All";
-  selectedDept:string = "All";
-  selectedLocation:string = "All";
-  selectedRequester:string = "All";
+  selectedCategory:string;
+  selectedStatus:string;
+  selectedDept:string;
+  selectedLocation:string;
+  selectedRequester:string ;
   panelOpenState = false;
   calendarIconPath:string;
 
-  constructor(private authService: AuthenticationService) { }
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private authService: AuthenticationService) { }
   ngOnInit() {
     this.calendarIconPath = this.authService.calendarIconPath;
     this.getDomains();
+    this.setDefaultFilter();
   }
 
   getDomains()
@@ -41,13 +45,41 @@ export class SearchPanelComponent implements OnInit {
     this.requesters = this.authService.requesters;
   }
 
+  setDefaultFilter(){
+    if(this.router.url.includes("tab")){
+      let tab_id = +this.router.url.slice(-1);
+
+      this.searchCriteria = new ReturnedRequest();
+      this.selectedCategory = "All";
+      this.selectedLocation = "All";
+      this.selectedDept = "All";
+      this.selectedRequester = "All";
+
+      if(tab_id == 1){//requester tab display all requests
+        this.selectedStatus = "All";
+      }
+      if(tab_id == 2){//reviewer tab display assigned requests
+        let status = this.authService.statuses.find(status => status.status_id == 3);
+        this.selectedStatus = status.status_desc;
+        this.searchCriteria.status_id = status.status_id;
+      }
+      else if(tab_id == 5){//assigner tab display submitted requests
+
+        let status = this.authService.statuses.find(status => status.status_id == 2);
+        this.selectedStatus = status.status_desc;
+        this.searchCriteria.status_id = status.status_id;
+      }
+      this.searchRequest.emit(this.searchCriteria);
+    }
+  }
+
   onChangeCategory(category:Category){
     if(category == null){
       this.selectedCategory = "All";
       this.searchCriteria.category_code = null;
     }
     else {
-      this.selectedCategory = category.category_code;
+      this.selectedCategory = category.category_name;
       this.searchCriteria.category_code = category.category_code;
     }
   }
@@ -96,13 +128,7 @@ export class SearchPanelComponent implements OnInit {
     this.searchRequest.emit(this.searchCriteria);
   }
   resetSearch(){
-    this.searchCriteria = new ReturnedRequest();
-    this.selectedCategory = "All";
-    this.selectedLocation = "All";
-    this.selectedStatus = "All";
-    this.selectedDept = "All";
-    this.selectedRequester = "All";
-    this.searchRequest.emit(this.searchCriteria);
+    this.setDefaultFilter();
   }
 
 }

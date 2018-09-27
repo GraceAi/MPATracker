@@ -441,6 +441,7 @@ export class RequestService {
             filter((a:ReturnedRequest) =>
             criteria == null || ((a.category_id == criteria.cat_id || criteria.cat_id == null)
             && (a.requestor_id == criteria.requestor_id || criteria.requestor_id == null)
+            && (a.deptmt_id == criteria.deptmt_id || criteria.deptmt_id == null)
             && ((a.str_reviewers != null && a.str_reviewers.includes(criteria.reviewer_name)) || criteria.reviewer_name == null)
             && (new Date(a.create_date).setHours(0, 0, 0, 0) >= criteria.start_date || criteria.start_date == null)
             && (new Date(a.create_date).setHours(0, 0, 0, 0) <= criteria.end_date || criteria.end_date == null))),
@@ -463,6 +464,7 @@ export class RequestService {
             filter((a:ReturnedRequest) =>
             criteria == null || ((a.category_id == criteria.cat_id || criteria.cat_id == null)
             && (a.requestor_id == criteria.requestor_id || criteria.requestor_id == null)
+            && (a.deptmt_id == criteria.deptmt_id || criteria.deptmt_id == null)
             && ((a.str_reviewers != null && a.str_reviewers.includes(criteria.reviewer_name)) || criteria.reviewer_name == null)
             && (new Date(a.create_date).setHours(0, 0, 0, 0) >= criteria.start_date || criteria.start_date == null)
             && (new Date(a.create_date).setHours(0, 0, 0, 0) <= criteria.end_date || criteria.end_date == null))),

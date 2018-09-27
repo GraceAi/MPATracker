@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {RequestService} from '../../../../services/request.service';
 import {AuthenticationService} from '../../../../services/authentication.service';
 import {ReturnedRequest} from '../../../../classes/returnedrequest';
-import { Category, User } from '../../../../classes/domain';
+import { Category, User, Department } from '../../../../classes/domain';
 import { ReportData, ReportFilter } from '../../../../classes/report';
 
 @Component({
@@ -20,9 +20,11 @@ export class FilterComponent implements OnInit {
   categories:Category[];
   requesters:User[];
   reviewers:User[];
+  departments:Department[];
   selectedCategory:string = "All";
   selectedRequester:string = "All";
   selectedReviewer:string = "All";
+  selectedDept:string = "All";
   calendarIconPath:string;
   constructor(private requestService: RequestService,
     private authService: AuthenticationService) { }
@@ -32,15 +34,18 @@ export class FilterComponent implements OnInit {
     this.categories = this.authService.categories;
     this.requesters = this.authService.requesters;
     this.reviewers = this.authService.allReviewers;
+    this.departments = this.authService.departments;
     this.authService.reportFilter.subscribe(
       filter => {
         this.searchCriteria = filter;
-        if(filter.category_code != null)
-          this.selectedCategory = filter.category_code;
+        if(filter.category_name != null)
+          this.selectedCategory = filter.category_name;
         if(filter.requestor_name != null)
           this.selectedRequester = filter.requestor_name;
         if(filter.reviewer_name != null)
           this.selectedReviewer = filter.reviewer_name;
+          if(filter.deptmt_name != null)
+            this.selectedDept = filter.deptmt_name;
       }
     );
   }
@@ -49,12 +54,14 @@ export class FilterComponent implements OnInit {
     if(category == null){
       this.selectedCategory = "All";
       this.searchCriteria.cat_id = null;
-      this.searchCriteria.category_code = null;
+      //this.searchCriteria.category_code = null;
+      this.searchCriteria.category_name = null;
     }
     else {
-      this.selectedCategory = category.category_code;
+      this.selectedCategory = category.category_name;
       this.searchCriteria.cat_id = category.category_id;
-      this.searchCriteria.category_code = category.category_code;
+      //this.searchCriteria.category_code = category.category_code;
+      this.searchCriteria.category_name = category.category_name;
     }
   }
 
@@ -84,6 +91,19 @@ export class FilterComponent implements OnInit {
     }
   }
 
+  onChangeDept(dept:Department){
+    if(dept == null){
+      this.selectedDept = "All";
+      this.searchCriteria.deptmt_name = null;
+      this.searchCriteria.deptmt_id = null;
+    }
+    else{
+      this.selectedDept = dept.deptmt_name;
+      this.searchCriteria.deptmt_id = dept.deptmt_id;
+      this.searchCriteria.deptmt_name = dept.deptmt_name;
+    }
+  }
+
   generateReport(){
     if(this.searchCriteria.create_date_start == null)
       this.searchCriteria.start_date = null;
@@ -102,6 +122,7 @@ export class FilterComponent implements OnInit {
     this.selectedCategory = "All";
     this.selectedRequester = "All";
     this.selectedReviewer = "All";
+    this.selectedDept = "All";
     this.authService.setReportFilter(this.searchCriteria);
   }
 

@@ -39,7 +39,7 @@
         <button class="btn btn-outline" id="categoryMenu" ngbDropdownToggle>{{selectedCategory}}</button>
         <div ngbDropdownMenu aria-labelledby="categoryMenu">
           <button class="dropdown-item" (click)="onChangeCategory(null)">All</button>
-          <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_code}}</button>
+          <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_name}}</button>
         </div>
       </div>
     </div>
@@ -54,8 +54,20 @@
       </div>
     </div>
   </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-sm-3 col-form-label">Department</label>
+      <div ngbDropdown class="col-sm-8">
+        <button class="btn btn-outline" id="deptMenu" ngbDropdownToggle>{{selectedDept}}</button>
+        <div ngbDropdownMenu aria-labelledby="deptMenu">
+          <button class="dropdown-item" (click)="onChangeDept(null)">All</button>
+          <button class="dropdown-item" *ngFor="let dept of departments" (click)="onChangeDept(dept)">{{dept.deptmt_name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="center-div">
     <button class="btn btn-secondary" (click)="generateReport()" title="Generate report"><i class="fa fa-bar-chart"></i>Generate Report</button>
-    <button class="btn btn-secondary" (click)="resetFilter()" title="Reset filter"><i class="fa fa-undo"></i>Cancel</button>
+    <button class="btn btn-secondary" (click)="resetFilter()" title="Reset filter"><i class="fa fa-undo"></i>Reset</button>
   </div>
 </div>

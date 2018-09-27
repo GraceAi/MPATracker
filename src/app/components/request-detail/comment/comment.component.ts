@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
-import { RequestComment } from '../../../classes/request';
+import { RequestComment, RequestDetail } from '../../../classes/request';
 import { RequestService } from '../../../services/request.service';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { AddCommentDialog } from '../../../components/modals/dialog-addcomment/dialog-addcomment';
@@ -17,7 +17,9 @@ import { NotificationDialog } from '../../../components/modals/dialog-notificati
 export class CommentComponent implements OnInit {
    request_id:number;
    role_id:number;
+   status_id:number;
    comments:RequestComment[];
+   hide:boolean = false;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -28,6 +30,10 @@ export class CommentComponent implements OnInit {
     this.request_id = +this.route.parent.snapshot.paramMap.get('requestId');
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
     this.getRequestComments();
+    this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
+          this.status_id = data.requestDetail.generalInfo.status_id;
+          this.setLayout();
+        });
   }
 
   getRequestComments(){
@@ -35,6 +41,12 @@ export class CommentComponent implements OnInit {
       if(result)
        this.comments = result;
     });
+  }
+
+  setLayout(){
+    if(this.status_id == 4){
+      this.hide = true;
+    }
   }
 
   openNewCommentDialog() {
