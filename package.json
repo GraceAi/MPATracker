@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.0.9",
+    "@angular/animations": "^6.1.9",
     "@angular/cdk": "^6.3.3",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
@@ -27,6 +27,7 @@
     "core-js": "^2.5.4",
     "esri-loader": "^2.4.0",
     "font-awesome": "^4.7.0",
+    "ngx-toastr": "^9.1.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },

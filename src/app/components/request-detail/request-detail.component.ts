@@ -1,6 +1,7 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MatSidenavModule} from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { RequestGeneral, RequestDetail } from '../../classes/request';
 import { SideTab } from '../../classes/domain';
@@ -30,6 +31,7 @@ export class RequestDetailComponent implements OnInit {
    private route: ActivatedRoute,
    private requestService: RequestService,
    private authService: AuthenticationService,
+   private toastr: ToastrService,
    public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -96,6 +98,7 @@ export class RequestDetailComponent implements OnInit {
         general.category_id = this.category_id;
         this.requestService.submitRequest(general).subscribe(result => {
           if(result.length > 0){
+            //this.toastr.success('', result);
             const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
             this.toHomePage();
           }

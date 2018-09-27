@@ -5,6 +5,7 @@ import { FormsModule }   from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatListModule, MatSidenavModule, MatExpansionModule, MatTableModule, MatSortModule, MatDialogModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { WinAuthInterceptor } from './services/WinAuthInterceptor';
@@ -126,7 +127,8 @@ import { AssignerRulesComponent } from './components/requests/assigner-request/a
     MatTableModule,
     MatSortModule,
     MatDialogModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ToastrModule.forRoot() // ToastrModule added
   ],
   providers: [
     //WinAuthInterceptor,

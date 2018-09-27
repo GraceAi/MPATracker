@@ -1,5 +1,6 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { Role, User } from '../../../../classes/domain';
 import { RequestService } from '../../../../services/request.service';
@@ -24,6 +25,7 @@ export class AdminRolesComponent implements OnInit {
   constructor(
    private requestService: RequestService,
    private authService: AuthenticationService,
+   private toastr: ToastrService,
    public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -103,7 +105,8 @@ export class AdminRolesComponent implements OnInit {
   assignUsersByRoleId(){
     this.requestService.assignUsersByRoleId(this.selectedRole.role_id, this.assignedUsers).subscribe(result => {
       if(result == "Success"){
-        const dialogRef = this.dialog.open(NotificationDialog, { data: "Role assign is successful." , width: '600px'});
+        this.toastr.success('', 'Changes Saved', {timeOut: 3000});
+        //const dialogRef = this.dialog.open(NotificationDialog, { data: "Role assign is successful." , width: '600px'});
       }
       else if(result.ok == false){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});

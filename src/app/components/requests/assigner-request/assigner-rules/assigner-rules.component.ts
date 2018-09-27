@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { User, Category } from '../../../../classes/domain';
 import { RequestService } from '../../../../services/request.service';
@@ -24,6 +25,7 @@ export class AssignerRulesComponent implements OnInit {
   selectedAvailableReviewer:any;
   constructor(private requestService: RequestService,
               private authService: AuthenticationService,
+              private toastr: ToastrService,
               private router: Router,
               private route: ActivatedRoute,
               public dialog: MatDialog) { }
@@ -94,7 +96,8 @@ export class AssignerRulesComponent implements OnInit {
   autoAssignReviewersByCatId(){
     this.requestService.autoAssignReviewersByCatId(this.selectedCategory.category_id, this.autoAssignedReviewers).subscribe(result => {
       if(result.length > 0){
-        const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
+        this.toastr.success('', 'Changes Saved', {timeOut: 3000});
+        //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
       }
       else if(!result.ok){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});

@@ -4,7 +4,6 @@ import { MatDialog, MatDialogRef } from '@angular/material';
 
 import { Tab } from '../../classes/domain';
 import { AuthenticationService } from '../../services/authentication.service';
-import { NotificationDialog } from '../../components/modals/dialog-notification/dialog-notification';
 
 @Component({
   selector: 'app-requests',

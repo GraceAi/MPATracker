@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { User } from '../../../classes/domain';
 import { RequestService } from '../../../services/request.service';
@@ -25,6 +26,7 @@ export class ReviewerComponent implements OnInit {
    private route: ActivatedRoute,
    private requestService: RequestService,
    private authService: AuthenticationService,
+   private toastr: ToastrService,
    public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -92,7 +94,8 @@ export class ReviewerComponent implements OnInit {
   assignReviewers(){
     this.requestService.assignReviewers(this.request_id, this.assignedReviewers).subscribe(result => {
       if(result.length > 0){
-        const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
+        this.toastr.success('', 'Changes Saved', {timeOut: 3000});
+        //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
       }
       else if(result.ok == false){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});

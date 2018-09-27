@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { Observable, of } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 import {RequestGeneral, RequestDetail} from '../../../classes/request';
 import { Department, Location } from '../../../classes/domain';
@@ -31,6 +32,7 @@ export class GeneralInfoComponent implements OnInit {
    private route: ActivatedRoute,
    private requestService: RequestService,
    private authService: AuthenticationService,
+   private toastr: ToastrService,
    public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -39,7 +41,6 @@ export class GeneralInfoComponent implements OnInit {
     this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
           this.status_id = data.requestDetail.generalInfo.status_id;
           this.create_date = data.requestDetail.generalInfo.create_date.substring(0, 10);
-          this.origGeneralInfo = data.requestDetail.generalInfo;
         });
     this.getGeneralInfo(request_id);
 
@@ -52,6 +53,7 @@ export class GeneralInfoComponent implements OnInit {
     this.requestService.getGeneralInfo(request_id).subscribe(result => {
       if(result){
         this.generalInfo = result;
+        this.origGeneralInfo =  Object.assign({}, result);;
         this.getSelectedLoc();
         this.getSelectedDept();
       }
@@ -107,9 +109,11 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   updateRequestGeneral(){
+    this.origGeneralInfo = this.generalInfo;
     this.requestService.updateRequestGeneral(this.generalInfo).subscribe(result => {
       if(result == "Success"){
-        const dialogRef = this.dialog.open(NotificationDialog, { data: "General Information is updated successfully.", width: '600px'});
+        //const dialogRef = this.dialog.open(NotificationDialog, { data: "General Information is updated successfully.", width: '600px'});
+        this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
       else if(result.ok == false){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});

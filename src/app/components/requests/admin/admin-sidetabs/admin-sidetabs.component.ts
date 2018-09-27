@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 import { Category, SideTab } from '../../../../classes/domain';
 import { RequestService } from '../../../../services/request.service';
@@ -24,6 +25,7 @@ export class AdminSidetabsComponent implements OnInit {
 
   constructor(private requestService: RequestService,
   private authService: AuthenticationService,
+  private toastr: ToastrService,
   public dialog: MatDialog) { }
 
   ngOnInit() {
@@ -88,7 +90,8 @@ export class AdminSidetabsComponent implements OnInit {
   assignSidetabsByCategoryId(){
     this.requestService.assignSidetabsByCategoryId(this.selectedCategory.category_id, this.assignedSidetabs).subscribe(result => {
         if(result == "Success"){
-          const dialogRef = this.dialog.open(NotificationDialog, { data: "Side-tabs are assigned successfully.", width: '600px'});
+          this.toastr.success('', 'Changes Saved', {timeOut: 3000});
+          //const dialogRef = this.dialog.open(NotificationDialog, { data: "Side-tabs are assigned successfully.", width: '600px'});
         }
         else if(result.ok == false){
           const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
