@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatSort, MatTableDataSource} from '@angular/material';
+import { filter } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../../../services/authentication.service';
 
@@ -18,16 +19,16 @@ export class ReportTableComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.subscription_column = this.authService.reportColumn.subscribe(columns => {
-      //console.log(`columns: `, columns);
-      if(columns != null && columns.length > 0)
-        this.displayedColumns = columns;
+    this.subscription_column = this.authService.reportColumn
+    .pipe(filter((val) => val.length > 0))
+    .subscribe(columns => {
+      this.displayedColumns = columns;
     });
-    this.subscription_data = this.authService.reportData.subscribe(data => {
-      //console.log(`data: `, data);
-      if(data != null)
-        this.reportDataSource = new MatTableDataSource(data);
-        this.reportDataSource.sort = this.sort;
+    this.subscription_data = this.authService.reportData
+    .pipe(filter((data) => data!== null))
+    .subscribe(data => {
+      this.reportDataSource = new MatTableDataSource(data);
+      this.reportDataSource.sort = this.sort;
     });
   }
 

@@ -32,6 +32,11 @@ import { RequestDetailAuthGuard}   from './services/request-detail-auth-guard.se
 import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-not-authorized.component';
 import { AssignerRulesComponent } from './components/requests/assigner-request/assigner-rules/assigner-rules.component';
 import { CanDeactivateGuard}   from './services/can-deactivate.guard';
+import { ReportCategoryComponent } from './components/requests/report/report-category/report-category.component';
+import { ReportReviewerComponent } from './components/requests/report/report-reviewer/report-reviewer.component';
+import { ReportResponseCategoryComponent } from './components/requests/report/report-response-category/report-response-category.component';
+import { ReportResponseReviewerComponent } from './components/requests/report/report-response-reviewer/report-response-reviewer.component';
+import { ReportRequesterComponent } from './components/requests/report/report-requester/report-requester.component';
 
 const routes: Routes = [
   //{ path: '**', component: PageNotFoundComponent },
@@ -48,7 +53,15 @@ const routes: Routes = [
                      {path: 'rules', component: AssignerRulesComponent, pathMatch: 'full'}
                    ]
             },
-           {path: 'tab/6', component: ReportComponent,canActivate: [ReportViewerAuthGuard], pathMatch: 'full', data : { title : 'Reports'}},
+           {path: 'tab/6', component: ReportComponent,canActivate: [ReportViewerAuthGuard], data : { title : 'Reports'},
+               children: [
+                 {path: '', redirectTo: 'category', pathMatch: 'full'},
+                 {path: 'category', component: ReportCategoryComponent, pathMatch: 'full'},
+                 {path: 'requester', component: ReportRequesterComponent, pathMatch: 'full'},
+                 {path: 'reviewer', component: ReportReviewerComponent, pathMatch: 'full'},
+                 {path: 'categorytime', component: ReportResponseCategoryComponent, pathMatch: 'full'},
+                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full'}
+               ]},
            {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Admin Settings'},
                children: [
                  {path: '', redirectTo: 'roles', pathMatch: 'full'},

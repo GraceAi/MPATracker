@@ -3,32 +3,15 @@
   <mat-sidenav-container class="reportContainer">
     <mat-sidenav mode="side" opened class="sidenav">
       <mat-nav-list class="report-list">
-        <a mat-list-item [class.active]="tab0" (click) = 'displayCategoryRequestReport()' title="View total number of requests by category" >Requests by Category</a>
-        <a mat-list-item [class.active]="tab1" (click) = 'displayRequesterRequestReport()' title="View total number of requests by requester">Requests by Requester</a>
-        <a mat-list-item [class.active]="tab2" (click) = 'displayReviewerRequestReport()' title="View total number of assigned/pending requests by reviewer">Assigned Requests by Reviewer</a>
-        <a mat-list-item [class.active]="tab3" (click) = 'displayCategoryResponseReport()' title="View minimum/average/maximum response time by category">Min/Avg/Max response time by Category</a>
-        <a mat-list-item [class.active]="tab4" (click) = 'displayReviewerResponseReport()' title="View minimum/average/maximum response time by reviewer">Min/Avg/Max response time by Reviewer</a>
+        <a mat-list-item [routerLinkActive]="['active']" routerLink="./category" title="View total number of requests by category" >Requests by Category</a>
+        <a mat-list-item [routerLinkActive]="['active']" routerLink="./requester" title="View total number of requests by requester">Requests by Requester</a>
+        <a mat-list-item [routerLinkActive]="['active']" routerLink="./reviewer" title="View total number of assigned/pending requests by reviewer">Assigned Requests by Reviewer</a>
+        <a mat-list-item [routerLinkActive]="['active']" routerLink="./categorytime" title="View minimum/average/maximum response time by category">Min/Avg/Max response time by Category</a>
+        <a mat-list-item [routerLinkActive]="['active']" routerLink="./reviewertime" title="View minimum/average/maximum response time by reviewer">Min/Avg/Max response time by Reviewer</a>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <!-- <router-outlet></router-outlet> -->
-      <div class="center-div page-title">{{subtitle}}</div>
-      <div class="container">
-        <div class = "row">
-          <div class="col-lg-8" >
-            <app-chart></app-chart>
-          </div>
-          <div class="col-lg-4">
-            <div class="table-container mat-elevation-z8">
-              <app-report-table></app-report-table>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="center-div">
-        <button type="button" class="btn btn-secondary" (click)="printReport()" title="View/Print report"><i class="fa fa-files-o"></i>View/Print Report</button>
-      </div>
+      <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

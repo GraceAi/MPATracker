@@ -63,6 +63,11 @@ import { ReportViewerAuthGuard}   from './services/reportviewer-auth-guard.servi
 import { RequestDetailAuthGuard}   from './services/request-detail-auth-guard.service';
 import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-not-authorized.component';
 import { AssignerRulesComponent } from './components/requests/assigner-request/assigner-rules/assigner-rules.component';
+import { ReportCategoryComponent } from './components/requests/report/report-category/report-category.component';
+import { ReportReviewerComponent } from './components/requests/report/report-reviewer/report-reviewer.component';
+import { ReportResponseCategoryComponent } from './components/requests/report/report-response-category/report-response-category.component';
+import { ReportResponseReviewerComponent } from './components/requests/report/report-response-reviewer/report-response-reviewer.component';
+import { ReportRequesterComponent } from './components/requests/report/report-requester/report-requester.component';
 
 
 @NgModule({
@@ -112,7 +117,12 @@ import { AssignerRulesComponent } from './components/requests/assigner-request/a
     categoryCodeValidatorDirective,
     RemoveUnderscorePipe,
     PageNotAuthorizedComponent,
-    AssignerRulesComponent
+    AssignerRulesComponent,
+    ReportCategoryComponent,
+    ReportReviewerComponent,
+    ReportResponseCategoryComponent,
+    ReportResponseReviewerComponent,
+    ReportRequesterComponent
 
   ],
   imports: [

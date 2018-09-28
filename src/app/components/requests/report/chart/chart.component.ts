@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Chart} from 'chart.js';
+import { filter } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../../../services/authentication.service';
 
@@ -14,12 +15,13 @@ export class ChartComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.subscription = this.authService.chartData.subscribe(data => {
+    this.subscription = this.authService.chartData
+    .pipe(filter((val) => val !== null ))
+    .subscribe(data => {
       if(this.chart != null){
         this.chart.destroy();
       }
-      if(data != null)
-        this.displayChart(data);
+      this.displayChart(data);
     });
   }
 
