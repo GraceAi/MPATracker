@@ -99,7 +99,7 @@ export class AssignerRulesComponent implements OnInit {
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
         //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
       }
-      else if(!result.ok){
+      else if(result.ok == false){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
       }
     });

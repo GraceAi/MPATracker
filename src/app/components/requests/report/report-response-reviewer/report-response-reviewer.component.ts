@@ -55,6 +55,10 @@ export class ReportResponseReviewerComponent implements OnInit, OnDestroy {
     });
   }
 
+  printReport(){
+    this.router.navigate(['/report/print/' + this.subtitle]);
+  }
+
   resetData() {
     this.authService.resetChartData();
     this.authService.setReportData([]);

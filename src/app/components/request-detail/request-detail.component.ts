@@ -98,11 +98,11 @@ export class RequestDetailComponent implements OnInit {
         general.category_id = this.category_id;
         this.requestService.submitRequest(general).subscribe(result => {
           if(result.length > 0){
-            //this.toastr.success('', result);
-            const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
+            this.toastr.success('', 'Request Submitted', {timeOut: 3000});
+            //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
             this.toHomePage();
           }
-          else if(!result.ok){
+          else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
           }
           });
@@ -120,10 +120,11 @@ export class RequestDetailComponent implements OnInit {
         general.category_id = this.category_id;
         this.requestService.completeRequest(general).subscribe(result => {
           if(result.length > 0){
-            const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
+            this.toastr.success('', 'Request Completed', {timeOut: 3000});
+            //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
             this.toHomePage();
           }
-          else if(!result.ok){
+          else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
           }
         });
@@ -143,7 +144,7 @@ export class RequestDetailComponent implements OnInit {
           if(result.length >= 0){
             this.toHomePage();
           }
-          else if(!result.ok){
+          else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
           }
         });
