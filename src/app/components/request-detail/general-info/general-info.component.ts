@@ -53,7 +53,7 @@ export class GeneralInfoComponent implements OnInit {
     this.requestService.getGeneralInfo(request_id).subscribe(result => {
       if(result){
         this.generalInfo = result;
-        this.origGeneralInfo =  Object.assign({}, result);;
+        this.origGeneralInfo =  Object.assign({}, result);
         this.getSelectedLoc();
         this.getSelectedDept();
       }
@@ -109,9 +109,10 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   updateRequestGeneral(){
-    this.origGeneralInfo = this.generalInfo;
     this.requestService.updateRequestGeneral(this.generalInfo).subscribe(result => {
       if(result == "Success"){
+        //this.origGeneralInfo = this.generalInfo;
+        this.origGeneralInfo =  Object.assign({}, this.generalInfo);
         //const dialogRef = this.dialog.open(NotificationDialog, { data: "General Information is updated successfully.", width: '600px'});
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
