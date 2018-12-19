@@ -57,6 +57,39 @@ app-report{
 app-report-print{
     margin-top: -136px;
 }
+
+/*app-project-table{
+  display:flex;
+  padding-left:16px;
+  padding-right:16px;
+}*/
+
+.search-panel{
+  box-shadow: 0 0 10px #666;
+  margin: 20px;
+  border: 1px solid #666;
+  border-radius: 0.5rem;
+}
+
+.search-panel .mat-expansion-panel-header{
+  background-color: #fbe1b4;
+  font-style: italic;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.search-panel .mat-expansion-panel-header-title{
+  color:#A31B00;
+}
+
+.search-panel .mat-expansion-panel-header-description{
+  font-size:12px;
+}
+
+.search-panel .mat-expanded{
+  margin-bottom:20px;
+}
+
 .mat-dialog-container{
   overflow:inherit!important;
 

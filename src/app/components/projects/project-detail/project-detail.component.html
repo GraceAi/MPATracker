@@ -1,0 +1,20 @@
+<app-navbar></app-navbar>
+<mat-sidenav-container class="detailContainer">
+  <mat-sidenav mode="side" opened>
+    <mat-nav-list>
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./general" title="Manage project general info">Project Info</a>
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./permit" title="Manage permit info">Permit</a>
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./managers" title="Manage project managers">Project Managers</a>
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./procument" title="Manage procurement phase">Procurement Phase</a>
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./construction" title="Manage construction phase">Construction Phase</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<div class="footer bg-secondary">
+  <button class="btn btn-info" (click)="closeProject()" title="Exit this project"><i class="fa fa-times-circle"></i> Close </button>
+  <button class="btn btn-info" (click)="deleteProject()" title="Delete project"><i class="fa fa-trash"></i>  Delete </button>
+</div>

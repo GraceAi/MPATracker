@@ -54,3 +54,10 @@ export class Location{
   location_id:number;
   location_name:string;
 }
+
+export class Firm{
+  firm_id:number;
+  firm_name:string;
+  firm_phone:number;
+  firm_email:string;
+}

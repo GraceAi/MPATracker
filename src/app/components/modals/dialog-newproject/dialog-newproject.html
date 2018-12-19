@@ -1,0 +1,49 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Contract Number</label>
+    <div class="col-sm-9">
+      <input class="form-control" [(ngModel)]="newProject.contract_number">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Project Number</label>
+    <div class="col-sm-9">
+      <input class="form-control" [(ngModel)]="newProject.project_number">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Firm Name</label>
+    <div ngbDropdown class="col-sm-9">
+      <button class="btn btn-outline" id="firmMenu" ngbDropdownToggle>{{selectedFirm}}</button>
+      <div ngbDropdownMenu aria-labelledby="firmMenu">
+        <button class="dropdown-item" *ngFor="let firm of firms" (click)="onChangeFirm(firm)">{{firm.firm_name}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">MPA Point of Contact</label>
+    <div ngbDropdown class="col-sm-9">
+      <button class="btn btn-outline" id="contactMenu" ngbDropdownToggle>{{selectedContact}}</button>
+      <div ngbDropdownMenu aria-labelledby="contactMenu">
+        <button class="dropdown-item" *ngFor="let user of users" (click)="onChangeContact(user)">{{user.fname}} {{user.lname}}</button>
+      </div>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Description</label>
+    <div class="col-sm-9">
+      <input class="form-control" [(ngModel)]="newProject.description">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
+  <button type="button" class="btn btn-secondary"  (click)="save()">OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

@@ -11,7 +11,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { WinAuthInterceptor } from './services/WinAuthInterceptor';
 import { AuthenticationService } from './services/authentication.service';
 import { AppComponent } from './app.component';
-import { RequestsComponent } from './components/requests/requests.component';
+import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { SearchPanelComponent } from './components/requests/search-panel/search-panel.component';
 import { RequestDetailComponent } from './components/request-detail/request-detail.component';
@@ -69,11 +69,23 @@ import { ReportResponseCategoryComponent } from './components/requests/report/re
 import { ReportResponseReviewerComponent } from './components/requests/report/report-response-reviewer/report-response-reviewer.component';
 import { ReportRequesterComponent } from './components/requests/report/report-requester/report-requester.component';
 
+import { ManagerProjectComponent } from './components/projects/manager-project/manager-project.component';
+import { ProjectSearchPanelComponent } from './components/projects/search-panel/search-panel.component';
+import { ProjectTableComponent } from './components/projects/project-table/project-table.component';
+import { AdminProjectComponent } from './components/projects/admin-project/admin-project.component';
+import { ProjectDetailComponent } from './components/projects/project-detail/project-detail.component';
+import { NewProjectDialog } from './components/modals/dialog-newproject/dialog-newproject';
+import { ProjectGeneralInfoComponent } from './components/projects/project-detail/general-info/general-info.component';
+import { PermitComponent } from './components/projects/project-detail/permit/permit.component';
+import { ProjectManagersComponent } from './components/projects/project-detail/project-managers/project-managers.component';
+import { ProcurementPhaseComponent } from './components/projects/project-detail/procurement-phase/procurement-phase.component';
+import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    RequestsComponent,
+    HomeComponent,
     NavbarComponent,
     SearchPanelComponent,
     RequestDetailComponent,
@@ -122,7 +134,18 @@ import { ReportRequesterComponent } from './components/requests/report/report-re
     ReportReviewerComponent,
     ReportResponseCategoryComponent,
     ReportResponseReviewerComponent,
-    ReportRequesterComponent
+    ReportRequesterComponent,
+    ManagerProjectComponent,
+    ProjectSearchPanelComponent,
+    ProjectTableComponent,
+    AdminProjectComponent,
+    ProjectDetailComponent,
+    NewProjectDialog,
+    ProjectGeneralInfoComponent,
+    PermitComponent,
+    ProjectManagersComponent,
+    ProcurementPhaseComponent,
+    ConstructionPhaseComponent
 
   ],
   imports: [
@@ -149,7 +172,8 @@ import { ReportRequesterComponent } from './components/requests/report/report-re
     {provide: LocationStrategy, useClass: HashLocationStrategy}
     ],
   entryComponents: [
-    NewRequestDialog, AddDocumentDialog, AddContractDialog, AddLinkDialog,AddCommentDialog,AddContactDialog,NewContactDialog,ConfirmationDialog,NotificationDialog,LocationMapDialog,AddCategoryDialog
+    NewRequestDialog, AddDocumentDialog, AddContractDialog, AddLinkDialog,AddCommentDialog,AddContactDialog,NewContactDialog,ConfirmationDialog,
+    NotificationDialog,LocationMapDialog,AddCategoryDialog, NewProjectDialog
   ],
   bootstrap: [AppComponent]
 })

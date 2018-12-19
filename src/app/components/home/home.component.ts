@@ -6,11 +6,12 @@ import { Tab } from '../../classes/domain';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
-  selector: 'app-requests',
-  templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.css']
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
 })
-export class RequestsComponent implements OnInit {
+export class HomeComponent implements OnInit {
+
   tabs: Tab[] = [];
   //selectedTab:any;
   constructor(private authService: AuthenticationService,
@@ -36,4 +37,5 @@ export class RequestsComponent implements OnInit {
           }
         });
   }
+
 }

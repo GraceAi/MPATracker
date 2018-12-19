@@ -1,0 +1,23 @@
+.detailContainer {
+  position: absolute;
+  top: 0;
+  bottom: 58px;
+  left: 20px;
+  right: 20px;
+  background: #dcdcdc;
+}
+
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   color: white;
+   text-align: center;
+   z-index: 1030;
+   padding-top:10px;
+   padding-bottom:10px;
+}
+.footer .btn{
+  margin-right:20px;
+}

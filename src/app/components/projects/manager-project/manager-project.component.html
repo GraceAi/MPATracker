@@ -1,0 +1,8 @@
+<project-search-panel></project-search-panel>
+
+<div class="navbar">
+  <div><b>{{resultCount}}</b></div>
+  <div></div>
+</div>
+
+<app-project-table [role_id]="role_id" (resultCount)="searchResultCount($event)"></app-project-table>

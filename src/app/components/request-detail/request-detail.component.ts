@@ -65,7 +65,7 @@ export class RequestDetailComponent implements OnInit {
     this.selectedSideTab = this.sideTabs[index];
   }*/
   onActivate(componentRef){
-    this.componentRef = componentRef;
+    this.componentRef = componentRef;//to access child component: request general component
   }
 
   setLayout(){

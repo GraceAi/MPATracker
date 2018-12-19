@@ -1,0 +1,44 @@
+<div class="page-title sub-navbar">General
+    <i class="fa fa-question-circle" placement="right" ngbPopover="View/edit project general information" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div class="container">
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-9">
+      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">Project Number</label>
+      <div class="col-lg-8 col-md-6 col-sm-8"><input class="form-control" [disabled] = true value={{generalInfo.project_number}}></div>
+    </div>
+    <div class="form-group row col-lg-4 col-md-9">
+      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label form-label-sm">MPA Point of Contact</label>
+      <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
+        <button class="btn btn-outline" id="contactMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedContact}}</button>
+         <div ngbDropdownMenu aria-labelledby="contactMenu">
+          <button class="dropdown-item" *ngFor="let contact of contacts" (click)="onChangeContact(contact)">{{contact.fname}} {{contact.lname}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-9">
+      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">Contract Number</label>
+      <div class="col-lg-8 col-md-8 col-sm-8"><input type="text" class="form-control" [disabled] = "disabled" [(ngModel)]="generalInfo.contract_number"></div>
+    </div>
+    <div class="form-group row col-lg-4 col-md-9">
+      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label form-label-sm">Firm Name</label>
+      <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
+        <button class="btn btn-outline" id="firmMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedFirm}}</button>
+         <div ngbDropdownMenu aria-labelledby="firmMenu">
+          <button class="dropdown-item" *ngFor="let firm of firms" (click)="onChangeFirm(firm)">{{firm.firm_name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-2 col-md-3 col-sm-4 col-form-label form-label-sm">Description</label>
+      <div class="col-lg-10 col-md-8 col-sm-8"><input type="text" class="form-control" [disabled] = "disabled" [(ngModel)]="generalInfo.description"></div>
+    </div>
+  </div>
+</div>
+<div class="center-div" [hidden] = "hide">
+  <button type="button" class="btn btn-secondary" (click)="updateProjectGeneral()" title="Edit general information"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+</div>

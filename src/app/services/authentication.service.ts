@@ -3,8 +3,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, forkJoin, BehaviorSubject} from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 
-import { EnvironmentSetting, User, Role, Tab, SideTab, Status, Department, Location, Category, Contact} from '../classes/domain';
+import { EnvironmentSetting, User, Role, Tab, SideTab, Status, Department, Location, Category, Contact, Firm} from '../classes/domain';
 import { ReportData, ReportFilter } from '../classes/report';
+import { Project } from '../classes/project';
 import { DomainService }  from './domain.service';
 
 @Injectable()
@@ -26,6 +27,12 @@ export class AuthenticationService {
 
   private filterDataSource = new BehaviorSubject(new ReportFilter());
   reportFilter = this.filterDataSource.asObservable();
+
+  private projectDataSource = new BehaviorSubject(null);
+  projectData = this.projectDataSource.asObservable();
+
+  private projectFilterDataSource = new BehaviorSubject(new Project());
+  projectFilter = this.projectFilterDataSource.asObservable();
 
   public COLORS = [
     'rgb(255, 99, 132)',
@@ -65,6 +72,7 @@ export class AuthenticationService {
   public allUsers:User[];
   public allSidetabs:SideTab[];
   public allRoles:Role[];
+  public firms:Firm[];
   constructor(private http: HttpClient,
   private domainService:DomainService) { }
 
@@ -86,7 +94,8 @@ export class AuthenticationService {
            this.domainService.getAllReviewers(settings.service_url),
            this.domainService.getAllUsers(settings.service_url),
            this.domainService.getAllSidetabs(settings.service_url),
-           this.domainService.getRoles(settings.service_url)
+           this.domainService.getRoles(settings.service_url),
+           this.domainService.getFirms(settings.service_url)
           )})
         )
         .toPromise()
@@ -104,6 +113,7 @@ export class AuthenticationService {
           this.allUsers = data[10];
           this.allSidetabs = data[11];
           this.allRoles = data[12];
+          this.firms = data[13];
         });
       return promise;
     }
@@ -245,6 +255,14 @@ export class AuthenticationService {
 
   getColor(index:number):string{
     return this.COLORS[index % this.COLORS.length];
+  }
+
+  setProjectFilter(filter:any){
+    this.projectFilterDataSource.next(filter);
+  }
+
+  setProjectData(data:any){
+    this.projectDataSource.next(data);
   }
 
 }

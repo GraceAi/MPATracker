@@ -1,6 +1,6 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RequestsComponent } from './components/requests/requests.component';
+import { HomeComponent } from './components/home/home.component';
 import { RequesterRequestComponent } from './components/requests/requester-request/requester-request.component';
 import { ReviewerRequestComponent } from './components/requests/reviewer-request/reviewer-request.component';
 import { AssignerRequestComponent } from './components/requests/assigner-request/assigner-request.component';
@@ -38,11 +38,20 @@ import { ReportResponseCategoryComponent } from './components/requests/report/re
 import { ReportResponseReviewerComponent } from './components/requests/report/report-response-reviewer/report-response-reviewer.component';
 import { ReportRequesterComponent } from './components/requests/report/report-requester/report-requester.component';
 
+import { AdminProjectComponent } from './components/projects/admin-project/admin-project.component';
+import { ManagerProjectComponent } from './components/projects/manager-project/manager-project.component';
+import { ProjectDetailComponent } from './components/projects/project-detail/project-detail.component';
+import { ProjectGeneralInfoComponent } from './components/projects/project-detail/general-info/general-info.component';
+import { PermitComponent } from './components/projects/project-detail/permit/permit.component';
+import { ProjectManagersComponent } from './components/projects/project-detail/project-managers/project-managers.component';
+import { ProcurementPhaseComponent } from './components/projects/project-detail/procurement-phase/procurement-phase.component';
+import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
+
 const routes: Routes = [
   //{ path: '**', component: PageNotFoundComponent },
   { path: 'unauthorized', component: PageNotAuthorizedComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: RequestsComponent, resolve: { tabs: RequestResolver },
+  { path: 'home', component: HomeComponent, resolve: { tabs: RequestResolver },
          children: [
            {path: 'tab/1', component: RequesterRequestComponent, canActivate: [RequesterAuthGuard], pathMatch: 'full', data : { title : 'My Request List'}},
            {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'Requests for Review'}},
@@ -69,7 +78,10 @@ const routes: Routes = [
                  {path: 'category', component: AdminCategoryComponent, pathMatch: 'full'},
                  {path: 'sidetabs', component: AdminSidetabsComponent, pathMatch: 'full'}
                ]
-         }]
+         },
+         {path: 'tab/7', component: AdminProjectComponent, pathMatch: 'full', data : { title : 'All Project List'}},
+         {path: 'tab/8', component: ManagerProjectComponent, pathMatch: 'full', data : { title : 'Projects for Project Managers'}},
+       ]
   },
   { path: 'report/print/:title', component: ReportPrintComponent, pathMatch: 'full'},
   { path: 'request/:requestId/role/:roleId', component: RequestDetailComponent, canActivate: [RequestDetailAuthGuard], resolve: { requestDetail: RequestDetailResolver } ,
@@ -83,6 +95,16 @@ const routes: Routes = [
                 {path: 'links', component: PwlinkComponent, pathMatch: 'full'},
                 {path: 'location', component: LocationComponent, pathMatch: 'full'},
                 {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'}
+              ]
+  },
+  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent,
+          children: [
+                {path: '', redirectTo: 'general', pathMatch: 'full'},
+                {path: 'general', component: ProjectGeneralInfoComponent, pathMatch: 'full'},
+                {path: 'permit', component: PermitComponent, pathMatch: 'full'},
+                {path: 'managers', component: ProjectManagersComponent, pathMatch: 'full'},
+                {path: 'procument', component: ProcurementPhaseComponent, pathMatch: 'full'},
+                {path: 'construction', component: ConstructionPhaseComponent, pathMatch: 'full'}
               ]
   }
 ];
