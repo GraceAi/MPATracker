@@ -1,3 +1,143 @@
-<p>
-  procurement-phase works!
-</p>
+<div class="page-title sub-navbar">PROCUREMENT PHASE
+    <i class="fa fa-question-circle" placement="right" ngbPopover="View/edit procurement phase information" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div class="container">
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-9">
+      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label form-label-sm">Procurement Officer</label>
+      <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
+        <button class="btn btn-outline" id="officerMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedOfficer}}</button>
+         <div ngbDropdownMenu aria-labelledby="officerMenu">
+            <button class="dropdown-item" (click)="onChangeOfficer(null)">Select...</button>
+            <button class="dropdown-item" *ngFor="let officer of officers" (click)="onChangeOfficer(officer)">{{officer.fname}} {{officer.lname}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Next or Final Spec Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_next_spec_date="ngbDatepicker"  [(ngModel)]="procurementInfo.next_or_final_specs_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_next_spec_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Procurement Start Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_proc_start_date="ngbDatepicker"  [(ngModel)]="procurementInfo.procurement_start_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_proc_start_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">PRG Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_prg_date="ngbDatepicker"  [(ngModel)]="procurementInfo.prg_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_prg_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">(Early) Adv Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_adv_date="ngbDatepicker"  [(ngModel)]="procurementInfo.early_adv_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_adv_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">(Early) Bids Open Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_bids_date="ngbDatepicker"  [(ngModel)]="procurementInfo.early_bids_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_bids_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">MPC Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_mpc_date="ngbDatepicker"  [(ngModel)]="procurementInfo.mpc_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_mpc_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Board of Public Works Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_bpw_date="ngbDatepicker"  [(ngModel)]="procurementInfo.bpw_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_bpw_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">NTP Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_ntp_date="ngbDatepicker"  [(ngModel)]="procurementInfo.ntp_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_ntp_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Current Procument Day (# of days procument has contract)</label>
+      <div class="col-lg-8 col-md-8 col-sm-8"><input class="form-control" [(ngModel)]="procurementInfo.current_proc_day"></div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Completion Date</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_compl_date="ngbDatepicker"  [(ngModel)]="procurementInfo.compl_formatted">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_compl_date.toggle()" type="button">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="center-div" [hidden] = "hide">
+  <button type="button" class="btn btn-secondary" (click)="updateProcurementPhase()" title="Edit procument phase information"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+</div>

@@ -1,3 +1,145 @@
-<p>
-  permit works!
-</p>
+<div class="page-title sub-navbar">PERMITS
+    <i class="fa fa-question-circle" placement="right" ngbPopover="View/edit project permit information" popoverClass="my-popover-class" autoClose="true" container="body"></i>
+</div>
+<div class="container">
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">Corps Permit Required?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.corps_permit_required" (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Corps Permit Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.corps_permit_required"
+        ngbDatepicker #dp_corps_permit_status="ngbDatepicker"  [(ngModel)]="permitInfo.corps_permit_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_corps_permit_status.toggle()" type="button" [disabled] = "!permitInfo.corps_permit_required">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">MDE ESC Required?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.mde_permit_required"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">MDE ESC Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.mde_permit_required" ngbDatepicker #dp_mde_status="ngbDatepicker"  [(ngModel)]="permitInfo.mde_permit_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_mde_status.toggle()" type="button" [disabled] = "!permitInfo.mde_permit_required">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">Dam Safety Approval?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.dam_saftey_approval"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Dam Safety Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.dam_saftey_approval" ngbDatepicker #dp_dam_status="ngbDatepicker"  [(ngModel)]="permitInfo.dam_saftey_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_dam_status.toggle()" type="button" [disabled] = "!permitInfo.dam_saftey_approval">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">SWM Approval?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.swm_approval"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">SWM Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.swm_approval" ngbDatepicker #dp_swm_approval_status="ngbDatepicker"  [(ngModel)]="permitInfo.swm_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_swm_approval_status.toggle()" type="button" [disabled] = "!permitInfo.swm_approval" >
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">MS-4 Required?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input"[(ngModel)]="permitInfo.ms4_permit_required"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">MS-4 Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.ms4_permit_required" ngbDatepicker #dp_ms4_status="ngbDatepicker"  [(ngModel)]="permitInfo.ms4_permit_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_ms4_status.toggle()" type="button" [disabled] = "!permitInfo.ms4_permit_required">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">Local Permit Required?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.local_permit_required"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Local Permit Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.local_permit_required" ngbDatepicker #dp_local_status="ngbDatepicker"  [(ngModel)]="permitInfo.local_permit_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_local_status.toggle()" type="button" [disabled] = "!permitInfo.local_permit_required">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">Tidal Wetland Required?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.wetland_permit_required"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Tidal Wetland Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.wetland_permit_required" ngbDatepicker #dp_wetland_status="ngbDatepicker"  [(ngModel)]="permitInfo.wetland_permit_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_wetland_status.toggle()" type="button"  [disabled] = "!permitInfo.wetland_permit_required">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-4 col-md-12">
+      <label class="col-lg-8 col-md-8 col-sm-8 col-form-label form-label-sm">Critical Area Required?</label>
+      <div class="col-lg-4 col-md-4 col-sm-4"><input type="checkbox" class="form-check-input" [(ngModel)]="permitInfo.critical_area_permit_required"  (change)="resetStatus($event)"></div>
+    </div>
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Critical Area Status</label>
+      <div class="col-lg-6 col-md-6 col-sm-6 input-group  datepicker-menu">
+        <input class="form-control" placeholder="yyyy-mm-dd" [disabled] = "!permitInfo.critical_area_permit_required" ngbDatepicker #dp_ca_status="ngbDatepicker"  [(ngModel)]="permitInfo.critical_area_date">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="dp_ca_status.toggle()" type="button" [disabled] = "!permitInfo.critical_area_permit_required">
+            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="center-div">
+  <button type="button" class="btn btn-secondary" (click)="updateProjectPermit()" title="Edit permit information"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+</div>

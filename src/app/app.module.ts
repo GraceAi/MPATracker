@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER} from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, DatePipe } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {MatListModule, MatSidenavModule, MatExpansionModule, MatTableModule, MatSortModule, MatDialogModule} from '@angular/material';
@@ -166,7 +166,7 @@ import { ConstructionPhaseComponent } from './components/projects/project-detail
   providers: [
     //WinAuthInterceptor,
     RequesterAuthGuard, ReviewerAuthGuard,AssignerAuthGuard, AdminAuthGuard, ReportViewerAuthGuard,RequestDetailAuthGuard,
-    AuthenticationService,
+    AuthenticationService, DatePipe,
     { provide: APP_INITIALIZER, useFactory: (authService: AuthenticationService) => () => authService.getSettings(), deps: [AuthenticationService], multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: WinAuthInterceptor, multi: true},
     {provide: LocationStrategy, useClass: HashLocationStrategy}

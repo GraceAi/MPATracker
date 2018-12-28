@@ -12,6 +12,7 @@
       <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
         <button class="btn btn-outline" id="contactMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedContact}}</button>
          <div ngbDropdownMenu aria-labelledby="contactMenu">
+             <button class="dropdown-item" (click)="onChangeContact(null)">Select...</button>
           <button class="dropdown-item" *ngFor="let contact of contacts" (click)="onChangeContact(contact)">{{contact.fname}} {{contact.lname}}</button>
         </div>
       </div>
@@ -27,6 +28,7 @@
       <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
         <button class="btn btn-outline" id="firmMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedFirm}}</button>
          <div ngbDropdownMenu aria-labelledby="firmMenu">
+             <button class="dropdown-item" (click)="onChangeFirm(null)">Select...</button>
           <button class="dropdown-item" *ngFor="let firm of firms" (click)="onChangeFirm(firm)">{{firm.firm_name}}</button>
         </div>
       </div>

@@ -61,3 +61,14 @@ export class Firm{
   firm_phone:number;
   firm_email:string;
 }
+
+export class ProjectSize{
+  size_id:number;
+  size_name:string;
+  days:number;
+}
+
+export class Milestone{
+  milestone_id:number;
+  percentage:number;
+}

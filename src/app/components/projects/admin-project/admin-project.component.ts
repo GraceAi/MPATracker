@@ -44,7 +44,7 @@ export class AdminProjectComponent implements OnInit, OnDestroy{
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         this.projectService.createNewProject(result).subscribe(res => {
-          console.log(res);
+          //console.log(res);
           if(res.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
           }

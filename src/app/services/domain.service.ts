@@ -58,6 +58,13 @@ export class DomainService {
       catchError(this.handleError('getAllReviewers', []))
     );
   }
+  getAllManagers(service_url:string): Observable<any>{
+    const url = service_url + "Admin/GetUserByRole/6";
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError('getAllManagers', []))
+    );
+  }
 
   getAllUsers(service_url:string):Observable<any>{
     const url = service_url + "Domain/GetUsers";
@@ -88,6 +95,14 @@ export class DomainService {
     return this.http.get<any>(url)
     .pipe(
       catchError(this.handleError('getFirms', []))
+    );
+  }
+
+  getProjectSizes(service_url:string):Observable<any>{
+    const url = service_url + "Domain/GetProjectSizes";
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError('getProjectSizes', []))
     );
   }
 

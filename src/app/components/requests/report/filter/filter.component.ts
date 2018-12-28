@@ -108,12 +108,13 @@ export class FilterComponent implements OnInit {
     if(this.searchCriteria.create_date_start == null)
       this.searchCriteria.start_date = null;
     else
-      this.searchCriteria.start_date = new Date(this.searchCriteria.create_date_start.year, this.searchCriteria.create_date_start.month - 1, this.searchCriteria.create_date_start.day).setHours(0, 0, 0, 0);
-
+      //this.searchCriteria.start_date = new Date(this.searchCriteria.create_date_start.year, this.searchCriteria.create_date_start.month - 1, this.searchCriteria.create_date_start.day).setHours(0, 0, 0, 0);
+      this.searchCriteria.start_date = this.searchCriteria.create_date_start.year + "-" +  this.searchCriteria.create_date_start.month + "-" +  this.searchCriteria.create_date_start.day;
     if(this.searchCriteria.create_date_end == null)
         this.searchCriteria.end_date = null;
     else
-      this.searchCriteria.end_date = new Date(this.searchCriteria.create_date_end.year, this.searchCriteria.create_date_end.month - 1, this.searchCriteria.create_date_end.day).setHours(0, 0, 0, 0);
+      //this.searchCriteria.end_date = new Date(this.searchCriteria.create_date_end.year, this.searchCriteria.create_date_end.month - 1, this.searchCriteria.create_date_end.day).setHours(0, 0, 0, 0);
+      this.searchCriteria.end_date = this.searchCriteria.create_date_end.year + "-" + this.searchCriteria.create_date_end.month + "-" + this.searchCriteria.create_date_end.day;
     this.authService.setReportFilter(this.searchCriteria);
   }
 

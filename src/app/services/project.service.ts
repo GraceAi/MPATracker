@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, from, of , forkJoin, throwError, Subject} from 'rxjs';
 import { catchError, map, mergeMap, groupBy, filter , toArray} from 'rxjs/operators';
-import { Project } from '../classes/project';
+import { Project, Permit } from '../classes/project';
 import { AuthenticationService } from '../services/authentication.service';
 
 @Injectable({
@@ -45,6 +45,38 @@ export class ProjectService {
      );
    }
 
+   getProjectPermit(project_id: number): Observable<any>{
+     const url = this.erdTrackerServicesUrl + "Project/GetPermitByProjectId?project_id=" + project_id;
+     return this.http.get<any>(url)
+     .pipe(
+       catchError(this.handleError('getProjectPermit', []))
+     );
+   }
+
+   getProjectManagers(project_id: number): Observable<any>{
+     const url = this.erdTrackerServicesUrl + "Project/GetProjectManagersByProjectId?project_id=" + project_id;
+     return this.http.get<any>(url)
+     .pipe(
+       catchError(this.handleError('getProjectManagers', []))
+     );
+   }
+
+   getProcurementPhase(project_id: number): Observable<any>{
+     const url = this.erdTrackerServicesUrl + "Project/GetProcumentPhaseByProjectId?project_id=" + project_id;
+     return this.http.get<any>(url)
+     .pipe(
+       catchError(this.handleError('getProcurementPhase', []))
+     );
+   }
+
+   getConstructionPhaseInfo(project_id: number): Observable<any>{
+     const url = this.erdTrackerServicesUrl + "Project/GetConstructionPhaseByProjectId?project_id=" + project_id;
+     return this.http.get<any>(url)
+     .pipe(
+       catchError(this.handleError('getConstructionPhaseInfo', []))
+     );
+   }
+
    createNewProject(newProject:Project): Observable<any>{
      let body = JSON.stringify(newProject);
      const url = this.erdTrackerServicesUrl + "Project/CreateProject";
@@ -60,6 +92,42 @@ export class ProjectService {
      return this.http.post(url, body, this.httpOptions)
      .pipe(
        catchError(this.handleError('updateProjectGeneral', []))
+     );
+   }
+
+   updateProjectPermit(permit:Permit): Observable<any>{
+     let body = JSON.stringify(permit);
+     const url = this.erdTrackerServicesUrl + "Project/UpdatePermit";
+     return this.http.post(url, body, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('updateProjectPermit', []))
+     );
+   }
+
+   updateProcurementPhase(procurement_phase:any): Observable<any>{
+     let body = JSON.stringify(procurement_phase);
+     const url = this.erdTrackerServicesUrl + "Project/UpdateProcumentPhase";
+     return this.http.post(url, body, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('updateProcurementPhase', []))
+     );
+   }
+
+   assignManagers(project_id:number, users:any): Observable<any>{
+     let body = JSON.stringify(users);
+     const url = this.erdTrackerServicesUrl + "Project/AssignManager?project_id=" + project_id;
+     return this.http.post(url, body, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('assignManagers', []))
+     );
+   }
+
+   updateConstructionPhase(construction_phase:any): Observable<any>{
+     let body = JSON.stringify(construction_phase);
+     const url = this.erdTrackerServicesUrl + "Project/UpdateConstructionPhase";
+     return this.http.post(url, body, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('updateConstructionPhase', []))
      );
    }
 

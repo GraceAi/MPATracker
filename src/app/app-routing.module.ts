@@ -100,10 +100,10 @@ const routes: Routes = [
   { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent,
           children: [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
-                {path: 'general', component: ProjectGeneralInfoComponent, pathMatch: 'full'},
-                {path: 'permit', component: PermitComponent, pathMatch: 'full'},
+                {path: 'general', component: ProjectGeneralInfoComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
+                {path: 'permit', component: PermitComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'managers', component: ProjectManagersComponent, pathMatch: 'full'},
-                {path: 'procument', component: ProcurementPhaseComponent, pathMatch: 'full'},
+                {path: 'procument', component: ProcurementPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'construction', component: ConstructionPhaseComponent, pathMatch: 'full'}
               ]
   }

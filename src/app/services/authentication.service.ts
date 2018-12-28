@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, forkJoin, BehaviorSubject} from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 
-import { EnvironmentSetting, User, Role, Tab, SideTab, Status, Department, Location, Category, Contact, Firm} from '../classes/domain';
+import { EnvironmentSetting, User, Role, Tab, SideTab, Status, Department, Location, Category, Contact, Firm, ProjectSize} from '../classes/domain';
 import { ReportData, ReportFilter } from '../classes/report';
 import { Project } from '../classes/project';
 import { DomainService }  from './domain.service';
@@ -73,6 +73,8 @@ export class AuthenticationService {
   public allSidetabs:SideTab[];
   public allRoles:Role[];
   public firms:Firm[];
+  public allManagers:User[];
+  public projectSizes:ProjectSize[];
   constructor(private http: HttpClient,
   private domainService:DomainService) { }
 
@@ -95,7 +97,9 @@ export class AuthenticationService {
            this.domainService.getAllUsers(settings.service_url),
            this.domainService.getAllSidetabs(settings.service_url),
            this.domainService.getRoles(settings.service_url),
-           this.domainService.getFirms(settings.service_url)
+           this.domainService.getFirms(settings.service_url),
+           this.domainService.getAllManagers(settings.service_url),
+           this.domainService.getProjectSizes(settings.service_url)
           )})
         )
         .toPromise()
@@ -114,6 +118,8 @@ export class AuthenticationService {
           this.allSidetabs = data[11];
           this.allRoles = data[12];
           this.firms = data[13];
+          this.allManagers = data[14];
+          this.projectSizes = data[15];
         });
       return promise;
     }

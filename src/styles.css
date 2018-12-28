@@ -267,3 +267,7 @@ th.mat-header-cell{
 .my-popover-class .arrow::after {
   border-top-color: aliceblue;
 }
+
+.invalid-tooltip{
+  display:block;
+}

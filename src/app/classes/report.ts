@@ -12,8 +12,8 @@ export class ReportData{
 }
 
 export class ReportFilter{
-  start_date:number;
-  end_date:number;
+  start_date:string;
+  end_date:string;
   cat_id:number;
   deptmt_id:number;
   requestor_id:number;

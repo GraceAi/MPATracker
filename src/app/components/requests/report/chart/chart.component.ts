@@ -16,7 +16,7 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.authService.chartData
-    .pipe(filter((val) => val !== null ))
+    //.pipe(filter((val) => val !== null ))
     .subscribe(data => {
       if(this.chart != null){
         this.chart.destroy();

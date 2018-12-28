@@ -17,6 +17,7 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 })
 export class ProjectGeneralInfoComponent implements OnInit {
   role_id:number;
+  project_id:number;
   generalInfo:Project = new Project();
   origGeneralInfo:Project = new Project();
   selectedContact:string = "Select...";
@@ -33,18 +34,18 @@ export class ProjectGeneralInfoComponent implements OnInit {
    public dialog: MatDialog) { }
 
   ngOnInit() {
-    let project_id = +this.route.parent.snapshot.paramMap.get('projectId');
+    this.project_id = +this.route.parent.snapshot.paramMap.get('projectId');
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
 
-    this.getGeneralInfo(project_id);
+    this.getGeneralInfo();
 
     this.firms = this.authService.firms;
     this.contacts = this.authService.allUsers;
   }
 
-  getGeneralInfo(project_id:number){
-    this.projectService.getProjectInfoByProjectId(project_id).subscribe(result => {
-      if(result){
+  getGeneralInfo(){
+    this.projectService.getProjectInfoByProjectId(this.project_id).subscribe(result => {
+      if(result != null){
         this.generalInfo = result;
         this.origGeneralInfo =  Object.assign({}, result);
         this.getSelectedContact();
