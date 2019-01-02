@@ -19,8 +19,8 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 export class PermitComponent implements OnInit {
   project_id:number;
   role_id:number;
-  permitInfo:Permit = new Permit();
-  origPermitInfo:Permit = new Permit();
+  info:Permit = new Permit();
+  origInfo:Permit = new Permit();
   calendarIconPath:string;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -39,121 +39,121 @@ export class PermitComponent implements OnInit {
   getProjectPermit(){
     this.projectService.getProjectPermit(this.project_id).subscribe(result => {
       if(result != null){
-        this.permitInfo = result;
+        this.info = result;
         this.parsePermitDate();
-        this.origPermitInfo =  Object.assign({}, result);
+        this.origInfo =  Object.assign({}, result);
       }
     });
   }
 
   resetStatus(event){
-    if(!this.permitInfo.corps_permit_required)
-      this.permitInfo.corps_permit_date = null;
-    if(!this.permitInfo.mde_permit_required)
-      this.permitInfo.mde_permit_date = null;
-    if(!this.permitInfo.dam_saftey_approval)
-      this.permitInfo.dam_saftey_date = null;
-    if(!this.permitInfo.swm_approval)
-      this.permitInfo.swm_date = null;
-    if(!this.permitInfo.ms4_permit_required)
-      this.permitInfo.ms4_permit_date = null;
-    if(!this.permitInfo.local_permit_required)
-      this.permitInfo.local_permit_date = null;
-    if(!this.permitInfo.wetland_permit_required)
-      this.permitInfo.wetland_permit_date = null;
-    if(!this.permitInfo.critical_area_permit_required)
-      this.permitInfo.critical_area_date = null;
+    if(!this.info.corps_permit_required)
+      this.info.corps_permit_date = null;
+    if(!this.info.mde_permit_required)
+      this.info.mde_permit_date = null;
+    if(!this.info.dam_saftey_approval)
+      this.info.dam_saftey_date = null;
+    if(!this.info.swm_approval)
+      this.info.swm_date = null;
+    if(!this.info.ms4_permit_required)
+      this.info.ms4_permit_date = null;
+    if(!this.info.local_permit_required)
+      this.info.local_permit_date = null;
+    if(!this.info.wetland_permit_required)
+      this.info.wetland_permit_date = null;
+    if(!this.info.critical_area_permit_required)
+      this.info.critical_area_date = null;
   }
 
   parsePermitDate(){
-    if(this.permitInfo.corps_permit_status != null){
-      let d = new Date(this.permitInfo.corps_permit_status);
+    if(this.info.corps_permit_status != null){
+      let d = new Date(this.info.corps_permit_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.corps_permit_date = date;
+      this.info.corps_permit_date = date;
     }
-    if(this.permitInfo.mde_permit_status != null){
-      let d = new Date(this.permitInfo.mde_permit_status);
+    if(this.info.mde_permit_status != null){
+      let d = new Date(this.info.mde_permit_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.mde_permit_date = date;
+      this.info.mde_permit_date = date;
     }
-    if(this.permitInfo.dam_saftey_status != null){
-      let d = new Date(this.permitInfo.dam_saftey_status);
+    if(this.info.dam_saftey_status != null){
+      let d = new Date(this.info.dam_saftey_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.dam_saftey_date = date;
+      this.info.dam_saftey_date = date;
     }
-    if(this.permitInfo.swm_status != null){
-      let d = new Date(this.permitInfo.swm_status);
+    if(this.info.swm_status != null){
+      let d = new Date(this.info.swm_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.swm_date = date;
+      this.info.swm_date = date;
     }
-    if(this.permitInfo.ms4_permit_status != null){
-      let d = new Date(this.permitInfo.ms4_permit_status);
+    if(this.info.ms4_permit_status != null){
+      let d = new Date(this.info.ms4_permit_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.ms4_permit_date = date;
+      this.info.ms4_permit_date = date;
     }
-    if(this.permitInfo.local_permit_status != null){
-      let d = new Date(this.permitInfo.local_permit_status);
+    if(this.info.local_permit_status != null){
+      let d = new Date(this.info.local_permit_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.local_permit_date = date;
+      this.info.local_permit_date = date;
     }
-    if(this.permitInfo.wetland_permit_status != null){
-      let d = new Date(this.permitInfo.wetland_permit_status);
+    if(this.info.wetland_permit_status != null){
+      let d = new Date(this.info.wetland_permit_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.wetland_permit_date = date;
+      this.info.wetland_permit_date = date;
     }
-    if(this.permitInfo.critical_area_permit_status != null){
-      let d = new Date(this.permitInfo.critical_area_permit_status);
+    if(this.info.critical_area_permit_status != null){
+      let d = new Date(this.info.critical_area_permit_status);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.permitInfo.critical_area_date = date;
+      this.info.critical_area_date = date;
     }
   }
 
   updateProjectPermit(){
-    if(this.permitInfo.corps_permit_date == null)
-      this.permitInfo.corps_permit_status = null;
+    if(this.info.corps_permit_date == null)
+      this.info.corps_permit_status = null;
     else
-      this.permitInfo.corps_permit_status = this.permitInfo.corps_permit_date.year + "-" +  this.permitInfo.corps_permit_date.month + "-" +  this.permitInfo.corps_permit_date.day;
+      this.info.corps_permit_status = this.info.corps_permit_date.year + "-" +  this.info.corps_permit_date.month + "-" +  this.info.corps_permit_date.day;
 
-    if(this.permitInfo.mde_permit_date == null)
-        this.permitInfo.mde_permit_status = null;
+    if(this.info.mde_permit_date == null)
+        this.info.mde_permit_status = null;
     else
-      this.permitInfo.mde_permit_status = this.permitInfo.mde_permit_date.year + "-" +  this.permitInfo.mde_permit_date.month  + "-" +   this.permitInfo.mde_permit_date.day;
+      this.info.mde_permit_status = this.info.mde_permit_date.year + "-" +  this.info.mde_permit_date.month  + "-" +   this.info.mde_permit_date.day;
 
-    if(this.permitInfo.dam_saftey_date == null)
-      this.permitInfo.dam_saftey_status = null;
+    if(this.info.dam_saftey_date == null)
+      this.info.dam_saftey_status = null;
     else
-      this.permitInfo.dam_saftey_status = this.permitInfo.dam_saftey_date.year + "-" +  this.permitInfo.dam_saftey_date.month  + "-" +  this.permitInfo.dam_saftey_date.day;
+      this.info.dam_saftey_status = this.info.dam_saftey_date.year + "-" +  this.info.dam_saftey_date.month  + "-" +  this.info.dam_saftey_date.day;
 
-    if(this.permitInfo.swm_date == null)
-        this.permitInfo.swm_status = null;
+    if(this.info.swm_date == null)
+        this.info.swm_status = null;
     else
-      this.permitInfo.swm_status = this.permitInfo.swm_date.year + "-" +  this.permitInfo.swm_date.month  + "-" + this.permitInfo.swm_date.day;
+      this.info.swm_status = this.info.swm_date.year + "-" +  this.info.swm_date.month  + "-" + this.info.swm_date.day;
 
-    if(this.permitInfo.ms4_permit_date == null)
-      this.permitInfo.ms4_permit_status = null;
+    if(this.info.ms4_permit_date == null)
+      this.info.ms4_permit_status = null;
     else
-      this.permitInfo.ms4_permit_status = this.permitInfo.ms4_permit_date.year + "-" +  this.permitInfo.ms4_permit_date.month + "-" +  this.permitInfo.ms4_permit_date.day;
+      this.info.ms4_permit_status = this.info.ms4_permit_date.year + "-" +  this.info.ms4_permit_date.month + "-" +  this.info.ms4_permit_date.day;
 
-    if(this.permitInfo.local_permit_date == null)
-        this.permitInfo.local_permit_status = null;
+    if(this.info.local_permit_date == null)
+        this.info.local_permit_status = null;
     else
-      this.permitInfo.local_permit_status = this.permitInfo.local_permit_date.year + "-" +  this.permitInfo.local_permit_date.month + "-" +  this.permitInfo.local_permit_date.day;
+      this.info.local_permit_status = this.info.local_permit_date.year + "-" +  this.info.local_permit_date.month + "-" +  this.info.local_permit_date.day;
 
-    if(this.permitInfo.wetland_permit_date == null)
-      this.permitInfo.wetland_permit_status = null;
+    if(this.info.wetland_permit_date == null)
+      this.info.wetland_permit_status = null;
     else
-      this.permitInfo.wetland_permit_status = this.permitInfo.wetland_permit_date.year + "-" +  this.permitInfo.wetland_permit_date.month + "-" + this.permitInfo.wetland_permit_date.day;
+      this.info.wetland_permit_status = this.info.wetland_permit_date.year + "-" +  this.info.wetland_permit_date.month + "-" + this.info.wetland_permit_date.day;
 
-    if(this.permitInfo.critical_area_date == null)
-        this.permitInfo.critical_area_permit_status = null;
+    if(this.info.critical_area_date == null)
+        this.info.critical_area_permit_status = null;
     else
-      this.permitInfo.critical_area_permit_status = this.permitInfo.critical_area_date.year + "-" +  this.permitInfo.critical_area_date.month + "-" +   this.permitInfo.critical_area_date.day;
+      this.info.critical_area_permit_status = this.info.critical_area_date.year + "-" +  this.info.critical_area_date.month + "-" +   this.info.critical_area_date.day;
 
-    //console.log(this.permitInfo);
-    this.projectService.updateProjectPermit(this.permitInfo).subscribe(result => {
+    //console.log(this.info);
+    this.projectService.updateProjectPermit(this.info).subscribe(result => {
       if(result == true){
         console.log(result);
-        this.origPermitInfo =  Object.assign({}, this.permitInfo);
+        this.origInfo =  Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
       else if(result.ok == false){
@@ -164,14 +164,14 @@ export class PermitComponent implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-    if (this.permitInfo.corps_permit_required === this.origPermitInfo.corps_permit_required && this.permitInfo.mde_permit_required === this.origPermitInfo.mde_permit_required
-       && this.permitInfo.dam_saftey_approval === this.origPermitInfo.dam_saftey_approval && this.permitInfo.swm_approval === this.origPermitInfo.swm_approval
-       && this.permitInfo.ms4_permit_required === this.origPermitInfo.ms4_permit_required && this.permitInfo.local_permit_required === this.origPermitInfo.local_permit_required
-       && this.permitInfo.wetland_permit_required === this.origPermitInfo.wetland_permit_required && this.permitInfo.critical_area_permit_required === this.origPermitInfo.critical_area_permit_required
-       && this.permitInfo.corps_permit_date === this.origPermitInfo.corps_permit_date && this.permitInfo.mde_permit_date === this.origPermitInfo.mde_permit_date
-       && this.permitInfo.dam_saftey_date === this.origPermitInfo.dam_saftey_date && this.permitInfo.swm_date === this.origPermitInfo.swm_date
-       && this.permitInfo.ms4_permit_date === this.origPermitInfo.ms4_permit_date && this.permitInfo.local_permit_date === this.origPermitInfo.local_permit_date
-       && this.permitInfo.wetland_permit_date === this.origPermitInfo.wetland_permit_date && this.permitInfo.critical_area_date === this.origPermitInfo.critical_area_date) {
+    if (this.info.corps_permit_required === this.origInfo.corps_permit_required && this.info.mde_permit_required === this.origInfo.mde_permit_required
+       && this.info.dam_saftey_approval === this.origInfo.dam_saftey_approval && this.info.swm_approval === this.origInfo.swm_approval
+       && this.info.ms4_permit_required === this.origInfo.ms4_permit_required && this.info.local_permit_required === this.origInfo.local_permit_required
+       && this.info.wetland_permit_required === this.origInfo.wetland_permit_required && this.info.critical_area_permit_required === this.origInfo.critical_area_permit_required
+       && this.info.corps_permit_date === this.origInfo.corps_permit_date && this.info.mde_permit_date === this.origInfo.mde_permit_date
+       && this.info.dam_saftey_date === this.origInfo.dam_saftey_date && this.info.swm_date === this.origInfo.swm_date
+       && this.info.ms4_permit_date === this.origInfo.ms4_permit_date && this.info.local_permit_date === this.origInfo.local_permit_date
+       && this.info.wetland_permit_date === this.origInfo.wetland_permit_date && this.info.critical_area_date === this.origInfo.critical_area_date) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its

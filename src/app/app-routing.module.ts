@@ -97,14 +97,14 @@ const routes: Routes = [
                 {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'}
               ]
   },
-  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent,
+  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, canActivate: [RequestDetailAuthGuard], data : { title : 'Project Detail'},
           children: [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
                 {path: 'general', component: ProjectGeneralInfoComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'permit', component: PermitComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'managers', component: ProjectManagersComponent, pathMatch: 'full'},
                 {path: 'procument', component: ProcurementPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
-                {path: 'construction', component: ConstructionPhaseComponent, pathMatch: 'full'}
+                {path: 'construction', component: ConstructionPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'}
               ]
   }
 ];

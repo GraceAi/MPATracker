@@ -80,6 +80,7 @@ import { PermitComponent } from './components/projects/project-detail/permit/per
 import { ProjectManagersComponent } from './components/projects/project-detail/project-managers/project-managers.component';
 import { ProcurementPhaseComponent } from './components/projects/project-detail/procurement-phase/procurement-phase.component';
 import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
+import { NewFirmDialog } from './components/modals/dialog-newfirm/dialog-newfirm';
 
 
 @NgModule({
@@ -145,7 +146,8 @@ import { ConstructionPhaseComponent } from './components/projects/project-detail
     PermitComponent,
     ProjectManagersComponent,
     ProcurementPhaseComponent,
-    ConstructionPhaseComponent
+    ConstructionPhaseComponent,
+    NewFirmDialog
 
   ],
   imports: [
@@ -173,7 +175,7 @@ import { ConstructionPhaseComponent } from './components/projects/project-detail
     ],
   entryComponents: [
     NewRequestDialog, AddDocumentDialog, AddContractDialog, AddLinkDialog,AddCommentDialog,AddContactDialog,NewContactDialog,ConfirmationDialog,
-    NotificationDialog,LocationMapDialog,AddCategoryDialog, NewProjectDialog
+    NotificationDialog,LocationMapDialog,AddCategoryDialog, NewProjectDialog, NewFirmDialog
   ],
   bootstrap: [AppComponent]
 })

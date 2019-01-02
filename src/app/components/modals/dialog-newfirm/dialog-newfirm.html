@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{title}}</h4>
+  <button type="button" class="close" aria-label="Close" mat-dialog-close>
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Firm Name</label>
+    <div class="col-sm-9">
+      <input class="form-control" [(ngModel)]="firm.firm_name">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">E-mail</label>
+    <div class="col-sm-9">
+      <input class="form-control" [(ngModel)]="firm.email" placeholder="a@b.com">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label class="col-sm-3 col-form-label">Phone</label>
+    <div class="col-sm-9">
+      <input class="form-control" [(ngModel)]="firm.phone">
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
+  <button type="button" class="btn btn-secondary"  (click)="save()">OK</button>
+  <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
+</div>

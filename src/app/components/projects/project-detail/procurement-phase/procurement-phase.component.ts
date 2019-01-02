@@ -19,8 +19,8 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 export class ProcurementPhaseComponent implements OnInit {
   project_id:number;
   role_id:number;
-  procurementInfo:ProcurementPhase = new ProcurementPhase();
-  origProcurementInfo:ProcurementPhase = new ProcurementPhase();
+  info:ProcurementPhase = new ProcurementPhase();
+  origInfo:ProcurementPhase = new ProcurementPhase();
   selectedOfficer:string = "Select...";
   calendarIconPath:string;
   officers:User[];
@@ -42,131 +42,131 @@ export class ProcurementPhaseComponent implements OnInit {
   getProcurementPhase(){
     this.projectService.getProcurementPhase(this.project_id).subscribe(result => {
       if(result != null){
-        this.procurementInfo = result;
+        this.info = result;
         this.getSelectedOfficer();
         this.parseDate();
-        this.origProcurementInfo =  Object.assign({}, result);
+        this.origInfo =  Object.assign({}, result);
       }
     });
   }
 
   getSelectedOfficer(){
-    if(this.procurementInfo.officer_name == null || this.procurementInfo.officer_name.length == 0)
+    if(this.info.officer_id == null || this.info.officer_id == 0)
       this.selectedOfficer = "Select...";
     else
-      this.selectedOfficer = this.procurementInfo.officer_name;
+      this.selectedOfficer = this.info.officer_name;
   }
 
   onChangeOfficer(officer:User){
     if(officer == null){
       this.selectedOfficer = "Select...";
-      this.procurementInfo.officer_id = null;
+      this.info.officer_id = null;
     }
     else{
       this.selectedOfficer = officer.fname + " " + officer.lname;
-      this.procurementInfo.officer_id = officer.user_id;
+      this.info.officer_id = officer.user_id;
     }
   }
 
   parseDate(){
-    if(this.procurementInfo.next_or_final_specs_date != null){
-      let d = new Date(this.procurementInfo.next_or_final_specs_date);
+    if(this.info.next_or_final_specs_date != null){
+      let d = new Date(this.info.next_or_final_specs_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.next_or_final_specs_formatted = date;
+      this.info.next_or_final_specs_formatted = date;
     }
-    if(this.procurementInfo.procurement_start_date != null){
-      let d = new Date(this.procurementInfo.procurement_start_date);
+    if(this.info.procurement_start_date != null){
+      let d = new Date(this.info.procurement_start_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.procurement_start_formatted = date;
+      this.info.procurement_start_formatted = date;
     }
-    if(this.procurementInfo.prg_date != null){
-      let d = new Date(this.procurementInfo.prg_date);
+    if(this.info.prg_date != null){
+      let d = new Date(this.info.prg_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.prg_formatted = date;
+      this.info.prg_formatted = date;
     }
-    if(this.procurementInfo.early_adv_date != null){
-      let d = new Date(this.procurementInfo.early_adv_date);
+    if(this.info.early_adv_date != null){
+      let d = new Date(this.info.early_adv_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.early_adv_formatted = date;
+      this.info.early_adv_formatted = date;
     }
-    if(this.procurementInfo.early_bids_date != null){
-      let d = new Date(this.procurementInfo.early_bids_date);
+    if(this.info.early_bids_date != null){
+      let d = new Date(this.info.early_bids_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.early_bids_formatted = date;
+      this.info.early_bids_formatted = date;
     }
-    if(this.procurementInfo.mpc != null){
-      let d = new Date(this.procurementInfo.mpc);
+    if(this.info.mpc != null){
+      let d = new Date(this.info.mpc);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.mpc_formatted = date;
+      this.info.mpc_formatted = date;
     }
-    if(this.procurementInfo.bpw != null){
-      let d = new Date(this.procurementInfo.bpw);
+    if(this.info.bpw != null){
+      let d = new Date(this.info.bpw);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.bpw_formatted = date;
+      this.info.bpw_formatted = date;
     }
-    if(this.procurementInfo.ntp_date != null){
-      let d = new Date(this.procurementInfo.ntp_date);
+    if(this.info.ntp_date != null){
+      let d = new Date(this.info.ntp_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.ntp_formatted = date;
+      this.info.ntp_formatted = date;
     }
-    if(this.procurementInfo.compl_date != null){
-      let d = new Date(this.procurementInfo.compl_date);
+    if(this.info.compl_date != null){
+      let d = new Date(this.info.compl_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.procurementInfo.compl_formatted = date;
+      this.info.compl_formatted = date;
     }
 
   }
 
   updateProcurementPhase(){
-    if(this.procurementInfo.next_or_final_specs_formatted == null)
-      this.procurementInfo.next_or_final_specs_date = null;
+    if(this.info.next_or_final_specs_formatted == null)
+      this.info.next_or_final_specs_date = null;
     else
-      this.procurementInfo.next_or_final_specs_date = this.procurementInfo.next_or_final_specs_formatted.year + "-" +  this.procurementInfo.next_or_final_specs_formatted.month + "-" +  this.procurementInfo.next_or_final_specs_formatted.day;
+      this.info.next_or_final_specs_date = this.info.next_or_final_specs_formatted.year + "-" +  this.info.next_or_final_specs_formatted.month + "-" +  this.info.next_or_final_specs_formatted.day;
 
-    if(this.procurementInfo.prg_formatted == null)
-      this.procurementInfo.prg_date = null;
+    if(this.info.prg_formatted == null)
+      this.info.prg_date = null;
     else
-      this.procurementInfo.prg_date = this.procurementInfo.prg_formatted.year + "-" +  this.procurementInfo.prg_formatted.month + "-" +  this.procurementInfo.prg_formatted.day;
+      this.info.prg_date = this.info.prg_formatted.year + "-" +  this.info.prg_formatted.month + "-" +  this.info.prg_formatted.day;
 
-    if(this.procurementInfo.procurement_start_formatted == null)
-      this.procurementInfo.procurement_start_date = null;
+    if(this.info.procurement_start_formatted == null)
+      this.info.procurement_start_date = null;
     else
-      this.procurementInfo.procurement_start_date = this.procurementInfo.procurement_start_formatted.year + "-" +  this.procurementInfo.procurement_start_formatted.month + "-" +  this.procurementInfo.procurement_start_formatted.day;
+      this.info.procurement_start_date = this.info.procurement_start_formatted.year + "-" +  this.info.procurement_start_formatted.month + "-" +  this.info.procurement_start_formatted.day;
 
-    if(this.procurementInfo.early_adv_formatted == null)
-        this.procurementInfo.early_adv_date = null;
+    if(this.info.early_adv_formatted == null)
+        this.info.early_adv_date = null;
     else
-      this.procurementInfo.early_adv_date = this.procurementInfo.early_adv_formatted.year + "-" +  this.procurementInfo.early_adv_formatted.month  + "-" +   this.procurementInfo.early_adv_formatted.day;
+      this.info.early_adv_date = this.info.early_adv_formatted.year + "-" +  this.info.early_adv_formatted.month  + "-" +   this.info.early_adv_formatted.day;
 
-    if(this.procurementInfo.early_bids_formatted == null)
-      this.procurementInfo.early_bids_date = null;
+    if(this.info.early_bids_formatted == null)
+      this.info.early_bids_date = null;
     else
-      this.procurementInfo.early_bids_date = this.procurementInfo.early_bids_formatted.year + "-" +  this.procurementInfo.early_bids_formatted.month  + "-" +  this.procurementInfo.early_bids_formatted.day;
+      this.info.early_bids_date = this.info.early_bids_formatted.year + "-" +  this.info.early_bids_formatted.month  + "-" +  this.info.early_bids_formatted.day;
 
-    if(this.procurementInfo.mpc_formatted == null)
-        this.procurementInfo.mpc = null;
+    if(this.info.mpc_formatted == null)
+        this.info.mpc = null;
     else
-      this.procurementInfo.mpc = this.procurementInfo.mpc_formatted.year + "-" +  this.procurementInfo.mpc_formatted.month  + "-" + this.procurementInfo.mpc_formatted.day;
+      this.info.mpc = this.info.mpc_formatted.year + "-" +  this.info.mpc_formatted.month  + "-" + this.info.mpc_formatted.day;
 
-    if(this.procurementInfo.bpw_formatted == null)
-      this.procurementInfo.bpw = null;
+    if(this.info.bpw_formatted == null)
+      this.info.bpw = null;
     else
-      this.procurementInfo.bpw = this.procurementInfo.bpw_formatted.year + "-" +  this.procurementInfo.bpw_formatted.month + "-" +  this.procurementInfo.bpw_formatted.day;
+      this.info.bpw = this.info.bpw_formatted.year + "-" +  this.info.bpw_formatted.month + "-" +  this.info.bpw_formatted.day;
 
-    if(this.procurementInfo.ntp_formatted == null)
-        this.procurementInfo.ntp_date = null;
+    if(this.info.ntp_formatted == null)
+        this.info.ntp_date = null;
     else
-      this.procurementInfo.ntp_date = this.procurementInfo.ntp_formatted.year + "-" +  this.procurementInfo.ntp_formatted.month + "-" +  this.procurementInfo.ntp_formatted.day;
+      this.info.ntp_date = this.info.ntp_formatted.year + "-" +  this.info.ntp_formatted.month + "-" +  this.info.ntp_formatted.day;
 
-    if(this.procurementInfo.compl_formatted == null)
-      this.procurementInfo.compl_date = null;
+    if(this.info.compl_formatted == null)
+      this.info.compl_date = null;
     else
-      this.procurementInfo.compl_date = this.procurementInfo.compl_formatted.year + "-" +  this.procurementInfo.compl_formatted.month + "-" + this.procurementInfo.compl_formatted.day;
+      this.info.compl_date = this.info.compl_formatted.year + "-" +  this.info.compl_formatted.month + "-" + this.info.compl_formatted.day;
 
-    this.projectService.updateProcurementPhase(this.procurementInfo).subscribe(result => {
+    this.projectService.updateProcurementPhase(this.info).subscribe(result => {
       if(result == true){
         console.log(result);
-        this.origProcurementInfo =  Object.assign({}, this.procurementInfo);
+        this.origInfo =  Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
       else if(result.ok == false){
@@ -177,16 +177,16 @@ export class ProcurementPhaseComponent implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     // Allow synchronous navigation (`true`) if no procurement phase or procurement phase is unchanged
-    if (this.procurementInfo.officer_id === this.origProcurementInfo.officer_id &&
-      this.procurementInfo.current_proc_day === this.origProcurementInfo.current_proc_day &&
-      this.procurementInfo.next_or_final_specs_formatted === this.origProcurementInfo.next_or_final_specs_formatted &&
-      this.procurementInfo.procurement_start_formatted === this.origProcurementInfo.procurement_start_formatted &&
-      this.procurementInfo.early_adv_formatted === this.origProcurementInfo.early_adv_formatted &&
-      this.procurementInfo.early_bids_formatted === this.origProcurementInfo.early_bids_formatted &&
-      this.procurementInfo.mpc_formatted === this.origProcurementInfo.mpc_formatted &&
-      this.procurementInfo.bpw_formatted === this.origProcurementInfo.bpw_formatted &&
-      this.procurementInfo.ntp_formatted === this.origProcurementInfo.ntp_formatted &&
-      this.procurementInfo.compl_formatted === this.origProcurementInfo.compl_formatted) {
+    if (this.info.officer_id === this.origInfo.officer_id &&
+      this.info.current_proc_day === this.origInfo.current_proc_day &&
+      this.info.next_or_final_specs_formatted === this.origInfo.next_or_final_specs_formatted &&
+      this.info.procurement_start_formatted === this.origInfo.procurement_start_formatted &&
+      this.info.early_adv_formatted === this.origInfo.early_adv_formatted &&
+      this.info.early_bids_formatted === this.origInfo.early_bids_formatted &&
+      this.info.mpc_formatted === this.origInfo.mpc_formatted &&
+      this.info.bpw_formatted === this.origInfo.bpw_formatted &&
+      this.info.ntp_formatted === this.origInfo.ntp_formatted &&
+      this.info.compl_formatted === this.origInfo.compl_formatted) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its

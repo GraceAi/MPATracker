@@ -17,6 +17,7 @@ import { NotificationDialog } from '../../../components/modals/dialog-notificati
 })
 export class ProjectDetailComponent implements OnInit {
   role_id:number;
+  project_id:number;
   componentRef:any;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -27,19 +28,48 @@ export class ProjectDetailComponent implements OnInit {
 
   ngOnInit() {
     this.role_id = +this.route.snapshot.paramMap.get('roleId');
+    this.project_id = +this.route.snapshot.paramMap.get('projectId');
+    this.projectService.getProjectInfoByProjectId(this.project_id).subscribe(result => {
+      if(result != null){
+        this.authService.setTitle("Project Number: " + result.project_number);
+      }
+    });
+  }
+
+  onActivate(componentRef){
+    this.componentRef = componentRef; //to access currently displayed child component
+  }
+
+  deleteProject(){
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Project Confirmation", message: "Are you sure you want to delete this project?"}, width: '600px'});
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
+        this.componentRef.origInfo =  Object.assign({}, this.componentRef.info);
+        //this.toHomePage();
+        this.projectService.deleteProject(this.project_id).subscribe(res => {
+          if(res == true){
+            this.toHomePage();
+          }
+          else if(res.ok == false){
+            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+          }
+        });
+      }
+    });
   }
 
   closeProject(){
     this.toHomePage();
   }
+
   toHomePage(){
     if(this.role_id == 6)
       this.router.navigate(['/home/tab/8']);
     else if(this.role_id == 7)
       this.router.navigate(['/home/tab/7']);
   }
-  onActivate(componentRef){
-    this.componentRef = componentRef; //to access child component: project general component
-  }
+
 
 }

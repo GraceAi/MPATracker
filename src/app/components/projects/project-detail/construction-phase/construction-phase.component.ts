@@ -7,9 +7,12 @@ import { ToastrService } from 'ngx-toastr';
 
 import { ProjectSize, Firm } from '../../../../classes/domain';
 import { ConstructionPhase } from '../../../../classes/project';
+import { DomainService } from '../../../../services/domain.service';
 import { ProjectService } from '../../../../services/project.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
+import { ConfirmationDialog } from '../../../../components/modals/dialog-confirmation/dialog-confirmation';
 import { NotificationDialog } from '../../../../components/modals/dialog-notification/dialog-notification';
+import { NewFirmDialog } from '../../../../components/modals/dialog-newfirm/dialog-newfirm';
 
 @Component({
   selector: 'app-construction-phase',
@@ -19,12 +22,12 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 export class ConstructionPhaseComponent implements OnInit {
   role_id:number;
   project_id:number;
-  constructionInfo:ConstructionPhase = new ConstructionPhase();
-  origConstructionInfo:ConstructionPhase = new ConstructionPhase();
-  selectedSize:string;
+  info:ConstructionPhase = new ConstructionPhase();
+  origInfo:ConstructionPhase = new ConstructionPhase();
+  selectedSize:string = "Select...";
   projectInterval:number = 0;
   sizes:ProjectSize[];
-  selectedFirm:string;
+  selectedFirm:string = "Select...";
   firms:Firm[];
   disabled:boolean = true;
   //hide:boolean = true;
@@ -32,6 +35,7 @@ export class ConstructionPhaseComponent implements OnInit {
   constructor(private router: Router,
    private route: ActivatedRoute,
    private projectService: ProjectService,
+   private domainService: DomainService,
    private authService: AuthenticationService,
    private datePipe: DatePipe,
    private toastr: ToastrService,
@@ -51,9 +55,9 @@ export class ConstructionPhaseComponent implements OnInit {
   getConstructionPhaseInfo(){
     this.projectService.getConstructionPhaseInfo(this.project_id).subscribe(result => {
       if(result != null){
-        this.constructionInfo = result;
+        this.info = result;
         this.parseDate();
-        this.origConstructionInfo =  Object.assign({}, result);
+        this.origInfo =  Object.assign({}, result);
         this.getSelectedSize();
         this.getSelectedFirm();
         this.setLayout();
@@ -62,12 +66,12 @@ export class ConstructionPhaseComponent implements OnInit {
   }
 
   parseDate(){
-    if(this.constructionInfo.ntp_date != null){
-      let d = new Date(this.constructionInfo.ntp_date);
+    if(this.info.ntp_date != null){
+      let d = new Date(this.info.ntp_date);
       let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.constructionInfo.ntp_formatted = date;
+      this.info.ntp_formatted = date;
     }
-    for(let ms of this.constructionInfo.milestones){
+    for(let ms of this.info.milestones){
       if(ms.target_date != null){
         let d = new Date(ms.target_date);
         let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
@@ -82,18 +86,18 @@ export class ConstructionPhaseComponent implements OnInit {
   }
 
   getSelectedSize(){
-    if(this.constructionInfo.size_name == null || this.constructionInfo.size_name.length == 0)
+    if(this.info.size_name == null || this.info.size_name.length == 0)
       this.selectedSize = "Select...";
     else{
-      this.projectInterval = this.constructionInfo.days;
-      this.selectedSize = this.constructionInfo.size_name;
+      this.projectInterval = this.info.days;
+      this.selectedSize = this.info.size_name;
     }
   }
   getSelectedFirm(){
-    if(this.constructionInfo.firm_name == null || this.constructionInfo.firm_name.length == 0)
+    if(this.info.firm_name == null || this.info.firm_name.length == 0)
       this.selectedFirm = "Select...";
     else
-      this.selectedFirm = this.constructionInfo.firm_name;
+      this.selectedFirm = this.info.firm_name;
   }
 
   setLayout(){
@@ -107,39 +111,92 @@ export class ConstructionPhaseComponent implements OnInit {
     }
   }
 
+  compareMilestoneDates(target_formatted:any, complete_formatted:any){
+    let isLate:boolean = false;
+    if(target_formatted != null && complete_formatted != null){
+      let target_date = new Date(target_formatted.year + "-" +  target_formatted.month + "-" +  target_formatted.day);
+      let complete_date = new Date(complete_formatted.year + "-" +  complete_formatted.month + "-" +  complete_formatted.day);
+      if(target_date < complete_date)
+        isLate = true;
+    }
+    return isLate;
+  }
+
   onChangeSize(projectSize:ProjectSize){
     if(projectSize == null){
       this.selectedSize = "Select...";
-      this.constructionInfo.project_size_id = null;
+      this.info.project_size_id = null;
       this.projectInterval = 0;
     }
     else{
       this.selectedSize = projectSize.size_name;
-      this.constructionInfo.project_size_id = projectSize.size_id;
+      this.info.project_size_id = projectSize.size_id;
       this.projectInterval = projectSize.days;
     }
   }
   onChangeFirm(firm:Firm){
     if(firm == null){
       this.selectedFirm = "Select...";
-      this.constructionInfo.firm_id = null;
+      this.info.firm_id = null;
     }
     else{
       this.selectedFirm = firm.firm_name;
-      this.constructionInfo.firm_id = firm.firm_id;
+      this.info.firm_id = firm.firm_id;
     }
   }
 
+  openNewFirmDialog() {
+    const dialogRef = this.dialog.open(NewFirmDialog, {width: '600px'});
+    dialogRef.afterClosed().subscribe(newFirm => {
+      if(newFirm.email != null){
+        this.projectService.addNewFirm(newFirm).subscribe(res => {
+          if(res.ok == false){
+            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
+          }
+          else if(res > 0){
+            this.domainService.getFirms(this.authService.appSettings.service_url)
+                .subscribe(result => {
+                  this.firms = result;
+                  this.selectedFirm = result.find(x => x.firm_id === res).firm_name;
+                });
+          }
+        });
+      }
+    });
+  }
+
+
   generateMilestones(){
-    if(this.constructionInfo.project_size_id == null){
+    let displayConfirmation:boolean = false;
+    for(let ms of this.info.milestones){
+      if(ms.target_formatted != null){
+        displayConfirmation = true;
+        break;
+      }
+    }
+    if(displayConfirmation){
+      const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Generate Milestone Confirmation", message: "Are you sure you want to overwrite existing mielstones?"}, width: '600px'});
+      dialogRef.afterClosed().subscribe(result => {
+        if(result){
+          this.overwriteMilestones();
+        }
+      })
+    }
+    else{
+      this.overwriteMilestones();
+    }
+  }
+
+  overwriteMilestones(){
+    if(this.info.project_size_id == null){
       this.toastr.error('', 'Please select a project size first', {timeOut: 2000});
     }
-    else if(this.constructionInfo.ntp_formatted == null){
+    else if(this.info.ntp_formatted == null){
       this.toastr.error('', 'Please select a NTP date first', {timeOut: 2000});
     }
     else{
-      this.constructionInfo.ntp_date = this.constructionInfo.ntp_formatted.year + "-" +  this.constructionInfo.ntp_formatted.month + "-" +  this.constructionInfo.ntp_formatted.day;
-      for(let ms of this.constructionInfo.milestones){
+      this.info.ntp_date = this.info.ntp_formatted.year + "-" +  this.info.ntp_formatted.month + "-" +  this.info.ntp_formatted.day;
+      for(let ms of this.info.milestones){
         let interval = 0;
         if(ms.milestone_percentage == 25){
           interval = this.projectInterval;
@@ -153,7 +210,7 @@ export class ConstructionPhaseComponent implements OnInit {
         if(ms.milestone_percentage == 100){
           interval = this.projectInterval * 4;
         }
-        var date = new Date(this.constructionInfo.ntp_date);
+        var date = new Date(this.info.ntp_date);
         date.setDate(date.getDate() + interval);
         let newDate = this.datePipe.transform(date,"yyyy-MM-dd");
         ms.target_date = newDate;
@@ -162,16 +219,14 @@ export class ConstructionPhaseComponent implements OnInit {
         ms.target_formatted = date_formatted;
       }
     }
-
-    console.log(this.constructionInfo.milestones);
   }
 
   updateConstructionPhase(){
-    if(this.constructionInfo.ntp_formatted == null)
-      this.constructionInfo.ntp_date = null;
+    if(this.info.ntp_formatted == null)
+      this.info.ntp_date = null;
     else
-      this.constructionInfo.ntp_date = this.constructionInfo.ntp_formatted.year + "-" +  this.constructionInfo.ntp_formatted.month + "-" +  this.constructionInfo.ntp_formatted.day;
-    for(let ms of this.constructionInfo.milestones){
+      this.info.ntp_date = this.info.ntp_formatted.year + "-" +  this.info.ntp_formatted.month + "-" +  this.info.ntp_formatted.day;
+    for(let ms of this.info.milestones){
       if(ms.target_formatted == null)
         ms.target_date = null;
       else
@@ -182,17 +237,28 @@ export class ConstructionPhaseComponent implements OnInit {
       else
         ms.complete_date = ms.complete_formatted.year + "-" +  ms.complete_formatted.month + "-" +  ms.complete_formatted.day;
     }
-    console.log(this.constructionInfo);
-    this.projectService.updateConstructionPhase(this.constructionInfo).subscribe(result => {
+    console.log(this.info);
+    this.projectService.updateConstructionPhase(this.info).subscribe(result => {
       if(result == true){
         console.log(result);
-        this.origConstructionInfo =  Object.assign({}, this.constructionInfo);
+        this.origInfo =  Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
       else if(result.ok == false){
         const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
       }
     });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+    if (this.info.firm_id === this.origInfo.firm_id && this.info.project_size_id === this.origInfo.project_size_id && this.info.ntp_formatted === this.origInfo.ntp_formatted) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    const confirmation = window.confirm('You have unsaved changes. Are you sure you want to leave this page?');
+    return of(confirmation);
   }
 
 }

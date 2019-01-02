@@ -3,13 +3,19 @@
 </div>
 <div class="container">
   <div class="form-row">
-    <div class="form-group row col-lg-8 col-md-9">
-      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">Project Number</label>
-      <div class="col-lg-8 col-md-6 col-sm-8"><input class="form-control" [disabled] = true value={{generalInfo.project_number}}></div>
+    <div class="form-group row col-lg-5 col-md-12">
+      <label class="col-lg-6 col-md-6 col-form-label">Project Number</label>
+      <div class="col-lg-6 col-md-6"><input class="form-control" [disabled] = true value={{info.project_number}}></div>
     </div>
-    <div class="form-group row col-lg-4 col-md-9">
-      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label form-label-sm">MPA Point of Contact</label>
-      <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
+    <div class="form-group row col-lg-7 col-md-12">
+      <label class="col-lg-6 col-md-6 col-form-label">Contract Number</label>
+      <div class="col-lg-6 col-md-6"><input type="text" class="form-control" [disabled] = "disabled" [(ngModel)]="info.contract_number"></div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-10 col-md-12">
+      <label class="col-lg-3 col-md-6 col-form-label">MPA Point of Contact</label>
+      <div ngbDropdown class="col-lg-7 col-md-6">
         <button class="btn btn-outline" id="contactMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedContact}}</button>
          <div ngbDropdownMenu aria-labelledby="contactMenu">
              <button class="dropdown-item" (click)="onChangeContact(null)">Select...</button>
@@ -19,25 +25,24 @@
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group row col-lg-8 col-md-9">
-      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">Contract Number</label>
-      <div class="col-lg-8 col-md-8 col-sm-8"><input type="text" class="form-control" [disabled] = "disabled" [(ngModel)]="generalInfo.contract_number"></div>
-    </div>
-    <div class="form-group row col-lg-4 col-md-9">
-      <label class="col-lg-4 col-md-4 col-sm-4 col-form-label form-label-sm">Firm Name</label>
-      <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
+    <div class="form-group row col-lg-10 col-md-12">
+      <label class="col-lg-3 col-md-6 col-form-label">Firm Name</label>
+      <div ngbDropdown class="col-lg-6 col-md-4 col-sm-10">
         <button class="btn btn-outline" id="firmMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedFirm}}</button>
          <div ngbDropdownMenu aria-labelledby="firmMenu">
              <button class="dropdown-item" (click)="onChangeFirm(null)">Select...</button>
           <button class="dropdown-item" *ngFor="let firm of firms" (click)="onChangeFirm(firm)">{{firm.firm_name}}</button>
         </div>
       </div>
+      <button type="button" class="close" aria-label="true" (click)="openNewFirmDialog()">
+        <i class="col-lg-1 col-md-2 col-sm-2 fa fa-plus" aria-hidden="true" style="display:block;"></i>
+      </button>
     </div>
   </div>
   <div class="form-row">
-    <div class="form-group row col-lg-8 col-md-12">
-      <label class="col-lg-2 col-md-3 col-sm-4 col-form-label form-label-sm">Description</label>
-      <div class="col-lg-10 col-md-8 col-sm-8"><input type="text" class="form-control" [disabled] = "disabled" [(ngModel)]="generalInfo.description"></div>
+    <div class="form-group row col-lg-10 col-md-12">
+      <label class="col-lg-3 col-md-6 col-form-label">Description</label>
+      <div class="col-lg-9 col-md-6"><textarea type="text" class="form-control" [disabled] = "disabled" [(ngModel)]="info.description" rows="8"></textarea></div>
     </div>
   </div>
 </div>

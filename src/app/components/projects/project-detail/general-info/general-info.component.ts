@@ -6,9 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Project } from '../../../../classes/project';
 import { User, Firm } from '../../../../classes/domain';
+import { DomainService } from '../../../../services/domain.service';
 import { ProjectService } from '../../../../services/project.service';
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { NotificationDialog } from '../../../../components/modals/dialog-notification/dialog-notification';
+import { NewFirmDialog } from '../../../../components/modals/dialog-newfirm/dialog-newfirm';
 
 @Component({
   selector: 'project-general-info',
@@ -18,8 +20,8 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 export class ProjectGeneralInfoComponent implements OnInit {
   role_id:number;
   project_id:number;
-  generalInfo:Project = new Project();
-  origGeneralInfo:Project = new Project();
+  info:Project = new Project();
+  origInfo:Project = new Project();
   selectedContact:string = "Select...";
   contacts:User[];
   selectedFirm:string = "Select...";
@@ -29,6 +31,7 @@ export class ProjectGeneralInfoComponent implements OnInit {
   constructor(private router: Router,
    private route: ActivatedRoute,
    private projectService: ProjectService,
+   private domainService: DomainService,
    private authService: AuthenticationService,
    private toastr: ToastrService,
    public dialog: MatDialog) { }
@@ -46,8 +49,8 @@ export class ProjectGeneralInfoComponent implements OnInit {
   getGeneralInfo(){
     this.projectService.getProjectInfoByProjectId(this.project_id).subscribe(result => {
       if(result != null){
-        this.generalInfo = result;
-        this.origGeneralInfo =  Object.assign({}, result);
+        this.info = result;
+        this.origInfo =  Object.assign({}, result);
         this.getSelectedContact();
         this.getSelectedFirm();
         this.setLayout();
@@ -56,16 +59,16 @@ export class ProjectGeneralInfoComponent implements OnInit {
   }
 
   getSelectedContact(){
-    if(this.generalInfo.contact_name == null || this.generalInfo.contact_name.length == 0)
+    if(this.info.contact_id == null || this.info.contact_id == 0)
       this.selectedContact = "Select...";
     else
-      this.selectedContact = this.generalInfo.contact_name;
+      this.selectedContact = this.info.contact_name;
   }
   getSelectedFirm(){
-    if(this.generalInfo.firm_name == null || this.generalInfo.firm_name.length == 0)
+    if(this.info.firm_id == null || this.info.firm_id == 0)
       this.selectedFirm = "Select...";
     else
-      this.selectedFirm = this.generalInfo.firm_name;
+      this.selectedFirm = this.info.firm_name;
   }
 
   setLayout(){
@@ -82,29 +85,49 @@ export class ProjectGeneralInfoComponent implements OnInit {
   onChangeContact(contact:User){
     if(contact == null){
       this.selectedContact = "Select...";
-      this.generalInfo.contact_id = null;
+      this.info.contact_id = null;
     }
     else{
       this.selectedContact = contact.fname + " " + contact.lname;
-      this.generalInfo.contact_id = contact.user_id;
+      this.info.contact_id = contact.user_id;
     }
   }
   onChangeFirm(firm:Firm){
     if(firm == null){
       this.selectedFirm = "Select...";
-      this.generalInfo.firm_id = null;
+      this.info.firm_id = null;
     }
     else{
       this.selectedFirm = firm.firm_name;
-      this.generalInfo.firm_id = firm.firm_id;
+      this.info.firm_id = firm.firm_id;
     }
   }
 
+  openNewFirmDialog() {
+    const dialogRef = this.dialog.open(NewFirmDialog, {width: '600px'});
+    dialogRef.afterClosed().subscribe(newFirm => {
+      if(newFirm.email != null){
+        this.projectService.addNewFirm(newFirm).subscribe(res => {
+          if(res.ok == false){
+            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
+          }
+          else if(res > 0){
+            this.domainService.getFirms(this.authService.appSettings.service_url)
+                .subscribe(result => {
+                  this.firms = result;
+                  this.selectedFirm = result.find(x => x.firm_id === res).firm_name;
+                });
+          }
+        });
+      }
+    });
+  }
+
   updateProjectGeneral(){
-    this.projectService.updateProjectGeneral(this.generalInfo).subscribe(result => {
+    this.projectService.updateProjectGeneral(this.info).subscribe(result => {
       if(result == true){
         console.log(result);
-        this.origGeneralInfo =  Object.assign({}, this.generalInfo);
+        this.origInfo =  Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
       else if(result.ok == false){
@@ -115,8 +138,8 @@ export class ProjectGeneralInfoComponent implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-    if (this.generalInfo.firm_id === this.origGeneralInfo.firm_id && this.generalInfo.contact_id === this.origGeneralInfo.contact_id && this.generalInfo.description === this.origGeneralInfo.description
-    && this.generalInfo.contract_number === this.origGeneralInfo.contract_number) {
+    if (this.info.firm_id === this.origInfo.firm_id && this.info.contact_id === this.origInfo.contact_id && this.info.description === this.origInfo.description
+    && this.info.contract_number === this.origInfo.contract_number) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its

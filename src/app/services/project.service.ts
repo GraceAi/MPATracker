@@ -86,6 +86,14 @@ export class ProjectService {
      );
    }
 
+   deleteProject(project_id:number): Observable<any>{
+     const url = this.erdTrackerServicesUrl + "Project/DeleteProject?project_id=" + project_id;
+     return this.http.post(url, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('deleteProject', []))
+     );
+   }
+
    updateProjectGeneral(editProject:Project): Observable<any>{
      let body = JSON.stringify(editProject);
      const url = this.erdTrackerServicesUrl + "Project/UpdateProject";
@@ -128,6 +136,15 @@ export class ProjectService {
      return this.http.post(url, body, this.httpOptions)
      .pipe(
        catchError(this.handleError('updateConstructionPhase', []))
+     );
+   }
+
+   addNewFirm(newFirm:any): Observable<any>{
+     let body = JSON.stringify(newFirm);
+     const url = this.erdTrackerServicesUrl + "Project/AddNewFirm";
+     return this.http.post(url, body, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('addNewFirm', []))
      );
    }
 
