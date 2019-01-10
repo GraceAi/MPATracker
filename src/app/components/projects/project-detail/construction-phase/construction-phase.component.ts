@@ -29,8 +29,6 @@ export class ConstructionPhaseComponent implements OnInit {
   sizes:ProjectSize[];
   selectedFirm:string = "Select...";
   firms:Firm[];
-  disabled:boolean = true;
-  //hide:boolean = true;
   calendarIconPath:string;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -60,7 +58,6 @@ export class ConstructionPhaseComponent implements OnInit {
         this.origInfo =  Object.assign({}, result);
         this.getSelectedSize();
         this.getSelectedFirm();
-        this.setLayout();
       }
     });
   }
@@ -100,23 +97,12 @@ export class ConstructionPhaseComponent implements OnInit {
       this.selectedFirm = this.info.firm_name;
   }
 
-  setLayout(){
-    if(this.role_id == 7){ //admin can edit everything
-        this.disabled = false;
-        //this.hide = false;
-    }
-    else if(this.role_id == 6){ //manager can't edit
-      this.disabled = true;
-      //this.hide = true;
-    }
-  }
-
-  compareMilestoneDates(target_formatted:any, complete_formatted:any){
+  compareMilestoneDates(target_formatted:any, complete_formatted:any, comment_text:string){
     let isLate:boolean = false;
     if(target_formatted != null && complete_formatted != null){
       let target_date = new Date(target_formatted.year + "-" +  target_formatted.month + "-" +  target_formatted.day);
       let complete_date = new Date(complete_formatted.year + "-" +  complete_formatted.month + "-" +  complete_formatted.day);
-      if(target_date < complete_date)
+      if(target_date < complete_date && comment_text.trim().length == 0)
         isLate = true;
     }
     return isLate;

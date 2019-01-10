@@ -21,7 +21,7 @@
     <div class="form-group row col-lg-12 col-md-12">
       <label class="col-lg-4 col-md-4 col-form-label">Project Size</label>
       <div ngbDropdown class="col-lg-3 col-md-3">
-        <button class="btn btn-outline" id="sizeMenu" ngbDropdownToggle>{{selectedSize}}</button>
+        <button class="btn btn-outline" id="sizeMenu" ngbDropdownToggle [disabled] = "role_id == 6">{{selectedSize}}</button>
          <div ngbDropdownMenu aria-labelledby="sizeMenu">
              <button class="dropdown-item" (click)="onChangeSize(null)">Select...</button>
           <button class="dropdown-item" *ngFor="let size of sizes" (click)="onChangeSize(size)">{{size.size_name}}</button>
@@ -33,40 +33,48 @@
     <div class="form-group row col-lg-12 col-md-12">
       <label class="col-lg-4 col-md-4 col-form-label">NTP Date</label>
       <div class="col-lg-3 col-md-3 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_ntp_formatted="ngbDatepicker"  [(ngModel)]="info.ntp_formatted">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_ntp_formatted="ngbDatepicker"  [(ngModel)]="info.ntp_formatted" [disabled] = "role_id == 6">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_ntp_formatted.toggle()" type="button">
+          <button class="btn btn-outline-secondary" (click)="dp_ntp_formatted.toggle()" type="button" [disabled] = "role_id == 6">
             <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
           </button>
         </div>
       </div>
       <div class="col-lg-4 col-md-4">
-          <button type="button" class="btn btn-secondary" (click)="generateMilestones()" title="Generate milestone dates"> Generate Milestones </button>
+          <button type="button" class="btn btn-secondary" [hidden] = "role_id == 6" (click)="generateMilestones()" title="Generate milestone dates"> Generate Milestones </button>
       </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-12 col-md-12"  style="margin-bottom:0; margin-top:10px;">
+        <label class="col-lg-1 col-md-1 col-sm-1"></label>
+        <label class="col-lg-3 col-md-6 col-sm-6 construction-form-label">Target Date</label>
+        <label class="col-lg-3 col-md-6 col-sm-6 construction-form-label">Complete Date</label>
+        <label class="col-lg-5 col-md-4 col-sm-4 construction-form-label">Comment</label>
     </div>
   </div>
   <div class="form-row" *ngFor="let milestone of info.milestones">
     <div class="form-group row col-lg-12 col-md-12">
       <label class="col-lg-1 col-md-1 col-sm-1 col-form-label">{{milestone.milestone_percentage}}%</label>
       <div class="col-lg-3 col-md-6 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_target_date="ngbDatepicker"  [disabled] = "disabled" [(ngModel)]="milestone.target_formatted">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_target_date="ngbDatepicker"  [disabled] = "role_id == 6" [(ngModel)]="milestone.target_formatted">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_target_date.toggle()" type="button" [disabled] = "disabled">
+          <button class="btn btn-outline-secondary" (click)="dp_target_date.toggle()" type="button" [disabled] = "role_id == 6">
             <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
           </button>
         </div>
       </div>
       <div class="col-lg-3 col-md-6 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_complete_date="ngbDatepicker"  [disabled] = "disabled" [(ngModel)]="milestone.complete_formatted">
+        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_complete_date="ngbDatepicker" [(ngModel)]="milestone.complete_formatted">
         <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_complete_date.toggle()" type="button" [disabled] = "disabled">
+          <button class="btn btn-outline-secondary" (click)="dp_complete_date.toggle()" type="button">
             <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem;"/>
           </button>
         </div>
       </div>
       <div class="col-lg-5 col-md-4 col-sm-4">
         <input #comment="ngModel" comment class="form-control" [(ngModel)]="milestone.comment_text">
-        <div *ngIf="compareMilestoneDates(milestone.target_formatted, milestone.complete_formatted)" class="invalid-tooltip">
+        <div *ngIf="compareMilestoneDates(milestone.target_formatted, milestone.complete_formatted, milestone.comment_text)" class="invalid-tooltip">
             Comment is required.
         </div>
       </div>
