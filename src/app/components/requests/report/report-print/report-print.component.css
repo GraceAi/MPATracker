@@ -24,3 +24,9 @@ table tbody>tr>td{
   margin: 16px auto;
   padding:20px;
 }
+
+@page
+{
+    size: auto;   /* auto is the initial value */
+    margin: 0mm;  /* this affects the margin in the printer settings */
+}

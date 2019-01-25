@@ -42,7 +42,7 @@ export class RequesterRequestComponent implements OnInit {
     }
 
     openNewRequestDialog() {
-      const dialogRef = this.dialog.open(NewRequestDialog, { data: {categories: this.authService.categories }, width: '635px'});
+      const dialogRef = this.dialog.open(NewRequestDialog, { data: {categories: this.authService.categories, archive_link: this.authService.appSettings.archive_search_link }, width: '635px'});
 
       dialogRef.afterClosed().subscribe(result => {
         if(result){

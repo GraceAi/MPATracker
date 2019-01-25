@@ -9,6 +9,7 @@ import { Category } from '../../../classes/domain';
 export class NewRequestDialog {
   selectedCategory: Category;
   categories:Category[];
+  archive_link:string;
   constructor(
     public dialogRef: MatDialogRef<NewRequestDialog>,
      @Inject(MAT_DIALOG_DATA) data
@@ -16,6 +17,7 @@ export class NewRequestDialog {
       this.selectedCategory = new Category();
       this.selectedCategory.category_name = "Select...";
       this.categories = data.categories;
+      this.archive_link = data.archive_link;
     }
 
     onChangeCategory(category:Category){
