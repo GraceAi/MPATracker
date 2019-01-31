@@ -37,15 +37,17 @@ export class FilterComponent implements OnInit {
     this.departments = this.authService.departments;
     this.authService.reportFilter.subscribe(
       filter => {
-        this.searchCriteria = filter;
-        if(filter.category_name != null)
-          this.selectedCategory = filter.category_name;
-        if(filter.requestor_name != null)
-          this.selectedRequester = filter.requestor_name;
-        if(filter.reviewer_name != null)
-          this.selectedReviewer = filter.reviewer_name;
+        if(filter!= null){
+          this.searchCriteria = filter;
+          if(filter.category_name != null)
+            this.selectedCategory = filter.category_name;
+          if(filter.requestor_name != null)
+            this.selectedRequester = filter.requestor_name;
+          if(filter.reviewer_name != null)
+            this.selectedReviewer = filter.reviewer_name;
           if(filter.deptmt_name != null)
             this.selectedDept = filter.deptmt_name;
+        }
       }
     );
   }

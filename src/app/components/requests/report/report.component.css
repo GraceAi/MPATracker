@@ -8,9 +8,7 @@
   width: 100%;
   background-color: #dcdcdc;
 }
-.container{
-  margin-top:10px;
-}
+
 .reportContainer{
   background-color: inherit;
 }
@@ -25,4 +23,8 @@
 
 .report-list .mat-list-item{
   height:68px;
+}
+
+a{
+  color:#fff;
 }

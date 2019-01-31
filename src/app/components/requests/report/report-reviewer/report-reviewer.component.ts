@@ -10,21 +10,20 @@ import { RequestService } from '../../../../services/request.service';
   templateUrl: './report-reviewer.component.html',
   styleUrls: ['./report-reviewer.component.css']
 })
-export class ReportReviewerComponent implements OnInit , OnDestroy {
-  subtitle:string;
-  subscription:any;
+export class ReportReviewerComponent implements OnInit {
   constructor(private authService: AuthenticationService,
               private requestService: RequestService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.resetData();
-    this.subtitle = "Assigned Request By Reviewer";
-    this.displayReportData();
+    this.route.data
+        .subscribe((data: { subtitle: string }) => {
+          this.authService.setReportTitle(data.subtitle);
+        });
   }
 
-  displayReportData(){
+  /*displayReportData(){
     this.subscription = this.authService.reportFilter.subscribe(
       filter => {
         let reportData = [];
@@ -59,13 +58,9 @@ export class ReportReviewerComponent implements OnInit , OnDestroy {
     this.authService.setReportColumn([]);
   }
 
-  printReport(){
-    this.router.navigate(['/report/print/' + this.subtitle]);
-  }
-
   ngOnDestroy() {
     if(this.subscription != null)
       this.subscription.unsubscribe();
-  }
+  }*/
 
 }

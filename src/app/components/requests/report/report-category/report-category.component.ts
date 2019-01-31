@@ -10,7 +10,7 @@ import { RequestService } from '../../../../services/request.service';
   templateUrl: './report-category.component.html',
   styleUrls: ['./report-category.component.css']
 })
-export class ReportCategoryComponent implements OnInit, OnDestroy {
+export class ReportCategoryComponent implements OnInit {
   subtitle:string;
   subscription:any;
   constructor(private authService: AuthenticationService,
@@ -19,12 +19,16 @@ export class ReportCategoryComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.resetData();
-    this.subtitle = "Requests by Category";
-    this.displayReportData();
+    //this.resetData();
+    //this.subtitle = "Requests by Category";
+    //this.displayReportData();
+    this.route.data
+        .subscribe((data: { subtitle: string }) => {
+          this.authService.setReportTitle(data.subtitle);
+        });
   }
 
-  displayReportData(){
+  /*displayReportData(){
     this.subscription = this.authService.reportFilter.subscribe(
       filter => {
         let reportData = [];
@@ -54,10 +58,6 @@ export class ReportCategoryComponent implements OnInit, OnDestroy {
     });
   }
 
-  printReport(){
-    this.router.navigate(['/report/print/' + this.subtitle]);
-  }
-
   ngOnDestroy() {
     if(this.subscription != null)
       this.subscription.unsubscribe();
@@ -67,6 +67,6 @@ export class ReportCategoryComponent implements OnInit, OnDestroy {
     this.authService.resetChartData();
     this.authService.setReportData([]);
     this.authService.setReportColumn([]);
-  }
+  }*/
 
 }

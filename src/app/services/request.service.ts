@@ -431,7 +431,12 @@ export class RequestService {
   }
 
   getCategoryRequestReportData(criteria:any): Observable<any>{
-    const url = this.erdTrackerServicesUrl + "Request/GetAllTasks"; //GetAllTasks
+    let body = JSON.stringify(criteria);
+    const url = this.erdTrackerServicesUrl + "Report/GetReportByCategory";
+    return this.http.post(url, body, this.httpOptions).pipe(
+      catchError(this.handleError('getReportByCategory', []))
+    );
+    /*const url = this.erdTrackerServicesUrl + "Request/GetAllTasks"; //GetAllTasks
     return this.http.get<any>(url).pipe(
       map(
         result => {
@@ -450,11 +455,16 @@ export class RequestService {
           );
         }
       )
-    )
+    )*/
   }
 
   getRequesterRequestReportData(criteria:any): Observable<any>{
-    const url = this.erdTrackerServicesUrl + "Request/GetAllTasks"; //GetAllTasks
+    let body = JSON.stringify(criteria);
+    const url = this.erdTrackerServicesUrl + "Report/GetReportByRequester";
+    return this.http.post(url, body, this.httpOptions).pipe(
+      catchError(this.handleError('getReportByRequester', []))
+    );
+    /*const url = this.erdTrackerServicesUrl + "Request/GetAllTasks"; //GetAllTasks
     return this.http.get<any>(url).pipe(
       map(
         result => {
@@ -473,7 +483,7 @@ export class RequestService {
           );
         }
       )
-    )
+    )*/
   }
 
   getReviewerRequestReportData(criteria:any): Observable<any>{

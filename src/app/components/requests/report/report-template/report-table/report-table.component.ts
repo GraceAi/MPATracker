@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatSort, MatTableDataSource} from '@angular/material';
 import { filter } from 'rxjs/operators';
 
-import { AuthenticationService } from '../../../../services/authentication.service';
+import { AuthenticationService } from '../../../../../services/authentication.service';
 
 @Component({
   selector: 'app-report-table',
@@ -20,19 +20,21 @@ export class ReportTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription_column = this.authService.reportColumn
-    .pipe(filter((val) => val.length > 0))
+    .pipe(filter((val) => val!== null))
     .subscribe(columns => {
       this.displayedColumns = columns;
     });
     this.subscription_data = this.authService.reportData
-    .pipe(filter((data) => data!== null))
+    //.pipe(filter((data) => data!== null))
     .subscribe(data => {
+      console.log(data);
       this.reportDataSource = new MatTableDataSource(data);
       this.reportDataSource.sort = this.sort;
     });
   }
 
   ngOnDestroy() {
+    console.log("table destroyed");
     this.subscription_column.unsubscribe();
     this.subscription_data.unsubscribe();
   }

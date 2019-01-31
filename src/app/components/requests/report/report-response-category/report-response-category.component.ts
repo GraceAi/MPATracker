@@ -10,22 +10,26 @@ import { RequestService } from '../../../../services/request.service';
   templateUrl: './report-response-category.component.html',
   styleUrls: ['./report-response-category.component.css']
 })
-export class ReportResponseCategoryComponent implements OnInit, OnDestroy {
-  subtitle:string;
-  subscription:any;
+export class ReportResponseCategoryComponent implements OnInit {
+  //subtitle:string;
+  //subscription:any;
   constructor(private authService: AuthenticationService,
               private requestService: RequestService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.resetData();
-    this.subtitle = "Response Time By Category";
+    //this.resetData();
+    //this.subtitle = "Response Time By Category";
 
-    this.displayReportData();
+    //this.displayReportData();
+    this.route.data
+        .subscribe((data: { subtitle: string }) => {
+          this.authService.setReportTitle(data.subtitle);
+        });
   }
 
-  displayReportData(){
+  /*displayReportData(){
     this.subscription = this.authService.reportFilter.subscribe(
       filter => {
         let reportData = [];
@@ -61,14 +65,9 @@ export class ReportResponseCategoryComponent implements OnInit, OnDestroy {
     this.authService.setReportColumn([]);
   }
 
-  printReport(){
-    this.router.navigate(['/report/print/' + this.subtitle]);
-  }
-
   ngOnDestroy() {
-
     if(this.subscription != null)
       this.subscription.unsubscribe();
-  }
+  }*/
 
 }

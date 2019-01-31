@@ -65,11 +65,11 @@ const routes: Routes = [
            {path: 'tab/6', component: ReportComponent,canActivate: [ReportViewerAuthGuard], data : { title : 'Reports'},
                children: [
                  {path: '', redirectTo: 'category', pathMatch: 'full'},
-                 {path: 'category', component: ReportCategoryComponent, pathMatch: 'full'},
-                 {path: 'requester', component: ReportRequesterComponent, pathMatch: 'full'},
-                 {path: 'reviewer', component: ReportReviewerComponent, pathMatch: 'full'},
-                 {path: 'categorytime', component: ReportResponseCategoryComponent, pathMatch: 'full'},
-                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full'}
+                 {path: 'category', component: ReportCategoryComponent, pathMatch: 'full', data : { subtitle : 'Requests by Category'}},
+                 {path: 'requester', component: ReportRequesterComponent, pathMatch: 'full', data : { subtitle : 'Requests by Requester'}},
+                 {path: 'reviewer', component: ReportReviewerComponent, pathMatch: 'full', data : { subtitle : 'Assigned Request By Reviewer'}},
+                 {path: 'categorytime', component: ReportResponseCategoryComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Category'}},
+                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Reviewer'}}
                ]},
            {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Admin Settings'},
                children: [
@@ -97,7 +97,7 @@ const routes: Routes = [
                 {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'}
               ]
   },
-  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, canActivate: [RequestDetailAuthGuard], data : { title : 'Project Detail'},
+  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, data : { title : 'Project Detail'},
           children: [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
                 {path: 'general', component: ProjectGeneralInfoComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},

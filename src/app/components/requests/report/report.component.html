@@ -3,6 +3,11 @@
   <mat-sidenav-container class="reportContainer">
     <mat-sidenav mode="side" opened class="sidenav">
       <mat-nav-list class="report-list">
+        <!--<a mat-list-item [routerLinkActive]="['active']" title="View total number of requests by category" >Requests by Category</a>
+        <a mat-list-item [routerLinkActive]="['active']" title="View total number of requests by requester">Requests by Requester</a>
+        <a mat-list-item [routerLinkActive]="['active']" (click)="displayReviewerReport()" title="View total number of assigned/pending requests by reviewer">Assigned Requests by Reviewer</a>
+        <a mat-list-item [routerLinkActive]="['active']" (click)="displayCatResponseReport()" title="View minimum/average/maximum response time by category">Min/Avg/Max response time by Category</a>
+        <a mat-list-item [routerLinkActive]="['active']" title="View minimum/average/maximum response time by reviewer">Min/Avg/Max response time by Reviewer</a>-->
         <a mat-list-item [routerLinkActive]="['active']" routerLink="./category" title="View total number of requests by category" >Requests by Category</a>
         <a mat-list-item [routerLinkActive]="['active']" routerLink="./requester" title="View total number of requests by requester">Requests by Requester</a>
         <a mat-list-item [routerLinkActive]="['active']" routerLink="./reviewer" title="View total number of assigned/pending requests by reviewer">Assigned Requests by Reviewer</a>
@@ -11,7 +16,14 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
+      <div class="center-div page-title">{{subtitle}}</div>
       <router-outlet></router-outlet>
+      <div class="center-div">
+        <button type="button" class="btn btn-secondary" title="View/Print report"><i class="fa fa-files-o"></i>
+          <a routerLink="/report/print/{{subtitle}}"  [queryParams]="{start_date: filter.start_date, end_date: filter.end_date, requester: filter.requestor_id,
+            category: filter.cat_id, reviewer: filter.reviewer_id, dept:filter.deptmt_id}" target="_blank">View/Print Report</a>
+        </button>
+      </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>

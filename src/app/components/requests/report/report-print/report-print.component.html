@@ -23,7 +23,7 @@
         <div class="form-group row col-lg-6">
           <div class="col-sm-3 col-form-label">Request Date: </div>
           <div class="col-sm-4  col-form-label">{{criteria.start_date | date: 'shortDate'}}</div>
-          <div class="col-sm-1">-</div>
+          <div class="col-lg-1 col-md-1 col-sm-1 col-form-label form-label-center">to</div>
           <div class="col-sm-4  col-form-label">{{criteria.end_date | date: 'shortDate'}}</div>
         </div>
         <div class="form-group row col-lg-6">
@@ -34,24 +34,31 @@
       <div class="form-row">
         <div class="form-group row col-lg-6">
           <div class="col-sm-4 col-form-label">Category: </div>
-          <div class="col-sm-8 col-form-label">{{criteria.category_code}}</div>
+          <div class="col-sm-8 col-form-label">{{criteria.category_name}}</div>
         </div>
         <div class="form-group row col-lg-6">
           <div class="col-sm-3 col-form-label">Reviewer: </div>
           <div class="col-sm-8 col-form-label">{{criteria.reviewer_name}}</div>
         </div>
       </div>
+      <div class="form-row">
+        <div class="form-group row col-lg-6">
+          <div class="col-sm-4 col-form-label">Department: </div>
+          <div class="col-sm-8 col-form-label">{{criteria.deptmt_name}}</div>
+        </div>
+      </div>
     </div>
 
     <h3>Report Chart & Table</h3>
-    <div class = "row">
+    <app-report-template></app-report-template>
+    <!-- <div class = "row">
       <div class="col-xl-6">
         <app-chart></app-chart>
       </div>
       <div class="col-xl-6">
         <app-report-table></app-report-table>
       </div>
-    </div>
+    </div> -->
 
     <div class="center-div">
       <a href="javascript:;" (click)="printReport()">Print Page</a>

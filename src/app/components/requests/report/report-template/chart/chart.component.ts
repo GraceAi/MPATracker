@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import {Chart} from 'chart.js';
 import { filter } from 'rxjs/operators';
 
-import { AuthenticationService } from '../../../../services/authentication.service';
+import { AuthenticationService } from '../../../../../services/authentication.service';
 
 @Component({
   selector: 'app-chart',
@@ -16,7 +16,6 @@ export class ChartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription = this.authService.chartData
-    //.pipe(filter((val) => val !== null ))
     .subscribe(data => {
       if(this.chart != null){
         this.chart.destroy();
@@ -30,6 +29,7 @@ export class ChartComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log("chart destroyed");
     this.subscription.unsubscribe();
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, forkJoin, BehaviorSubject} from 'rxjs';
+import { Subject, Observable, of, forkJoin, BehaviorSubject} from 'rxjs';
 import { catchError, mergeMap } from 'rxjs/operators';
 
 import { EnvironmentSetting, User, Role, Tab, SideTab, Status, Department, Location, Category, Contact, Firm, ProjectSize} from '../classes/domain';
@@ -13,22 +13,25 @@ export class AuthenticationService {
   private titleSource = new BehaviorSubject('');
   pageTitle = this.titleSource.asObservable();
 
+  private reportTitleSource = new BehaviorSubject('');
+  reportTitle = this.reportTitleSource.asObservable();
+
   private unlockChangeSource = new BehaviorSubject(false);
   unlocked = this.unlockChangeSource.asObservable();
 
-  private reportDataSource = new BehaviorSubject([]);
+  private reportDataSource = new Subject<any>();
   reportData = this.reportDataSource.asObservable();
 
-  private reportColumnSource = new BehaviorSubject([]);
+  private reportColumnSource = new Subject<any>();
   reportColumn = this.reportColumnSource.asObservable();
 
-  private chartDataSource = new BehaviorSubject(null);
+  private chartDataSource = new Subject<any>();
   chartData = this.chartDataSource.asObservable();
 
   private filterDataSource = new BehaviorSubject(new ReportFilter());
   reportFilter = this.filterDataSource.asObservable();
 
-  private projectDataSource = new BehaviorSubject(null);
+  private projectDataSource = new Subject<any>();
   projectData = this.projectDataSource.asObservable();
 
   private projectFilterDataSource = new BehaviorSubject(new Project());
@@ -129,6 +132,10 @@ export class AuthenticationService {
       this.titleSource.next(title);
   }
 
+  setReportTitle(title: string) {
+      this.reportTitleSource.next(title);
+  }
+
   setUnlock(unlock:boolean){
     this.unlockChangeSource.next(unlock);
   }
@@ -141,7 +148,7 @@ export class AuthenticationService {
   setReportData(data:any){
     this.reportDataSource.next(data);
   }
-  setReportColumn(column:string[]){
+  setReportColumn(column:any){
     this.reportColumnSource.next(column);
   }
   setPieChartData(data:any, labels:any, colors: any){

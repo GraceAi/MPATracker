@@ -47,8 +47,8 @@ import { AdminSidetabsComponent } from './components/requests/admin/admin-sideta
 import { AddCategoryDialog } from './components/modals/dialog-addcategory/dialog-addcategory';
 import { ReportComponent } from './components/requests/report/report.component';
 import { FilterComponent } from './components/requests/report/filter/filter.component';
-import { ChartComponent } from './components/requests/report/chart/chart.component';
-import { ReportTableComponent } from './components/requests/report/report-table/report-table.component';
+import { ChartComponent } from './components/requests/report/report-template/chart/chart.component';
+import { ReportTableComponent } from './components/requests/report/report-template/report-table/report-table.component';
 import { ReportPrintComponent } from './components/requests/report/report-print/report-print.component';
 import { pwlinkValidatorDirective } from './components/directives/pw-name.directive';
 import { contactEmailValidatorDirective } from './components/directives/contact-validator.directive';
@@ -81,6 +81,7 @@ import { ProjectManagersComponent } from './components/projects/project-detail/p
 import { ProcurementPhaseComponent } from './components/projects/project-detail/procurement-phase/procurement-phase.component';
 import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
 import { NewFirmDialog } from './components/modals/dialog-newfirm/dialog-newfirm';
+import { ReportTemplateComponent } from './components/requests/report/report-template/report-template.component';
 
 
 @NgModule({
@@ -147,7 +148,8 @@ import { NewFirmDialog } from './components/modals/dialog-newfirm/dialog-newfirm
     ProjectManagersComponent,
     ProcurementPhaseComponent,
     ConstructionPhaseComponent,
-    NewFirmDialog
+    NewFirmDialog,
+    ReportTemplateComponent
 
   ],
   imports: [

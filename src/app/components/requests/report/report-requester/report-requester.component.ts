@@ -2,30 +2,29 @@ import { Component, OnInit, OnDestroy} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { AuthenticationService } from '../../../../services/authentication.service';
-import { ReportData } from '../../../../classes/report';
-import { RequestService } from '../../../../services/request.service';
 
 @Component({
   selector: 'app-report-requester',
   templateUrl: './report-requester.component.html',
   styleUrls: ['./report-requester.component.css']
 })
-export class ReportRequesterComponent implements OnInit, OnDestroy {
-  subtitle:string;
-  subscription:any;
+export class ReportRequesterComponent implements OnInit {
   constructor(private authService: AuthenticationService,
-              private requestService: RequestService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.resetData();
-    this.subtitle = "Requests by Requester";
+    //this.resetData();
+    //this.subtitle = "Requests by Requester";
 
-    this.displayReportData();
+    //this.displayReportData();
+    this.route.data
+        .subscribe((data: { subtitle: string }) => {
+          this.authService.setReportTitle(data.subtitle);
+        });
   }
 
-  displayReportData(){
+  /*displayReportData(){
     this.subscription = this.authService.reportFilter.subscribe(
       filter => {
         let reportData = [];
@@ -56,10 +55,6 @@ export class ReportRequesterComponent implements OnInit, OnDestroy {
       });
   }
 
-  printReport(){
-    this.router.navigate(['/report/print/' + this.subtitle]);
-  }
-
   ngOnDestroy() {
     if(this.subscription != null)
       this.subscription.unsubscribe();
@@ -69,6 +64,6 @@ export class ReportRequesterComponent implements OnInit, OnDestroy {
     this.authService.resetChartData();
     this.authService.setReportData([]);
     this.authService.setReportColumn([]);
-  }
+  }*/
 
 }
