@@ -26,7 +26,6 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     .pipe(
       mergeMap(result =>{
         this.reportType = result;
-        console.log(this.reportType);
         return this.authService.reportFilter.pipe(
           mergeMap(filter => {
             return this.loadReportData(filter)
@@ -208,16 +207,9 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     this.authService.setReportData([]);
   }
 
-  clearReport() {
-    this.authService.resetChartData();
-    this.authService.setReportData(null);
-    this.authService.setReportColumn(null);
-  }
-
   ngOnDestroy() {
     if(this.subscription != null){
       this.subscription.unsubscribe();
-      console.log("template unsubscribed");
     }
   }
 }
