@@ -106,6 +106,7 @@ export class DocumentComponent implements OnInit {
         doc.request_id = this.request_id;
         this.requestService.deleteRequestDocument(doc, this.sequence_id).subscribe(result => {
           if(result.length >= 0){
+            this.documents =result;
             this.documentDataSource = new MatTableDataSource(result);
             this.documentDataSource.sort = this.sort;
           }
@@ -127,6 +128,7 @@ export class DocumentComponent implements OnInit {
         doc.document_id = element.document_id;
         this.requestService.updateRequestDocument(doc).subscribe(result => {
           if(result.length >= 0){
+            this.documents =result;
             this.documentDataSource = new MatTableDataSource(result);
             this.documentDataSource.sort = this.sort;
           }
