@@ -32,18 +32,6 @@ export class ProjectTableComponent implements OnInit, OnDestroy {
         return this.authService.projectFilter
       })
     )
-    /*this.authService.pageTitle
-    .pipe(
-      mergeMap(result =>{
-        //this.projectType = result;
-        return this.loadProjectData().pipe(
-          mergeMap(data => {
-            this.datasource = data;
-            return this.authService.projectFilter
-          })
-        )}
-      )
-    )*/
     .subscribe(filter => {
       this.displayProjectData(filter);
     });
@@ -61,8 +49,6 @@ export class ProjectTableComponent implements OnInit, OnDestroy {
   displayProjectData(filter:any){
     this.projectFilter = filter;
     this.isLoading = false;
-    console.log(filter);
-    console.log(this.datasource);
     if(this.datasource !== null){
       this.projectDataSource = new MatTableDataSource(this.datasource);
       this.projectDataSource.sort = this.sort;
