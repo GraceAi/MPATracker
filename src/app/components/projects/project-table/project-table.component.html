@@ -34,4 +34,10 @@
     <tr mat-header-row *matHeaderRowDef="projectColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let row; columns: projectColumns;"></tr>
   </table>
+  <div *ngIf="isLoading" class="table-spinner">
+    <mat-progress-spinner
+      color="warn"
+      mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
 </div>

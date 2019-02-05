@@ -1,7 +1,6 @@
 import { Component, OnInit , OnDestroy} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { mergeMap, switchMap } from 'rxjs/operators';
-import { iif } from 'rxjs';
+import { mergeMap } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../../../services/authentication.service';
 import { ReportFilter, ReportData } from '../../../../classes/report';

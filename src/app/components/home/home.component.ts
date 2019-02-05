@@ -25,13 +25,12 @@ export class HomeComponent implements OnInit {
             this.tabs = data.tabs;
             //let max_tabid = Math.max.apply(Math, this.tabs.map(function(o) { return o.tab_id; }));
             //this.selectedTab = this.tabs.find(item => +(item.tab_id) == max_tabid);
-            let index = 0;
             if(!this.router.url.includes("tab")){
               if(this.tabs[0].tab_id == 4){
                 this.router.navigate(['/home/tab/' + this.tabs[1].tab_id]);
               }
               else{
-                this.router.navigate(['/home/tab/' + this.tabs[0].tab_id]);
+                this.router.navigate(['/home/tab/0']);// + this.tabs[0].tab_id]);
               }
             }
           }

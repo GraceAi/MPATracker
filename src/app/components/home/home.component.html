@@ -1,5 +1,8 @@
 <app-navbar></app-navbar>
 <ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" [routerLinkActive]="['active']" routerLink="./tab/0" title="home"><b>Overview</b></a>
+  </li>
   <li class="nav-item" *ngFor="let tab of tabs">
     <a class="nav-link" [routerLinkActive]="['active']" routerLink="./tab/{{tab.tab_id}}" title={{tab.tab_desc}}><b>{{tab.tab_name}}</b></a>
   </li>

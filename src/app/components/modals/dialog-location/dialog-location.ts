@@ -29,21 +29,23 @@ export class LocationMapDialog  {
       let deleted = false;
       // GraphicsLayer to hold graphics created via sketch view model
       const tempGraphicsLayer = new GraphicsLayer();
-      if(data.length > 0){
-        tempGraphicsLayer.addMany(data);
+      if(data.graphics.length > 0){
+        tempGraphicsLayer.addMany(data.graphics);
       }
-      /*var layer = new TileLayer({
-                      url: "https://geodata.md.gov/imap/rest/services/Transportation/MD_ColorBasemap/MapServer"
-                    });
-      let basemap = new Basemap({
-        baseLayers: [layer]
+      var baseLayer = new TileLayer({
+          url: data.baselayer,
+          id: "streets",
+          visibility: true
       });
+
       this.map = new Map({
-              basemap: basemap
-            });*/
-      this.map = new Map({
-              basemap: 'streets'
-            });
+        basemap: new Basemap({
+          baseLayers: [baseLayer]
+        })
+      });
+      // this.map = new Map({
+      //         basemap: 'streets'
+      //       });
       this.map.add(tempGraphicsLayer);
       const view = new MapView({
         container: "map",

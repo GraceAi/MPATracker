@@ -47,12 +47,15 @@ import { ProjectManagersComponent } from './components/projects/project-detail/p
 import { ProcurementPhaseComponent } from './components/projects/project-detail/procurement-phase/procurement-phase.component';
 import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
 
+import { IntroductionComponent } from './components/introduction/introduction.component';
+
 const routes: Routes = [
   //{ path: '**', component: PageNotFoundComponent },
   { path: 'unauthorized', component: PageNotAuthorizedComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, resolve: { tabs: RequestResolver },
          children: [
+           {path: 'tab/0', component: IntroductionComponent, pathMatch: 'full', data : { title : 'Overview'}},
            {path: 'tab/1', component: RequesterRequestComponent, canActivate: [RequesterAuthGuard], pathMatch: 'full', data : { title : 'My Request List'}},
            {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'Requests for Review'}},
            {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'Requests for Assignment'}},
@@ -97,7 +100,7 @@ const routes: Routes = [
                 {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'}
               ]
   },
-  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, data : { title : 'Project Detail'},
+  { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, canActivate: [RequestDetailAuthGuard], data : { title : 'Project Detail'},
           children: [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
                 {path: 'general', component: ProjectGeneralInfoComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},

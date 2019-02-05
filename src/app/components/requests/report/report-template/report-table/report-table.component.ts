@@ -14,6 +14,7 @@ export class ReportTableComponent implements OnInit, OnDestroy {
   reportDataSource:any;
   private subscription_column:any;
   private subscription_data:any;
+  isLoading = true;
 
   @ViewChild(MatSort) sort: MatSort;
   constructor(private authService: AuthenticationService) { }
@@ -27,6 +28,7 @@ export class ReportTableComponent implements OnInit, OnDestroy {
     this.subscription_data = this.authService.reportData
     //.pipe(filter((data) => data!== null))
     .subscribe(data => {
+      this.isLoading = false;
       this.reportDataSource = new MatTableDataSource(data);
       this.reportDataSource.sort = this.sort;
     });

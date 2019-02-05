@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Project } from '../../../classes/project';
 import { Firm } from '../../../classes/domain';
@@ -9,7 +9,7 @@ import {AuthenticationService} from '../../../services/authentication.service';
   templateUrl: './search-panel.component.html',
   styleUrls: ['./search-panel.component.css']
 })
-export class ProjectSearchPanelComponent implements OnInit, OnDestroy  {
+export class ProjectSearchPanelComponent implements OnInit  {
   searchCriteria = new Project();
   firms:Firm[];
   selectedFirm:string = "All";
@@ -39,10 +39,6 @@ export class ProjectSearchPanelComponent implements OnInit, OnDestroy  {
     this.searchCriteria = new Project();
     this.selectedFirm = "All";
     this.authService.setProjectFilter(this.searchCriteria);
-  }
-  ngOnDestroy() {
-    //this.searchCriteria = new Project();
-    //this.authService.setProjectFilter(this.searchCriteria);
   }
 
 }

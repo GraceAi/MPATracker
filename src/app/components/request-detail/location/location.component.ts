@@ -20,6 +20,7 @@ export class LocationComponent implements OnInit {
   category_id:number;
   hide:boolean = true;
   map: any;
+  tempGraphicsLayer:any;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -48,10 +49,9 @@ export class LocationComponent implements OnInit {
       'esri/widgets/Track'
       ])
       .then(([Map,Basemap, MapView, Graphic, Point, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
-        const tempGraphicsLayer = new GraphicsLayer();
+        this.tempGraphicsLayer = new GraphicsLayer();
         let ptFeatureLayer = new FeatureLayer({
           url: this.authService.appSettings.pt_feature_layer,
-          //url: "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/ks_earthquakes_since_2000/FeatureServer/0",
           outFields: ["*"],
           visible: false
         });
@@ -60,21 +60,24 @@ export class LocationComponent implements OnInit {
           outFields: ["*"],
           visible: false
         });
-        /*var layer = new TileLayer({
-                        url: this.authService.appSettings.base_layer
-                      });
-        let basemap = new Basemap({
-          baseLayers: [layer]
+
+        var baseLayer = new TileLayer({
+            url: this.authService.appSettings.base_layer,
+            id: "streets",
+            visibility: true
         });
+
         this.map = new Map({
-                basemap: basemap
-              });*/
-        this.map = new Map({
+          basemap: new Basemap({
+            baseLayers: [baseLayer]
+          })
+        });
+        /*this.map = new Map({
                 basemap: 'streets'
-              });
+              });*/
         this.map.add(ptFeatureLayer);
         this.map.add(polyFeatureLayer);
-        this.map.add(tempGraphicsLayer);
+        this.map.add(this.tempGraphicsLayer);
         let view = new MapView({
               container: "mapDiv",
               map: this.map,
@@ -101,7 +104,7 @@ export class LocationComponent implements OnInit {
                   };
                   return graphic;
                 });
-                tempGraphicsLayer.addMany(features);
+                this.tempGraphicsLayer.addMany(features);
                 /*view.goTo({
                    target: result.features,
                    zoom: 10
@@ -127,7 +130,7 @@ export class LocationComponent implements OnInit {
                   };
                   return graphic;
                 });
-                tempGraphicsLayer.addMany(features);
+                this.tempGraphicsLayer.addMany(features);
                 /*view.goTo({
                    target: result.features,
                    zoom: 10
@@ -136,8 +139,8 @@ export class LocationComponent implements OnInit {
            })
           });
 
-          view.whenLayerView(tempGraphicsLayer).then(function(layerView){
-            console.log(tempGraphicsLayer.graphics.items);
+          view.whenLayerView(this.tempGraphicsLayer).then(function(layerView){
+            console.log(this.tempGraphicsLayer.graphics.items);
             /*if(tempGraphicsLayer.graphics.items.length > 0){
               view.goTo({
                  target: tempGraphicsLayer.graphics.items,
@@ -148,11 +151,11 @@ export class LocationComponent implements OnInit {
       })
   }
   openLocationDialog() {
-    const dialogRef = this.dialog.open(LocationMapDialog, { data: this.map.layers.items[2].graphics.items, width: '900px', height: '700px'});
+    const dialogRef = this.dialog.open(LocationMapDialog, { data: { graphics: this.map.layers.items[2].graphics.items, baselayer: this.authService.appSettings.base_layer }, width: '900px', height: '700px'});
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         let new_points:RequestLocation[] = [];
-          let new_polygons:RequestLocation[] = [];
+        let new_polygons:RequestLocation[] = [];
           for(let g of result){
             let new_location = new RequestLocation();
             new_location.request_id = this.request_id;
@@ -165,14 +168,40 @@ export class LocationComponent implements OnInit {
             }
           }
           this.requestService.updateLocationPt(new_points, this.request_id).subscribe(result => {
-            if(result)
+            if(result){
+              console.log(result);
+              // First create a point geometry (this is the location of the Titanic)
+              /*var point = {
+                type: "point", // autocasts as new Point()
+                longitude: -49.97,
+                latitude: 41.73
+              };
+
+              // Create a symbol for drawing the point
+              var markerSymbol = {
+                type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                color: [226, 119, 40],
+                outline: { // autocasts as new SimpleLineSymbol()
+                  color: [255, 255, 255],
+                  width: 2
+                }
+              };
+              // Create a graphic and add the geometry and symbol to it
+              var pointGraphic = new Graphic({
+                geometry: point,
+                symbol: markerSymbol
+              });
+              this.tempGraphicsLayer.add(pointGraphic);*/
+            }
             //console.log(result);
-              location.reload();
+              //location.reload();
           });
           this.requestService.updateLocationPoly(new_polygons, this.request_id).subscribe(result => {
-            if(result)
-              //console.log(result);
-              location.reload();
+            if(result){
+              console.log(result);
+            }
+              //
+              //location.reload();
           });
       }
     });

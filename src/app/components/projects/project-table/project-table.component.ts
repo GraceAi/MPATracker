@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, EventEmitter, Input, Output } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatProgressSpinner } from '@angular/material';
+import { mergeMap } from 'rxjs/operators';
 
 import { Project } from '../../../classes/project';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -13,48 +14,72 @@ import { ProjectService } from '../../../services/project.service';
 export class ProjectTableComponent implements OnInit, OnDestroy {
   @Output() resultCount = new EventEmitter<number>();
   @Input() role_id: number;
+  projectType:any;
+  datasource:any;
   projectDataSource:any = null;
   projectColumns: string[] = ['project_no', 'contract_no', 'firm_name', 'description', 'mpa_contact', 'str_managers'];
-  private subscription:any;
-  private subscription2:any;
+  subscription:any;
   projectFilter:any;
+  isLoading = true;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private authService: AuthenticationService,
               private projectService: ProjectService) { }
 
   ngOnInit() {
-    this.getDatasource()
-    this.displayProjects();
+    this.subscription = this.loadProjectData().pipe(
+      mergeMap(data => {
+        this.datasource = data;
+        return this.authService.projectFilter
+      })
+    )
+    /*this.authService.pageTitle
+    .pipe(
+      mergeMap(result =>{
+        //this.projectType = result;
+        return this.loadProjectData().pipe(
+          mergeMap(data => {
+            this.datasource = data;
+            return this.authService.projectFilter
+          })
+        )}
+      )
+    )*/
+    .subscribe(filter => {
+      this.displayProjectData(filter);
+    });
   }
-  getDatasource(){
-    this.subscription2 = this.authService.projectData
-    .subscribe(
-      projectData => {
-        console.log(projectData);
-        if(projectData !== null){
-          this.projectDataSource = new MatTableDataSource(projectData);
-          this.resultCount.emit(projectData.length);
-          this.projectDataSource.sort = this.sort;
-          this.projectFilter = new Project();
-          this.projectDataSource.filterPredicate =
-            (data: Project, filters: string) => {
-              return this.getFilterResult(data, filters);
-            }
-        }
 
-      });
+  loadProjectData(){
+    if (this.role_id == 6) {
+        return this.projectService.getProjectsByManager();
+    }
+    else if (this.role_id == 7) {
+        return this.projectService.getAllProjects();
+    }
   }
-  displayProjects(){
-    this.subscription = this.authService.projectFilter.subscribe(
-      filter => {
-        console.log(filter);
-        this.projectFilter = filter;
-        if(this.projectDataSource !== null){
-          this.projectDataSource.filter = JSON.stringify(filter);
-          this.resultCount.emit(this.projectDataSource.filteredData.length);
+
+  displayProjectData(filter:any){
+    this.projectFilter = filter;
+    this.isLoading = false;
+    console.log(filter);
+    console.log(this.datasource);
+    if(this.datasource !== null){
+      this.projectDataSource = new MatTableDataSource(this.datasource);
+      this.projectDataSource.sort = this.sort;
+      this.projectDataSource.filterPredicate =
+        (data: Project, filters: string) => {
+          return this.getFilterResult(data, filters);
         }
-      });
+      if(this.projectFilter != null){
+        this.projectDataSource.filter = JSON.stringify(this.projectFilter);
+        this.resultCount.emit(this.projectDataSource.filteredData.length);
+      }
+      else{
+        this.resultCount.emit(this.projectDataSource.length);
+      }
+    }
   }
+
   getFilterResult(data: Project, filters: string):boolean{
     let show = true;
 
@@ -94,7 +119,6 @@ export class ProjectTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
-    this.subscription2.unsubscribe();
   }
 
 }

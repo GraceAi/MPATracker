@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
+import { Project } from '../../../classes/project';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { ProjectService } from '../../../services/project.service';
 
@@ -9,8 +10,7 @@ import { ProjectService } from '../../../services/project.service';
   templateUrl: './manager-project.component.html',
   styleUrls: ['./manager-project.component.css']
 })
-export class ManagerProjectComponent implements OnInit, OnDestroy {
-  subscription:any;
+export class ManagerProjectComponent implements OnInit {
   resultCount:string;
   role_id:number = 6;
   constructor(private authService: AuthenticationService,
@@ -23,13 +23,7 @@ export class ManagerProjectComponent implements OnInit, OnDestroy {
         .subscribe((data: { title: string }) => {
           this.authService.setTitle(data.title);
         });
-    this.getManagerProjects();
-  }
-
-  getManagerProjects(){
-    this.subscription = this.projectService.getProjectsByManager().subscribe(result => {
-      this.authService.setProjectData(result);
-    })
+    this.authService.setProjectFilter(new Project());
   }
 
   searchResultCount(count:number) {
@@ -37,11 +31,6 @@ export class ManagerProjectComponent implements OnInit, OnDestroy {
       this.resultCount = count + " results";
     else if(count <= 1)
       this.resultCount = count + " result";
-  }
-
-  ngOnDestroy() {
-    if(this.subscription != null)
-      this.subscription.unsubscribe();
   }
 
 }

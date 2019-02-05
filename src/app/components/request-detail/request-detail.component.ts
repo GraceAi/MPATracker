@@ -92,26 +92,28 @@ export class RequestDetailComponent implements OnInit {
   }
 
   submitRequest() {
-    if (this.componentRef.generalInfo.notes !== this.componentRef.origGeneralInfo.notes || this.componentRef.generalInfo.high_priority !== this.componentRef.origGeneralInfo.high_priority
-      || this.componentRef.generalInfo.description !== this.componentRef.origGeneralInfo.description
-      || this.componentRef.generalInfo.location_id !== this.componentRef.origGeneralInfo.location_id || this.componentRef.generalInfo.deptmt_id !== this.componentRef.origGeneralInfo.deptmt_id) {
-        this.requestService.updateRequestGeneral(this.componentRef.generalInfo).subscribe(result => {
-          if(result == "Success"){
-            //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
-            this.componentRef.origGeneralInfo =  Object.assign({}, this.componentRef.generalInfo);
-            this.toastr.success('', 'General Info Changes Auto Saved', {timeOut: 3000});
+    if(this.componentRef.generalInfo != null){
+      if (this.componentRef.generalInfo.notes !== this.componentRef.origGeneralInfo.notes || this.componentRef.generalInfo.high_priority !== this.componentRef.origGeneralInfo.high_priority
+        || this.componentRef.generalInfo.description !== this.componentRef.origGeneralInfo.description
+        || this.componentRef.generalInfo.location_id !== this.componentRef.origGeneralInfo.location_id || this.componentRef.generalInfo.deptmt_id !== this.componentRef.origGeneralInfo.deptmt_id) {
+          this.requestService.updateRequestGeneral(this.componentRef.generalInfo).subscribe(result => {
+            if(result == "Success"){
+              //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
+              this.componentRef.origGeneralInfo =  Object.assign({}, this.componentRef.generalInfo);
+              this.toastr.success('', 'General Info Changes Auto Saved', {timeOut: 3000});
 
-            this.openSubmitRequestDialog();
-          }
-          else if(result.ok == false){
-            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
-          }
-        });
-      }
-      else {
-        this.openSubmitRequestDialog();
-      }
+              this.openSubmitRequestDialog();
+            }
+            else if(result.ok == false){
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            }
+          });
+        }
     }
+    else {
+      this.openSubmitRequestDialog();
+    }
+  }
 
   openSubmitRequestDialog(){
     const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Submit Request Confirmation", message: "Are you sure you want to submit this request?"}, width: '600px'});
@@ -166,7 +168,9 @@ export class RequestDetailComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
-        this.componentRef.origGeneralInfo =  Object.assign({}, this.componentRef.generalInfo);
+        if(this.componentRef.generalInfo != null){
+          this.componentRef.origGeneralInfo =  Object.assign({}, this.componentRef.generalInfo);
+        }
         this.requestService.deleteRequest(this.request_id).subscribe(result => {
           if(result.length >= 0){
             this.toHomePage();

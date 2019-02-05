@@ -3,7 +3,7 @@ import { NgModule, APP_INITIALIZER} from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, DatePipe } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {MatListModule, MatSidenavModule, MatExpansionModule, MatTableModule, MatSortModule, MatDialogModule} from '@angular/material';
+import {MatListModule, MatSidenavModule, MatExpansionModule, MatTableModule, MatSortModule, MatDialogModule, MatProgressSpinnerModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -82,6 +82,7 @@ import { ProcurementPhaseComponent } from './components/projects/project-detail/
 import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
 import { NewFirmDialog } from './components/modals/dialog-newfirm/dialog-newfirm';
 import { ReportTemplateComponent } from './components/requests/report/report-template/report-template.component';
+import { IntroductionComponent } from './components/introduction/introduction.component';
 
 
 @NgModule({
@@ -149,7 +150,8 @@ import { ReportTemplateComponent } from './components/requests/report/report-tem
     ProcurementPhaseComponent,
     ConstructionPhaseComponent,
     NewFirmDialog,
-    ReportTemplateComponent
+    ReportTemplateComponent,
+    IntroductionComponent
 
   ],
   imports: [
@@ -164,6 +166,7 @@ import { ReportTemplateComponent } from './components/requests/report/report-tem
     MatTableModule,
     MatSortModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
     AppRoutingModule,
     ToastrModule.forRoot() // ToastrModule added
   ],

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
@@ -13,8 +13,7 @@ import { NotificationDialog } from '../../../components/modals/dialog-notificati
   templateUrl: './admin-project.component.html',
   styleUrls: ['./admin-project.component.css']
 })
-export class AdminProjectComponent implements OnInit, OnDestroy{
-  subscription:any;
+export class AdminProjectComponent implements OnInit{
   resultCount:string;
   role_id:number = 7;
   constructor(private authService: AuthenticationService,
@@ -28,14 +27,7 @@ export class AdminProjectComponent implements OnInit, OnDestroy{
         .subscribe((data: { title: string }) => {
           this.authService.setTitle(data.title);
         });
-    this.getAdminProjects();
-    this.getAdminProjects();
-  }
-
-  getAdminProjects(){
-    this.subscription = this.projectService.getAllProjects().subscribe(result => {
-      this.authService.setProjectData(result);
-    })
+    this.authService.setProjectFilter(new Project());
   }
 
   openNewProjectDialog(){
@@ -60,11 +52,6 @@ export class AdminProjectComponent implements OnInit, OnDestroy{
       this.resultCount = count + " results";
     else if(count <= 1)
       this.resultCount = count + " result";
-  }
-
-  ngOnDestroy() {
-    if(this.subscription != null)
-      this.subscription.unsubscribe();
   }
 
 }

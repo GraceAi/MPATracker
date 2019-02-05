@@ -1,5 +1,5 @@
 import { Component, OnInit , Input, ViewChild, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
-import { MatSort, MatTableDataSource } from '@angular/material';
+import { MatSort, MatTableDataSource, MatProgressSpinner } from '@angular/material';
 
 import { ReturnedRequest } from '../../../classes/returnedrequest';
 import { RequestService } from '../../../services/request.service';
@@ -16,7 +16,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
   requestDataSource:any;
   requestFilter:any;
   columns: string[] = ['high_priority', 'sequence_id', 'create_date', 'requester', 'description', 'deptmt_name', 'location_name', 'category_code', 'str_reviewers', 'status_desc', 'complete_date'];
-
+  isLoading = true;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private requestService: RequestService) { }
 
@@ -38,6 +38,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
             this.getRequests();
           }
           else {
+            this.isLoading = false;
             this.requestFilter = JSON.parse(this.searchCriteria);
             this.requestDataSource.filter = this.searchCriteria;
             this.resultCount.emit(this.requestDataSource.filteredData.length);
@@ -70,6 +71,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
   }
 
   displayRequest(requests:any){
+    this.isLoading = false;
     this.requestDataSource = new MatTableDataSource(requests);
     this.requestDataSource.sort = this.sort;
     this.requestFilter = new ReturnedRequest();
