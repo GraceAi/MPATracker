@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="form-group row">
+  <div class="form-group row required">
     <label class="col-sm-3 col-form-label">Name</label>
     <div class="col-sm-9">
       <input #name="ngModel" required class="form-control" [(ngModel)]="category.category_name">
@@ -16,7 +16,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-group row required">
     <label class="col-sm-3 col-form-label">Code</label>
     <div class="col-sm-9">
       <input #code="ngModel" required appCategoryValidator={{currentCode}} class="form-control" [(ngModel)]="category.category_code">
@@ -30,7 +30,7 @@
       </div>
     </div>
   </div>
-  <div class="form-group row">
+  <div class="form-group row required">
     <label class="col-sm-3 col-form-label">Due Date</label>
     <div class="col-sm-4">
       <input #days="ngModel" required class="form-control" [(ngModel)]="category.max_request_days" type="number" min=1>
@@ -44,6 +44,6 @@
   </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary"  (click)="save()">OK</button>
+  <button type="button" class="btn btn-secondary" [disabled] = "name.invalid || code.invalid || days.invalid" (click)="save()">OK</button>
   <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
 </div>

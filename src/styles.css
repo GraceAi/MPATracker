@@ -80,9 +80,6 @@ app-report-print{
   overflow:inherit!important;
 
 }
-.form-check-input{
-  margin-left:0;
-}
 
 .mat-drawer{
     background-color:#f1f1f1;
@@ -146,6 +143,17 @@ app-report-print{
 .selected-row{
   background-color:#fbe1b4;
 }
+
+.form-group.required .col-form-label:after {
+  content:"*";
+  color:red;
+}
+
+.form-check-input{
+  margin-left:0;
+  margin-top:12px;
+}
+
 .form-group label{
   font-weight: bold;
 }
@@ -153,9 +161,6 @@ app-report-print{
   text-align:center!important;
 }
 
-.form-check-input{
-  margin-top:12px;
-}
 .dropdown-toggle{
   width:100%;
   text-align:left;

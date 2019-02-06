@@ -134,7 +134,7 @@ export class ConstructionPhaseComponent implements OnInit {
   openNewFirmDialog() {
     const dialogRef = this.dialog.open(NewFirmDialog, {width: '600px'});
     dialogRef.afterClosed().subscribe(newFirm => {
-      if(newFirm.email != null){
+      if(newFirm.firm_name != null){
         this.projectService.addNewFirm(newFirm).subscribe(res => {
           if(res.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
@@ -142,6 +142,7 @@ export class ConstructionPhaseComponent implements OnInit {
           else if(res > 0){
             this.domainService.getFirms(this.authService.appSettings.service_url)
                 .subscribe(result => {
+                  this.authService.firms = result;
                   this.firms = result;
                   this.selectedFirm = result.find(x => x.firm_id === res).firm_name;
                 });

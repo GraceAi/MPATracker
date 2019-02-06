@@ -29,11 +29,6 @@ export class ProjectDetailComponent implements OnInit {
   ngOnInit() {
     this.role_id = +this.route.snapshot.paramMap.get('roleId');
     this.project_id = +this.route.snapshot.paramMap.get('projectId');
-    this.projectService.getProjectInfoByProjectId(this.project_id).subscribe(result => {
-      if(result != null){
-        this.authService.setTitle("Project Number: " + result.project_number);
-      }
-    });
   }
 
   onActivate(componentRef){

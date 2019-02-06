@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="form-group">
+  <div class="form-group required">
     <label class="col-form-label">Add a comment</label>
     <textarea #comment="ngModel" class="form-control" rows="10" required [(ngModel)]="comment_text"></textarea>
     <div *ngIf="comment.invalid && (comment.dirty || comment.touched)" class="validate-error">
@@ -17,6 +17,6 @@
 </div>
 <div class="modal-footer">
   <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
-  <button type="button" class="btn btn-secondary" mat-dialog-close={{comment_text}}>OK</button>
+  <button type="button" class="btn btn-secondary" [disabled] = "comment.invalid" mat-dialog-close={{comment_text}}>OK</button>
   <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
 </div>

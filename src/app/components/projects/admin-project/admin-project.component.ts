@@ -34,7 +34,7 @@ export class AdminProjectComponent implements OnInit{
     const dialogRef = this.dialog.open(NewProjectDialog, { data: {users: this.authService.allUsers, firms: this.authService.firms }, width: '635px'});
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if(result.project_number){
         document.querySelector("body").style.cssText = "cursor: wait";
         this.projectService.createNewProject(result).subscribe(res => {
           document.querySelector("body").style.cssText = "cursor: auto";

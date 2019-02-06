@@ -49,6 +49,7 @@ export class ProjectGeneralInfoComponent implements OnInit {
   getGeneralInfo(){
     this.projectService.getProjectInfoByProjectId(this.project_id).subscribe(result => {
       if(result != null){
+        this.authService.setTitle("Project Number: " + result.project_number);
         this.info = result;
         this.origInfo =  Object.assign({}, result);
         this.getSelectedContact();
@@ -106,16 +107,17 @@ export class ProjectGeneralInfoComponent implements OnInit {
   openNewFirmDialog() {
     const dialogRef = this.dialog.open(NewFirmDialog, {width: '600px'});
     dialogRef.afterClosed().subscribe(newFirm => {
-      if(newFirm.email != null){
-        this.projectService.addNewFirm(newFirm).subscribe(res => {
-          if(res.ok == false){
-            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
+      if(newFirm.firm_name != null){
+        this.projectService.addNewFirm(newFirm).subscribe(firm_id => {
+          if(firm_id.ok == false){
+            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + firm_id.message, width: '600px'});
           }
-          else if(res > 0){
+          else if(firm_id > 0){
             this.domainService.getFirms(this.authService.appSettings.service_url)
                 .subscribe(result => {
+                  this.authService.firms = result;
                   this.firms = result;
-                  this.selectedFirm = result.find(x => x.firm_id === res).firm_name;
+                  this.selectedFirm = result.find(x => x.firm_id === firm_id).firm_name;
                 });
           }
         });

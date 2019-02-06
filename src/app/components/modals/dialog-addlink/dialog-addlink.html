@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <div class="form-group row">
+  <div class="form-group row required">
     <label class="col-sm-3 col-form-label">URL Link</label>
     <div class="col-sm-9">
       <input #link="ngModel" required class="form-control" [(ngModel)]="pwLink.link_name" [disabled] = "editMode">
@@ -28,6 +28,6 @@
 </div>
 <div class="modal-footer">
   <!-- <button type="button" class="btn btn-outline-dark" (click)="activeModal.close({'foldername': foldername, 'description':description})">OK</button> -->
-  <button type="button" class="btn btn-secondary" (click)="save()">OK</button>
+  <button type="button" class="btn btn-secondary" [disabled] = "link.invalid" (click)="save()">OK</button>
   <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
 </div>

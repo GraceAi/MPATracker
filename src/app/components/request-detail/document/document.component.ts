@@ -126,7 +126,7 @@ export class DocumentComponent implements OnInit {
     const dialogRef = this.dialog.open(AddDocumentDialog, {data: {'name': element.name, 'description':element.description}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if(result.filecontent != null){
         document.querySelector("body").style.cssText = "cursor: wait";
         let doc = new RequestDocument();
         doc.description = result.description;
@@ -152,7 +152,7 @@ export class DocumentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       //console.log(result);
-      if(result){
+      if(result.filecontent != null){
         document.querySelector("body").style.cssText = "cursor: wait";
         let newDoc = new RequestDocument();
         newDoc.request_id = this.request_id;
