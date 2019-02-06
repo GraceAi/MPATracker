@@ -120,10 +120,12 @@ export class RequestDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         let general = new RequestGeneral();
         general.request_id = this.request_id;
         general.category_id = this.category_id;
         this.requestService.submitRequest(general).subscribe(result => {
+          document.querySelector("body").style.cssText = "cursor: auto";
           if(result.length > 0){
             this.toastr.success('', 'Request Submitted', {timeOut: 3000});
             //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
@@ -142,10 +144,12 @@ export class RequestDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         let general = new RequestGeneral();
         general.request_id = this.request_id;
         general.category_id = this.category_id;
         this.requestService.completeRequest(general).subscribe(result => {
+          document.querySelector("body").style.cssText = "cursor: auto";
           if(result.length > 0){
             this.toastr.success('', 'Request Completed', {timeOut: 3000});
             //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
@@ -167,11 +171,13 @@ export class RequestDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
         if(this.componentRef.generalInfo != null){
           this.componentRef.origGeneralInfo =  Object.assign({}, this.componentRef.generalInfo);
         }
         this.requestService.deleteRequest(this.request_id).subscribe(result => {
+          document.querySelector("body").style.cssText = "cursor: auto";
           if(result.length >= 0){
             this.toHomePage();
           }

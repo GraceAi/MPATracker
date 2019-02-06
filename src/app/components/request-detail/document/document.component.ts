@@ -80,6 +80,7 @@ export class DocumentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         //console.log(result);
+        document.querySelector("body").style.cssText = "cursor: wait";
         let doc = new RequestDocument();
         doc.document_id = element.document_id;
         doc.name = element.name;
@@ -90,6 +91,7 @@ export class DocumentComponent implements OnInit {
           link.href = window.URL.createObjectURL(blob);
           link.download = element.name;
           link.click();
+          document.querySelector("body").style.cssText = "cursor: auto";
         });
       }
     });
@@ -100,6 +102,7 @@ export class DocumentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         let doc = new RequestDocument();
         doc.document_id = element.document_id;
         doc.name = element.name;
@@ -109,9 +112,11 @@ export class DocumentComponent implements OnInit {
             this.documents =result;
             this.documentDataSource = new MatTableDataSource(result);
             this.documentDataSource.sort = this.sort;
+            document.querySelector("body").style.cssText = "cursor: auto";
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            document.querySelector("body").style.cssText = "cursor: auto";
           }
         });
       }
@@ -122,6 +127,7 @@ export class DocumentComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         let doc = new RequestDocument();
         doc.description = result.description;
         doc.request_id = this.request_id;
@@ -131,9 +137,11 @@ export class DocumentComponent implements OnInit {
             this.documents =result;
             this.documentDataSource = new MatTableDataSource(result);
             this.documentDataSource.sort = this.sort;
+            document.querySelector("body").style.cssText = "cursor: auto";
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+            document.querySelector("body").style.cssText = "cursor: auto";
           }
         });
       }
@@ -145,11 +153,13 @@ export class DocumentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       //console.log(result);
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         let newDoc = new RequestDocument();
         newDoc.request_id = this.request_id;
         newDoc.description = result.description;
         newDoc.name = result.filecontent.name;
         this.requestService.addRequestDocument(result.filecontent, newDoc, this.sequence_id).subscribe(result => {
+          document.querySelector("body").style.cssText = "cursor: auto";
           if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
           }

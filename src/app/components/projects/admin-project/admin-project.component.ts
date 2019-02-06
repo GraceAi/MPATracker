@@ -35,8 +35,9 @@ export class AdminProjectComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         this.projectService.createNewProject(result).subscribe(res => {
-          //console.log(res);
+          document.querySelector("body").style.cssText = "cursor: auto";
           if(res.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
           }

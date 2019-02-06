@@ -46,7 +46,9 @@ export class RequesterRequestComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if(result){
+          document.querySelector("body").style.cssText = "cursor: wait";
           this.requestService.createNewRequest(result).subscribe(request => {
+            document.querySelector("body").style.cssText = "cursor: auto";
             if(result.ok == false){
               const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
             }

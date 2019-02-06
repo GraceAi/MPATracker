@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import { MatSort, MatTableDataSource} from '@angular/material';
+import { MatSort, MatTableDataSource, MatProgressSpinner} from '@angular/material';
 import { filter } from 'rxjs/operators';
 
 import { AuthenticationService } from '../../../../../services/authentication.service';

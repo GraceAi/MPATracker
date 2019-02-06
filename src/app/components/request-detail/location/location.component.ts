@@ -154,6 +154,7 @@ export class LocationComponent implements OnInit {
     const dialogRef = this.dialog.open(LocationMapDialog, { data: { graphics: this.map.layers.items[2].graphics.items, baselayer: this.authService.appSettings.base_layer }, width: '900px', height: '700px'});
     dialogRef.afterClosed().subscribe(result => {
       if(result){
+        document.querySelector("body").style.cssText = "cursor: wait";
         let new_points:RequestLocation[] = [];
         let new_polygons:RequestLocation[] = [];
           for(let g of result){
@@ -169,6 +170,7 @@ export class LocationComponent implements OnInit {
           }
           this.requestService.updateLocationPt(new_points, this.request_id).subscribe(result => {
             if(result){
+              document.querySelector("body").style.cssText = "cursor: auto";
               console.log(result);
               // First create a point geometry (this is the location of the Titanic)
               /*var point = {
@@ -198,6 +200,7 @@ export class LocationComponent implements OnInit {
           });
           this.requestService.updateLocationPoly(new_polygons, this.request_id).subscribe(result => {
             if(result){
+              document.querySelector("body").style.cssText = "cursor: auto";
               console.log(result);
             }
               //

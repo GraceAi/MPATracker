@@ -3,11 +3,6 @@
   <mat-sidenav-container class="reportContainer">
     <mat-sidenav mode="side" opened class="sidenav">
       <mat-nav-list class="report-list">
-        <!--<a mat-list-item [routerLinkActive]="['active']" title="View total number of requests by category" >Requests by Category</a>
-        <a mat-list-item [routerLinkActive]="['active']" title="View total number of requests by requester">Requests by Requester</a>
-        <a mat-list-item [routerLinkActive]="['active']" (click)="displayReviewerReport()" title="View total number of assigned/pending requests by reviewer">Assigned Requests by Reviewer</a>
-        <a mat-list-item [routerLinkActive]="['active']" (click)="displayCatResponseReport()" title="View minimum/average/maximum response time by category">Min/Avg/Max response time by Category</a>
-        <a mat-list-item [routerLinkActive]="['active']" title="View minimum/average/maximum response time by reviewer">Min/Avg/Max response time by Reviewer</a>-->
         <a mat-list-item [routerLinkActive]="['active']" routerLink="./category" title="View total number of requests by category" >Requests by Category</a>
         <a mat-list-item [routerLinkActive]="['active']" routerLink="./requester" title="View total number of requests by requester">Requests by Requester</a>
         <a mat-list-item [routerLinkActive]="['active']" routerLink="./reviewer" title="View total number of assigned/pending requests by reviewer">Assigned Requests by Reviewer</a>
