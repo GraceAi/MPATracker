@@ -162,7 +162,7 @@ export class ConstructionPhaseComponent implements OnInit {
       }
     }
     if(displayConfirmation){
-      const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Generate Milestone Confirmation", message: "Are you sure you want to overwrite existing mielstones?"}, width: '600px'});
+      const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Generate Milestone Confirmation", message: "Are you sure you want to overwrite existing milestones?"}, width: '600px'});
       dialogRef.afterClosed().subscribe(result => {
         if(result){
           this.overwriteMilestones();
@@ -224,10 +224,10 @@ export class ConstructionPhaseComponent implements OnInit {
       else
         ms.complete_date = ms.complete_formatted.year + "-" +  ms.complete_formatted.month + "-" +  ms.complete_formatted.day;
     }
-    console.log(this.info);
+    //console.log(this.info);
     this.projectService.updateConstructionPhase(this.info).subscribe(result => {
       if(result == true){
-        console.log(result);
+        //console.log(result);
         this.origInfo =  Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }

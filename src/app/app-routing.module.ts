@@ -105,7 +105,7 @@ const routes: Routes = [
                 {path: '', redirectTo: 'general', pathMatch: 'full'},
                 {path: 'general', component: ProjectGeneralInfoComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'permit', component: PermitComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
-                {path: 'managers', component: ProjectManagersComponent, pathMatch: 'full'},
+                {path: 'managers', component: ProjectManagersComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'procument', component: ProcurementPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'construction', component: ConstructionPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'}
               ]

@@ -128,7 +128,7 @@ export class ProjectGeneralInfoComponent implements OnInit {
   updateProjectGeneral(){
     this.projectService.updateProjectGeneral(this.info).subscribe(result => {
       if(result == true){
-        console.log(result);
+        //console.log(result);
         this.origInfo =  Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }

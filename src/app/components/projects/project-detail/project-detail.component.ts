@@ -40,11 +40,9 @@ export class ProjectDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
-        this.componentRef.origInfo =  Object.assign({}, this.componentRef.info);
-        //this.toHomePage();
         this.projectService.deleteProject(this.project_id).subscribe(res => {
           if(res == true){
+            this.componentRef.origInfo = this.componentRef.info.map(x => Object.assign({}, x));//Object.assign({}, this.componentRef.info);
             this.toHomePage();
           }
           else if(res.ok == false){

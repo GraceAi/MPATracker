@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Observable, of } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 import { User } from '../../../../classes/domain';
@@ -18,7 +19,8 @@ export class ProjectManagersComponent implements OnInit {
   managerDataSource:any;
   availableManagerDataSource:any;
   project_id:number;
-  assignedManagers:User[];
+  info:User[];
+  origInfo:User[];
   filteredManagers:User[];
   selectedAssignedManager:any;
   selectedAvailableManager:any;
@@ -53,8 +55,8 @@ export class ProjectManagersComponent implements OnInit {
 
   addAssignedManager(){
     if(this.selectedAvailableManager){
-      this.assignedManagers.push(this.selectedAvailableManager);
-      this.managerDataSource = new MatTableDataSource(this.assignedManagers);
+      this.info.push(this.selectedAvailableManager);
+      this.managerDataSource = new MatTableDataSource(this.info);
       this.filteredManagers = this.filteredManagers.filter(item => item.user_id != this.selectedAvailableManager.user_id);
       this.availableManagerDataSource = new MatTableDataSource(this.filteredManagers);
 
@@ -65,8 +67,8 @@ export class ProjectManagersComponent implements OnInit {
 
   removeAssignedManager(){
     if(this.selectedAssignedManager){
-      this.assignedManagers = this.assignedManagers.filter(f => f.user_id != this.selectedAssignedManager.user_id);
-      this.managerDataSource = new MatTableDataSource(this.assignedManagers);
+      this.info = this.info.filter(f => f.user_id != this.selectedAssignedManager.user_id);
+      this.managerDataSource = new MatTableDataSource(this.info);
       this.filteredManagers.push(this.selectedAssignedManager);
       this.availableManagerDataSource = new MatTableDataSource(this.filteredManagers);
 
@@ -84,16 +86,18 @@ export class ProjectManagersComponent implements OnInit {
             });
         });
       }
-      this.assignedManagers = result;
+      this.info = result;
+      this.origInfo =  result.map(x => Object.assign({}, x));//Object.assign({}, result);
       this.managerDataSource = new MatTableDataSource(result);
       this.availableManagerDataSource = new MatTableDataSource(this.filteredManagers);
     });
   }
 
   assignManagers(){
-    this.projectService.assignManagers(this.project_id, this.assignedManagers).subscribe(result => {
-      console.log(result);
+    this.projectService.assignManagers(this.project_id, this.info).subscribe(result => {
+      //console.log(result);
       if(result == true){
+        this.origInfo =  this.info.map(x => Object.assign({}, x));//Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
         //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
       }
@@ -105,6 +109,17 @@ export class ProjectManagersComponent implements OnInit {
 
   cancelAssign(){
     this.getProjectManagers();
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if pm is unchanged
+    if (JSON.stringify(this.origInfo) === JSON.stringify(this.info)) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    const confirmation = window.confirm('You have unsaved changes. Are you sure you want to leave this page?');
+    return of(confirmation);
   }
 
 }
