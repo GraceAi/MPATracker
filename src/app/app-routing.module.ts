@@ -97,7 +97,7 @@ const routes: Routes = [
                 {path: 'comments', component: CommentComponent, pathMatch: 'full'},
                 {path: 'links', component: PwlinkComponent, pathMatch: 'full'},
                 {path: 'location', component: LocationComponent, pathMatch: 'full'},
-                {path: 'reviewers', component: ReviewerComponent, pathMatch: 'full'}
+                {path: 'reviewers', component: ReviewerComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'}
               ]
   },
   { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, canActivate: [RequestDetailAuthGuard], data : { title : 'Project Detail'},

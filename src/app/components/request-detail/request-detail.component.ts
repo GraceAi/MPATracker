@@ -93,9 +93,10 @@ export class RequestDetailComponent implements OnInit {
 
   submitRequest() {
     if(this.componentRef.generalInfo != null){
-      if (this.componentRef.generalInfo.notes !== this.componentRef.origGeneralInfo.notes || this.componentRef.generalInfo.high_priority !== this.componentRef.origGeneralInfo.high_priority
-        || this.componentRef.generalInfo.description !== this.componentRef.origGeneralInfo.description
-        || this.componentRef.generalInfo.location_id !== this.componentRef.origGeneralInfo.location_id || this.componentRef.generalInfo.deptmt_id !== this.componentRef.origGeneralInfo.deptmt_id) {
+      //if (this.componentRef.generalInfo.notes !== this.componentRef.origGeneralInfo.notes || this.componentRef.generalInfo.high_priority !== this.componentRef.origGeneralInfo.high_priority
+      //  || this.componentRef.generalInfo.description !== this.componentRef.origGeneralInfo.description
+      //  || this.componentRef.generalInfo.location_id !== this.componentRef.origGeneralInfo.location_id || this.componentRef.generalInfo.deptmt_id !== this.componentRef.origGeneralInfo.deptmt_id) {
+      if (JSON.stringify(this.componentRef.generalInfo) === JSON.stringify(this.componentRef.origGeneralInfo)) {
           this.requestService.updateRequestGeneral(this.componentRef.generalInfo).subscribe(result => {
             if(result == "Success"){
               //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
@@ -140,11 +141,20 @@ export class RequestDetailComponent implements OnInit {
   }
 
   completeRequest(){
-    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Complete Request Confirmation", message: "Are you sure you want to complete this request?"}, width: '600px'});
+    let message = "Are you sure you want to complete this request?";
+    if(this.componentRef.assignedReviewers != null){
+      if(JSON.stringify(this.componentRef.origAssignedReviewers) != JSON.stringify(this.componentRef.assignedReviewers)){
+        message = "You have some unsaved changes in Reviewers section. Are you sure you want to complete this request?";
+      }
+    }
+    const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Complete Request Confirmation", message: message}, width: '600px'});
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         document.querySelector("body").style.cssText = "cursor: wait";
+        if(this.componentRef.assignedReviewers != null){
+          this.componentRef.origAssignedReviewers =  this.componentRef.assignedReviewers.map(x => Object.assign({}, x));
+        }
         let general = new RequestGeneral();
         general.request_id = this.request_id;
         general.category_id = this.category_id;
@@ -175,6 +185,9 @@ export class RequestDetailComponent implements OnInit {
         //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
         if(this.componentRef.generalInfo != null){
           this.componentRef.origGeneralInfo =  Object.assign({}, this.componentRef.generalInfo);
+        }
+        if(this.componentRef.assignedReviewers != null){
+          this.componentRef.origAssignedReviewers =  this.componentRef.assignedReviewers.map(x => Object.assign({}, x));
         }
         this.requestService.deleteRequest(this.request_id).subscribe(result => {
           document.querySelector("body").style.cssText = "cursor: auto";

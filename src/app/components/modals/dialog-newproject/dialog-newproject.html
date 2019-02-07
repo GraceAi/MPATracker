@@ -24,12 +24,15 @@
   </div>
   <div class="form-group row">
     <label class="col-sm-4 col-form-label">Firm Name</label>
-    <div ngbDropdown class="col-sm-8">
+    <div ngbDropdown class="col-sm-7">
       <button class="btn btn-outline" id="firmMenu" ngbDropdownToggle>{{selectedFirm}}</button>
       <div ngbDropdownMenu aria-labelledby="firmMenu">
         <button class="dropdown-item" *ngFor="let firm of firms" (click)="onChangeFirm(firm)">{{firm.firm_name}}</button>
       </div>
     </div>
+    <button type="button" class="close" aria-label="true" (click)="openNewFirmDialog()">
+      <i class="col-sm-1 fa fa-plus" aria-hidden="true" style="display:block; padding:0;"></i>
+    </button>
   </div>
   <div class="form-group row">
     <label class="col-sm-4 col-form-label">MPA Point of Contact</label>

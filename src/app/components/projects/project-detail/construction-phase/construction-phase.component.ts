@@ -52,7 +52,7 @@ export class ConstructionPhaseComponent implements OnInit {
     this.projectService.getConstructionPhaseInfo(this.project_id).subscribe(result => {
       if(result != null){
         this.info = result;
-        this.origInfo =  JSON.parse(JSON.stringify(result))//Object.assign({}, result);
+        this.origInfo =  JSON.parse(JSON.stringify(result));//Object.assign({}, result);
         this.getSelectedSize();
         this.getSelectedFirm();
       }

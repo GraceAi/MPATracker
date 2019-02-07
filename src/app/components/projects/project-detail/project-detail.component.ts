@@ -42,7 +42,7 @@ export class ProjectDetailComponent implements OnInit {
       if(result){
         this.projectService.deleteProject(this.project_id).subscribe(res => {
           if(res == true){
-            this.componentRef.origInfo = this.componentRef.info.map(x => Object.assign({}, x));//Object.assign({}, this.componentRef.info);
+            this.componentRef.origInfo = JSON.parse(JSON.stringify(this.componentRef.info));//Object.assign({}, this.componentRef.info);
             this.toHomePage();
           }
           else if(res.ok == false){

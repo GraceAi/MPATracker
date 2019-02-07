@@ -1,7 +1,13 @@
 import { Component, Inject} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+
 import { User, Firm } from '../../../classes/domain';
 import { Project } from '../../../classes/project';
+import { AuthenticationService } from '../../../services/authentication.service';
+import { ProjectService } from '../../../services/project.service';
+import { DomainService } from '../../../services/domain.service';
+import { NewFirmDialog } from '../../../components/modals/dialog-newfirm/dialog-newfirm';
+import { NotificationDialog } from '../../../components/modals/dialog-notification/dialog-notification';
 
 @Component({
   selector: 'dialog-newproject',
@@ -16,6 +22,10 @@ export class NewProjectDialog {
   newProject:Project = new Project();
   constructor(
     public dialogRef: MatDialogRef<NewProjectDialog>,
+    private authService: AuthenticationService,
+    private domainService: DomainService,
+    private projectService: ProjectService,
+    public dialog: MatDialog,
      @Inject(MAT_DIALOG_DATA) data
     ) {
       this.selectedContact = "Select...";
@@ -48,6 +58,28 @@ export class NewProjectDialog {
     }
     onNoClick(): void {
       this.dialogRef.close();
+    }
+
+    openNewFirmDialog() {
+      const dialogRef = this.dialog.open(NewFirmDialog, {width: '600px'});
+      dialogRef.afterClosed().subscribe(newFirm => {
+        if(newFirm.firm_name != null){
+          this.projectService.addNewFirm(newFirm).subscribe(res => {
+            if(res.ok == false){
+              const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + res.message, width: '600px'});
+            }
+            else if(res > 0){
+              this.domainService.getFirms(this.authService.appSettings.service_url)
+                  .subscribe(result => {
+                    this.authService.firms = result;
+                    this.firms = result;
+                    this.newProject.firm_id = res;
+                    this.selectedFirm = result.find(x => x.firm_id === res).firm_name;
+                  });
+            }
+          });
+        }
+      });
     }
 
 }

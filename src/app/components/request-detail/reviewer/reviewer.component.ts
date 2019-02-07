@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ToastrService } from 'ngx-toastr';
+import { Observable, of } from 'rxjs';
 
+import { RequestDetail } from '../../../classes/request';
 import { User } from '../../../classes/domain';
 import { RequestService } from '../../../services/request.service';
 import { AuthenticationService } from '../../../services/authentication.service';
@@ -18,10 +20,13 @@ export class ReviewerComponent implements OnInit {
   reviewerDataSource:any;
   availableReviewerDataSource:any;
   request_id:number;
+  status_id:number;
   assignedReviewers:User[];
+  origAssignedReviewers:User[];
   filteredReviewers:User[];
   selectedAssignedReviewer:any;
   selectedAvailableReviewer:any;
+  hide:boolean = false;  
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -32,6 +37,16 @@ export class ReviewerComponent implements OnInit {
   ngOnInit() {
     this.request_id = +this.route.parent.snapshot.paramMap.get('requestId');
     this.getRequestReviewers();
+    this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
+          this.status_id = data.requestDetail.generalInfo.status_id;
+          this.setLayout();
+        });
+  }
+
+  setLayout(){
+    if(this.status_id == 4){
+      this.hide = true;
+    }
   }
 
   applyAssignedFilter(filterValue: string) {
@@ -86,6 +101,7 @@ export class ReviewerComponent implements OnInit {
         });
       }
       this.assignedReviewers = result;
+      this.origAssignedReviewers = result.map(x => Object.assign({}, x));//Object.assign({}, result);
       this.reviewerDataSource = new MatTableDataSource(result);
       this.availableReviewerDataSource = new MatTableDataSource(this.filteredReviewers);
     });
@@ -94,6 +110,7 @@ export class ReviewerComponent implements OnInit {
   assignReviewers(){
     this.requestService.assignReviewers(this.request_id, this.assignedReviewers).subscribe(result => {
       if(result.length > 0){
+        this.origAssignedReviewers =  this.assignedReviewers.map(x => Object.assign({}, x));//Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
         //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
       }
@@ -105,6 +122,17 @@ export class ReviewerComponent implements OnInit {
 
   cancelAssign(){
     this.getRequestReviewers();
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    // Allow synchronous navigation (`true`) if reviewers are unchanged
+    if (JSON.stringify(this.origAssignedReviewers) === JSON.stringify(this.assignedReviewers)) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    const confirmation = window.confirm('You have unsaved changes. Are you sure you want to leave this page?');
+    return of(confirmation);
   }
 
 }
