@@ -52,7 +52,7 @@ export class ConstructionPhaseComponent implements OnInit {
     this.projectService.getConstructionPhaseInfo(this.project_id).subscribe(result => {
       if(result != null){
         this.info = result;
-        this.origInfo =  Object.assign({}, result);
+        this.origInfo =  JSON.parse(JSON.stringify(result))//Object.assign({}, result);
         this.getSelectedSize();
         this.getSelectedFirm();
       }
@@ -184,7 +184,7 @@ export class ConstructionPhaseComponent implements OnInit {
     this.projectService.updateConstructionPhase(this.info).subscribe(result => {
       if(result == true){
         //console.log(result);
-        this.origInfo =  Object.assign({}, this.info);
+        this.origInfo =  JSON.parse(JSON.stringify(this.info))//Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
       }
       else if(result.ok == false){
@@ -194,8 +194,18 @@ export class ConstructionPhaseComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
+    let isMilestoneSame = true;
+    for (let i in this.info.milestones) {
+       if(this.info.milestones[i].comment_text != this.origInfo.milestones[i].comment_text
+       || new Date(this.info.milestones[i].target_date).setHours(0, 0, 0, 0) != new Date(this.origInfo.milestones[i].target_date).setHours(0, 0, 0, 0)
+       || new Date(this.info.milestones[i].complete_date).setHours(0, 0, 0, 0) != new Date(this.origInfo.milestones[i].complete_date).setHours(0, 0, 0, 0))
+       {
+         isMilestoneSame = false;
+         break;
+       }
+    }
     // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-    if (this.info.firm_id === this.origInfo.firm_id && this.info.project_size_id === this.origInfo.project_size_id &&
+    if (this.info.firm_id === this.origInfo.firm_id && this.info.project_size_id === this.origInfo.project_size_id && isMilestoneSame &&
       new Date(this.info.ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.ntp_date).setHours(0, 0, 0, 0)) {
       return true;
     }
