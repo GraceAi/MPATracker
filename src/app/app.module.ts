@@ -3,7 +3,7 @@ import { NgModule, APP_INITIALIZER} from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, DatePipe } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {MatListModule, MatSidenavModule, MatExpansionModule, MatTableModule, MatSortModule, MatDialogModule, MatProgressSpinnerModule} from '@angular/material';
+import {MatListModule, MatSidenavModule, MatExpansionModule, MatTableModule, MatSortModule, MatDialogModule, MatProgressSpinnerModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -167,6 +167,8 @@ import { IntroductionComponent } from './components/introduction/introduction.co
     MatSortModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AppRoutingModule,
     ToastrModule.forRoot() // ToastrModule added
   ],

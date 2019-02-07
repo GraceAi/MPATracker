@@ -17,123 +17,97 @@
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Next or Final Spec Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_next_spec_date="ngbDatepicker"  [(ngModel)]="info.next_or_final_specs_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_next_spec_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_next_spec_date" placeholder="Choose a date" [(ngModel)]="info.next_or_final_specs_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_next_spec_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_next_spec_date></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Procurement Start Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_proc_start_date="ngbDatepicker"  [(ngModel)]="info.procurement_start_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_proc_start_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_proc_start_date" placeholder="Choose a date" [(ngModel)]="info.procurement_start_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_proc_start_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_proc_start_date></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">PRG Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_prg_date="ngbDatepicker"  [(ngModel)]="info.prg_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_prg_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_prg_date" placeholder="Choose a date" [(ngModel)]="info.prg_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_prg_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_prg_date></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">(Early) Adv Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_adv_date="ngbDatepicker"  [(ngModel)]="info.early_adv_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_adv_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_adv_date" placeholder="Choose a date" [(ngModel)]="info.early_adv_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_adv_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_adv_date></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">(Early) Bids Open Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_bids_date="ngbDatepicker"  [(ngModel)]="info.early_bids_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_bids_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_bids_date" placeholder="Choose a date" [(ngModel)]="info.early_bids_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_bids_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_bids_date></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">MPC Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_mpc_date="ngbDatepicker"  [(ngModel)]="info.mpc_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_mpc_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_mpc" placeholder="Choose a date" [(ngModel)]="info.mpc">
+        <mat-datepicker-toggle matSuffix [for]="dp_mpc"></mat-datepicker-toggle>
+        <mat-datepicker #dp_mpc></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Board of Public Works Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_bpw_date="ngbDatepicker"  [(ngModel)]="info.bpw_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_bpw_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_bpw" placeholder="Choose a date" [(ngModel)]="info.bpw">
+        <mat-datepicker-toggle matSuffix [for]="dp_bpw"></mat-datepicker-toggle>
+        <mat-datepicker #dp_bpw></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">NTP Date</label>
-      <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_ntp_date="ngbDatepicker"  [(ngModel)]="info.ntp_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_ntp_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+      <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+        <input class="form-control" [matDatepicker]="dp_ntp_date" placeholder="Choose a date" [(ngModel)]="info.ntp_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_ntp_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_ntp_date></mat-datepicker>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Current Procument Day (# of days procument has contract)</label>
-      <div class="col-lg-4 col-md-4 col-sm-6"><input class="form-control" [(ngModel)]="info.current_proc_day"></div>
+      <div class="col-lg-4 col-md-4 col-sm-6"><input class="form-control" [(ngModel)]="info.current_proc_day" type="number" min=1></div>
     </div>
   </div>
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Completion Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #dp_compl_date="ngbDatepicker"  [(ngModel)]="info.compl_formatted">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" (click)="dp_compl_date.toggle()" type="button">
-            <img [src]="calendarIconPath" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-          </button>
-        </div>
+        <input class="form-control" [matDatepicker]="dp_compl_date" placeholder="Choose a date" [(ngModel)]="info.compl_date">
+        <mat-datepicker-toggle matSuffix [for]="dp_compl_date"></mat-datepicker-toggle>
+        <mat-datepicker #dp_compl_date></mat-datepicker>
       </div>
     </div>
   </div>

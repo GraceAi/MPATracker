@@ -50,23 +50,14 @@ export class ProcurementPhase{
   officer_name:string;
   current_proc_day:number;
   next_or_final_specs_date:string;
-  next_or_final_specs_formatted:NgbDateStruct;
   procurement_start_date:string;
-  procurement_start_formatted:NgbDateStruct;
   prg_date:string;
-  prg_formatted:NgbDateStruct;
   early_adv_date:string;
-  early_adv_formatted:NgbDateStruct;
   early_bids_date:string;
-  early_bids_formatted:NgbDateStruct;
   mpc:string;
-  mpc_formatted:NgbDateStruct;
   bpw:string;
-  bpw_formatted:NgbDateStruct;
   ntp_date:string;
-  ntp_formatted:NgbDateStruct;
   compl_date:string;
-  compl_formatted:NgbDateStruct;
 }
 
 export class ConstructionPhase{
