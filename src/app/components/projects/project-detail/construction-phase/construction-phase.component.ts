@@ -29,7 +29,6 @@ export class ConstructionPhaseComponent implements OnInit {
   sizes:ProjectSize[];
   selectedFirm:string = "Select...";
   firms:Firm[];
-  calendarIconPath:string;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private projectService: ProjectService,
@@ -45,7 +44,6 @@ export class ConstructionPhaseComponent implements OnInit {
 
     this.getConstructionPhaseInfo();
 
-    this.calendarIconPath = this.authService.calendarIconPath;
     this.firms = this.authService.firms;
     this.sizes = this.authService.projectSizes;
   }
@@ -54,32 +52,11 @@ export class ConstructionPhaseComponent implements OnInit {
     this.projectService.getConstructionPhaseInfo(this.project_id).subscribe(result => {
       if(result != null){
         this.info = result;
-        this.parseDate();
         this.origInfo =  Object.assign({}, result);
         this.getSelectedSize();
         this.getSelectedFirm();
       }
     });
-  }
-
-  parseDate(){
-    if(this.info.ntp_date != null){
-      let d = new Date(this.info.ntp_date);
-      let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-      this.info.ntp_formatted = date;
-    }
-    for(let ms of this.info.milestones){
-      if(ms.target_date != null){
-        let d = new Date(ms.target_date);
-        let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-        ms.target_formatted = date;
-      }
-      if(ms.complete_date != null){
-        let d = new Date(ms.complete_date);
-        let date = { year: d.getFullYear(), month: d.getMonth() + 1, day: d.getDate() };
-        ms.complete_formatted = date;
-      }
-    }
   }
 
   getSelectedSize(){
@@ -97,12 +74,12 @@ export class ConstructionPhaseComponent implements OnInit {
       this.selectedFirm = this.info.firm_name;
   }
 
-  compareMilestoneDates(target_formatted:any, complete_formatted:any, comment_text:string){
+  compareMilestoneDates(target_date:any, complete_date:any, comment_text:string){
     let isLate:boolean = false;
-    if(target_formatted != null && complete_formatted != null){
-      let target_date = new Date(target_formatted.year + "-" +  target_formatted.month + "-" +  target_formatted.day);
-      let complete_date = new Date(complete_formatted.year + "-" +  complete_formatted.month + "-" +  complete_formatted.day);
-      if(target_date < complete_date && comment_text.trim().length == 0)
+    if(target_date != null && target_date != null){
+      let target = new Date(target_date).setHours(0, 0, 0, 0);
+      let complete = new Date(complete_date).setHours(0, 0, 0, 0);
+      if(target < complete && (comment_text == null || comment_text.trim().length == 0))
         isLate = true;
     }
     return isLate;
@@ -156,7 +133,7 @@ export class ConstructionPhaseComponent implements OnInit {
   generateMilestones(){
     let displayConfirmation:boolean = false;
     for(let ms of this.info.milestones){
-      if(ms.target_formatted != null){
+      if(ms.target_date != null){
         displayConfirmation = true;
         break;
       }
@@ -178,11 +155,10 @@ export class ConstructionPhaseComponent implements OnInit {
     if(this.info.project_size_id == null){
       this.toastr.error('', 'Please select a project size first', {timeOut: 2000});
     }
-    else if(this.info.ntp_formatted == null){
+    else if(this.info.ntp_date == null){
       this.toastr.error('', 'Please select a NTP date first', {timeOut: 2000});
     }
     else{
-      this.info.ntp_date = this.info.ntp_formatted.year + "-" +  this.info.ntp_formatted.month + "-" +  this.info.ntp_formatted.day;
       for(let ms of this.info.milestones){
         let interval = 0;
         if(ms.milestone_percentage == 25){
@@ -197,34 +173,14 @@ export class ConstructionPhaseComponent implements OnInit {
         if(ms.milestone_percentage == 100){
           interval = this.projectInterval * 4;
         }
-        var date = new Date(this.info.ntp_date);
-        date.setDate(date.getDate() + interval);
-        let newDate = this.datePipe.transform(date,"yyyy-MM-dd");
-        ms.target_date = newDate;
-
-        let date_formatted = { year: date.getFullYear(), month: date.getMonth() + 1, day: date.getDate() };
-        ms.target_formatted = date_formatted;
+        var d = new Date(this.info.ntp_date);
+        d.setDate(d.getDate() + interval);
+        ms.target_date = d.toISOString();
       }
     }
   }
 
   updateConstructionPhase(){
-    if(this.info.ntp_formatted == null)
-      this.info.ntp_date = null;
-    else
-      this.info.ntp_date = this.info.ntp_formatted.year + "-" +  this.info.ntp_formatted.month + "-" +  this.info.ntp_formatted.day;
-    for(let ms of this.info.milestones){
-      if(ms.target_formatted == null)
-        ms.target_date = null;
-      else
-        ms.target_date = ms.target_formatted.year + "-" +  ms.target_formatted.month + "-" +  ms.target_formatted.day;
-
-      if(ms.complete_formatted == null)
-        ms.complete_date = null;
-      else
-        ms.complete_date = ms.complete_formatted.year + "-" +  ms.complete_formatted.month + "-" +  ms.complete_formatted.day;
-    }
-    //console.log(this.info);
     this.projectService.updateConstructionPhase(this.info).subscribe(result => {
       if(result == true){
         //console.log(result);
@@ -239,7 +195,8 @@ export class ConstructionPhaseComponent implements OnInit {
 
   canDeactivate(): Observable<boolean> | boolean {
     // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
-    if (this.info.firm_id === this.origInfo.firm_id && this.info.project_size_id === this.origInfo.project_size_id && this.info.ntp_formatted === this.origInfo.ntp_formatted) {
+    if (this.info.firm_id === this.origInfo.firm_id && this.info.project_size_id === this.origInfo.project_size_id &&
+      new Date(this.info.ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.ntp_date).setHours(0, 0, 0, 0)) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its

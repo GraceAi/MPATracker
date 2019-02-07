@@ -17,9 +17,8 @@
   <div class="form-row">
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Next or Final Spec Date</label>
-
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_next_spec_date" placeholder="Choose a date" [(ngModel)]="info.next_or_final_specs_date">
+        <input class="form-control" [matDatepicker]="dp_next_spec_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.next_or_final_specs_date">
         <mat-datepicker-toggle matSuffix [for]="dp_next_spec_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_next_spec_date></mat-datepicker>
       </div>
@@ -29,7 +28,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Procurement Start Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_proc_start_date" placeholder="Choose a date" [(ngModel)]="info.procurement_start_date">
+        <input class="form-control" [matDatepicker]="dp_proc_start_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.procurement_start_date">
         <mat-datepicker-toggle matSuffix [for]="dp_proc_start_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_proc_start_date></mat-datepicker>
       </div>
@@ -39,7 +38,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">PRG Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_prg_date" placeholder="Choose a date" [(ngModel)]="info.prg_date">
+        <input class="form-control" [matDatepicker]="dp_prg_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.prg_date">
         <mat-datepicker-toggle matSuffix [for]="dp_prg_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_prg_date></mat-datepicker>
       </div>
@@ -49,7 +48,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">(Early) Adv Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_adv_date" placeholder="Choose a date" [(ngModel)]="info.early_adv_date">
+        <input class="form-control" [matDatepicker]="dp_adv_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.early_adv_date">
         <mat-datepicker-toggle matSuffix [for]="dp_adv_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_adv_date></mat-datepicker>
       </div>
@@ -59,7 +58,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">(Early) Bids Open Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_bids_date" placeholder="Choose a date" [(ngModel)]="info.early_bids_date">
+        <input class="form-control" [matDatepicker]="dp_bids_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.early_bids_date">
         <mat-datepicker-toggle matSuffix [for]="dp_bids_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_bids_date></mat-datepicker>
       </div>
@@ -69,7 +68,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">MPC Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_mpc" placeholder="Choose a date" [(ngModel)]="info.mpc">
+        <input class="form-control" [matDatepicker]="dp_mpc" placeholder="mm/dd/yyyy" [(ngModel)]="info.mpc">
         <mat-datepicker-toggle matSuffix [for]="dp_mpc"></mat-datepicker-toggle>
         <mat-datepicker #dp_mpc></mat-datepicker>
       </div>
@@ -79,7 +78,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Board of Public Works Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_bpw" placeholder="Choose a date" [(ngModel)]="info.bpw">
+        <input class="form-control" [matDatepicker]="dp_bpw" placeholder="mm/dd/yyyy" [(ngModel)]="info.bpw">
         <mat-datepicker-toggle matSuffix [for]="dp_bpw"></mat-datepicker-toggle>
         <mat-datepicker #dp_bpw></mat-datepicker>
       </div>
@@ -89,7 +88,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">NTP Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_ntp_date" placeholder="Choose a date" [(ngModel)]="info.ntp_date">
+        <input class="form-control" [matDatepicker]="dp_ntp_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.ntp_date">
         <mat-datepicker-toggle matSuffix [for]="dp_ntp_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_ntp_date></mat-datepicker>
       </div>
@@ -105,7 +104,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Completion Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" [matDatepicker]="dp_compl_date" placeholder="Choose a date" [(ngModel)]="info.compl_date">
+        <input class="form-control" [matDatepicker]="dp_compl_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.compl_date">
         <mat-datepicker-toggle matSuffix [for]="dp_compl_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_compl_date></mat-datepicker>
       </div>

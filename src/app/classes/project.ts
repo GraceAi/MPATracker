@@ -1,5 +1,3 @@
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-
 export class Project{
   project_id:number;
   project_number:string;
@@ -19,28 +17,20 @@ export class Permit{
   project_id: number;
   corps_permit_required:boolean;
   corps_permit_status:string;
-  corps_permit_date:NgbDateStruct;
   mde_permit_required:boolean;
   mde_permit_status:string;
-  mde_permit_date:NgbDateStruct;
   dam_saftey_approval:boolean;
   dam_saftey_status:string;
-  dam_saftey_date:NgbDateStruct;
   swm_approval:boolean;
   swm_status:string;
-  swm_date:NgbDateStruct;
   ms4_permit_required:boolean;
   ms4_permit_status:string;
-  ms4_permit_date:NgbDateStruct;
   local_permit_required:boolean;
   local_permit_status:string;
-  local_permit_date:NgbDateStruct;
   wetland_permit_required:boolean;
   wetland_permit_status:string;
-  wetland_permit_date:NgbDateStruct;
   critical_area_permit_required:boolean;
   critical_area_permit_status:string;
-  critical_area_date:NgbDateStruct;
 }
 
 export class ProcurementPhase{
@@ -66,7 +56,6 @@ export class ConstructionPhase{
   firm_name:string;
   project_id:number;
   ntp_date:string;
-  ntp_formatted:NgbDateStruct;
   project_size_id:number;
   size_name:string;
   days:number;
@@ -78,9 +67,7 @@ export class ConstructionMilestone{
   milestone_id:number;
   milestone_percentage:number;
   target_date:string;
-  target_formatted:NgbDateStruct;
   complete_date:string;
-  complete_formatted:NgbDateStruct;
   comment_text:string;
   commenter_id:number;
   comment_date:string;

@@ -81,14 +81,14 @@ export class ProcurementPhaseComponent implements OnInit {
     // Allow synchronous navigation (`true`) if procurement phase is unchanged
     if (this.info.officer_id === this.origInfo.officer_id &&
       this.info.current_proc_day === this.origInfo.current_proc_day &&
-      new Date(this.info.next_or_final_specs_date) === new Date(this.origInfo.next_or_final_specs_date) &&
-      new Date(this.info.procurement_start_date) === new Date(this.origInfo.procurement_start_date) &&
-      new Date(this.info.early_adv_date) === new Date(this.origInfo.early_adv_date) &&
-      new Date(this.info.early_bids_date) === new Date(this.origInfo.early_bids_date) &&
-      new Date(this.info.mpc) === new Date(this.origInfo.mpc) &&
-      new Date(this.info.bpw) === new Date(this.origInfo.bpw) &&
-      new Date(this.info.ntp_date) === new Date(this.origInfo.ntp_date) &&
-      new Date(this.info.compl_date) === new Date(this.origInfo.compl_date)) {
+      new Date(this.info.next_or_final_specs_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.next_or_final_specs_date).setHours(0, 0, 0, 0) &&
+      new Date(this.info.procurement_start_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.procurement_start_date).setHours(0, 0, 0, 0) &&
+      new Date(this.info.early_adv_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.early_adv_date).setHours(0, 0, 0, 0) &&
+      new Date(this.info.early_bids_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.early_bids_date).setHours(0, 0, 0, 0) &&
+      new Date(this.info.mpc).setHours(0, 0, 0, 0) === new Date(this.origInfo.mpc).setHours(0, 0, 0, 0) &&
+      new Date(this.info.bpw).setHours(0, 0, 0, 0) === new Date(this.origInfo.bpw).setHours(0, 0, 0, 0) &&
+      new Date(this.info.ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.ntp_date).setHours(0, 0, 0, 0) &&
+      new Date(this.info.compl_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.compl_date).setHours(0, 0, 0, 0)) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its
