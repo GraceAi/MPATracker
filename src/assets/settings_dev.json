@@ -2,6 +2,6 @@
   "service_url": "http://localhost/ERD/api/",
   "pt_feature_layer":"https://apps.ecointegration.com:8443/arcgis/rest/services/MPA/ERD_TASK_LOC/MapServer/0",
   "poly_feature_layer":"https://apps.ecointegration.com:8443/arcgis/rest/services/MPA/ERD_TASK_LOC/MapServer/1",
-  "base_layer":"https://geodata.md.gov/imap/rest/services/Transportation/MD_ColorBasemap/MapServer",
+  "base_layer":"https://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer",
   "archive_search_link":"http://www.google.com"
 }
