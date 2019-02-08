@@ -14,10 +14,16 @@
       <div class="center-div page-title">{{subtitle}}</div>
       <router-outlet></router-outlet>
       <div class="center-div">
-        <button type="button" class="btn btn-secondary" title="View/Print report"><i class="fa fa-files-o"></i>
-          <a routerLink="/report/print/{{subtitle}}"  [queryParams]="{start_date: filter.start_date, end_date: filter.end_date, requester: filter.requestor_id,
-            category: filter.cat_id, reviewer: filter.reviewer_id, dept:filter.deptmt_id}" target="_blank">View/Print Report</a>
-        </button>
+        <a routerLink="/report/print/{{subtitle}}" [queryParams]="{start_date: filter.start_date, end_date: filter.end_date, requester: filter.requestor_id,
+          category: filter.cat_id, reviewer: filter.reviewer_id, dept:filter.deptmt_id}" target="_blank">
+          <button type="button" class="btn btn-secondary" title="View/Print report">
+            <i class="fa fa-files-o"></i>
+            View/Print Report
+          </button>
+        </a>
+        <!-- <button type="button" class="btn btn-secondary" title="View/Print report" ><i class="fa fa-files-o"></i>
+          View/Print Report
+        </button> -->
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
