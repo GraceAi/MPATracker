@@ -50,7 +50,7 @@ export class LocationMapDialog  {
       const view = new MapView({
         container: "map",
         map: this.map,
-        zoom: 10,
+        zoom: 2,
         center: [-76.6, 39.2]
       });
 

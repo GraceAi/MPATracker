@@ -81,7 +81,7 @@ export class LocationComponent implements OnInit {
         let view = new MapView({
               container: "mapDiv",
               map: this.map,
-              zoom: 10,
+              zoom: 2,
               center: [-76.6, 39.2]
             });
         let track = new Track({
