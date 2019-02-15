@@ -87,8 +87,8 @@ export class ProcurementPhaseComponent implements OnInit {
       new Date(this.info.early_bids_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.early_bids_date).setHours(0, 0, 0, 0) &&
       new Date(this.info.mpc).setHours(0, 0, 0, 0) === new Date(this.origInfo.mpc).setHours(0, 0, 0, 0) &&
       new Date(this.info.bpw).setHours(0, 0, 0, 0) === new Date(this.origInfo.bpw).setHours(0, 0, 0, 0) &&
-      new Date(this.info.ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.ntp_date).setHours(0, 0, 0, 0) &&
-      new Date(this.info.compl_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.compl_date).setHours(0, 0, 0, 0)) {
+      new Date(this.info.proc_ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.proc_ntp_date).setHours(0, 0, 0, 0) &&
+      new Date(this.info.proc_comp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.proc_comp_date).setHours(0, 0, 0, 0)) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its

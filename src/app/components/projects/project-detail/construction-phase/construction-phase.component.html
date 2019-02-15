@@ -33,7 +33,7 @@
     <div class="form-group row col-lg-12 col-md-12">
       <label class="col-lg-4 col-md-4 col-form-label">NTP Date</label>
       <div class="col-lg-3 col-md-3 input-group">
-        <input class="form-control" [matDatepicker]="dp_ntp" placeholder="mm/dd/yyyy" [(ngModel)]="info.ntp_date" [disabled] = "role_id == 6">
+        <input class="form-control" [matDatepicker]="dp_ntp" placeholder="mm/dd/yyyy" [(ngModel)]="info.cons_ntp_date" [disabled] = "role_id == 6">
         <mat-datepicker-toggle matSuffix [for]="dp_ntp"></mat-datepicker-toggle>
         <mat-datepicker #dp_ntp></mat-datepicker>
       </div>

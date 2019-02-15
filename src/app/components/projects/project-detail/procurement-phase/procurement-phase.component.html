@@ -88,7 +88,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">NTP Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group">
-        <input class="form-control" [matDatepicker]="dp_ntp_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.ntp_date">
+        <input class="form-control" [matDatepicker]="dp_ntp_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.proc_ntp_date">
         <mat-datepicker-toggle matSuffix [for]="dp_ntp_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_ntp_date></mat-datepicker>
       </div>
@@ -104,7 +104,7 @@
     <div class="form-group row col-md-12">
       <label class="col-lg-8 col-md-8 col-form-label">Completion Date</label>
       <div class="col-lg-4 col-md-4 col-sm-6 input-group  datepicker-menu">
-        <input class="form-control" [matDatepicker]="dp_compl_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.compl_date">
+        <input class="form-control" [matDatepicker]="dp_compl_date" placeholder="mm/dd/yyyy" [(ngModel)]="info.proc_comp_date">
         <mat-datepicker-toggle matSuffix [for]="dp_compl_date"></mat-datepicker-toggle>
         <mat-datepicker #dp_compl_date></mat-datepicker>
       </div>

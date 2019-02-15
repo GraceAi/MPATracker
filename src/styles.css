@@ -64,6 +64,11 @@ app-report{
   margin-right:16px;
 }
 
+app-project-report{
+  display:flex;
+  margin: 20px;
+}
+
 app-report-print{
     margin-top: -136px;
 }

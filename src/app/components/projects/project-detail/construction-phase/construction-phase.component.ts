@@ -155,7 +155,7 @@ export class ConstructionPhaseComponent implements OnInit {
     if(this.info.project_size_id == null){
       this.toastr.error('', 'Please select a project size first', {timeOut: 2000});
     }
-    else if(this.info.ntp_date == null){
+    else if(this.info.cons_ntp_date == null){
       this.toastr.error('', 'Please select a NTP date first', {timeOut: 2000});
     }
     else{
@@ -173,7 +173,7 @@ export class ConstructionPhaseComponent implements OnInit {
         if(ms.milestone_percentage == 100){
           interval = this.projectInterval * 4;
         }
-        var d = new Date(this.info.ntp_date);
+        var d = new Date(this.info.cons_ntp_date);
         d.setDate(d.getDate() + interval);
         ms.target_date = d.toISOString();
       }
@@ -206,7 +206,7 @@ export class ConstructionPhaseComponent implements OnInit {
     }
     // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
     if (this.info.firm_id === this.origInfo.firm_id && this.info.project_size_id === this.origInfo.project_size_id && isMilestoneSame &&
-      new Date(this.info.ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.ntp_date).setHours(0, 0, 0, 0)) {
+      new Date(this.info.cons_ntp_date).setHours(0, 0, 0, 0) === new Date(this.origInfo.cons_ntp_date).setHours(0, 0, 0, 0)) {
       return true;
     }
     // Otherwise ask the user with the dialog service and return its

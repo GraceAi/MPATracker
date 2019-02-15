@@ -83,6 +83,7 @@ import { ConstructionPhaseComponent } from './components/projects/project-detail
 import { NewFirmDialog } from './components/modals/dialog-newfirm/dialog-newfirm';
 import { ReportTemplateComponent } from './components/requests/report/report-template/report-template.component';
 import { IntroductionComponent } from './components/introduction/introduction.component';
+import { ProjectReportComponent } from './components/projects/project-report/project-report.component';
 
 
 @NgModule({
@@ -151,7 +152,8 @@ import { IntroductionComponent } from './components/introduction/introduction.co
     ConstructionPhaseComponent,
     NewFirmDialog,
     ReportTemplateComponent,
-    IntroductionComponent
+    IntroductionComponent,
+    ProjectReportComponent
 
   ],
   imports: [

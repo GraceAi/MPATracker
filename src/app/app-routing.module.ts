@@ -48,6 +48,7 @@ import { ProcurementPhaseComponent } from './components/projects/project-detail/
 import { ConstructionPhaseComponent } from './components/projects/project-detail/construction-phase/construction-phase.component';
 
 import { IntroductionComponent } from './components/introduction/introduction.component';
+import { ProjectReportComponent } from './components/projects/project-report/project-report.component';
 
 const routes: Routes = [
   //{ path: '**', component: PageNotFoundComponent },
@@ -55,6 +56,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, resolve: { tabs: RequestResolver },
          children: [
+           {path: '', redirectTo: 'tab/0', pathMatch: 'full' },
            {path: 'tab/0', component: IntroductionComponent, pathMatch: 'full', data : { title : 'Overview'}},
            {path: 'tab/1', component: RequesterRequestComponent, canActivate: [RequesterAuthGuard], pathMatch: 'full', data : { title : 'My Request List'}},
            {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'Requests for Review'}},
@@ -84,6 +86,7 @@ const routes: Routes = [
          },
          {path: 'tab/7', component: AdminProjectComponent, pathMatch: 'full', data : { title : 'All Project List'}},
          {path: 'tab/8', component: ManagerProjectComponent, pathMatch: 'full', data : { title : 'Projects for Project Managers'}},
+         {path: 'tab/9', component: ProjectReportComponent, pathMatch: 'full', data : { title : 'Project Report'}}
        ]
   },
   { path: 'report/print/:title', component: ReportPrintComponent, pathMatch: 'full'},

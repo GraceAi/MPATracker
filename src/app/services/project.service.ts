@@ -148,6 +148,15 @@ export class ProjectService {
      );
    }
 
+   getProjectReport(filter:any): Observable<any>{
+     let body = JSON.stringify(filter);
+     const url = this.erdTrackerServicesUrl + "Project/GetProjectReport";
+     return this.http.post(url, body, this.httpOptions)
+     .pipe(
+       catchError(this.handleError('getProjectReport', []))
+     );
+   }
+
 
    private handleError<T> (operation = 'operation', result?: T) {
      return (error: any): Observable<T> => {

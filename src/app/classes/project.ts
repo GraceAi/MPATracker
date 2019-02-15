@@ -46,8 +46,8 @@ export class ProcurementPhase{
   early_bids_date:string;
   mpc:string;
   bpw:string;
-  ntp_date:string;
-  compl_date:string;
+  proc_ntp_date:string;
+  proc_comp_date:string;
 }
 
 export class ConstructionPhase{
@@ -55,7 +55,7 @@ export class ConstructionPhase{
   firm_id:number;
   firm_name:string;
   project_id:number;
-  ntp_date:string;
+  cons_ntp_date:string;
   project_size_id:number;
   size_name:string;
   days:number;
@@ -70,5 +70,26 @@ export class ConstructionMilestone{
   complete_date:string;
   comment_text:string;
   commenter_id:number;
-  comment_date:string;
+  //comment_date:string;
+}
+
+export class ProjectReportFilter{
+  start_date:string;
+  end_date:string;
+}
+
+export class ProjectReport{
+  project_id: number;
+  project_number:string;
+  max_date:string;
+  min_date:string;
+  //dates:ProjectDate[];
+  procurement_dates:ProjectDate[];
+  construction_dates:ProjectDate[];
+}
+
+export class ProjectDate{
+  display_date: string;
+  display_name:string;
+  full_name:string;
 }

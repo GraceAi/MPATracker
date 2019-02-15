@@ -20,7 +20,7 @@ export class LocationComponent implements OnInit {
   category_id:number;
   hide:boolean = true;
   map: any;
-  tempGraphicsLayer:any;
+  //tempGraphicsLayer:any;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -49,7 +49,7 @@ export class LocationComponent implements OnInit {
       'esri/widgets/Track'
       ])
       .then(([Map,Basemap, MapView, Graphic, Point, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
-        this.tempGraphicsLayer = new GraphicsLayer();
+        let tempGraphicsLayer = new GraphicsLayer();
         let ptFeatureLayer = new FeatureLayer({
           url: this.authService.appSettings.pt_feature_layer,
           outFields: ["*"],
@@ -77,7 +77,7 @@ export class LocationComponent implements OnInit {
               });*/
         this.map.add(ptFeatureLayer);
         this.map.add(polyFeatureLayer);
-        this.map.add(this.tempGraphicsLayer);
+        this.map.add(tempGraphicsLayer);
         let view = new MapView({
               container: "mapDiv",
               map: this.map,
@@ -104,7 +104,7 @@ export class LocationComponent implements OnInit {
                   };
                   return graphic;
                 });
-                this.tempGraphicsLayer.addMany(features);
+                tempGraphicsLayer.addMany(features);
                 /*view.goTo({
                    target: result.features,
                    zoom: 10
@@ -130,7 +130,7 @@ export class LocationComponent implements OnInit {
                   };
                   return graphic;
                 });
-                this.tempGraphicsLayer.addMany(features);
+                tempGraphicsLayer.addMany(features);
                 /*view.goTo({
                    target: result.features,
                    zoom: 10
@@ -139,8 +139,8 @@ export class LocationComponent implements OnInit {
            })
           });
 
-          view.whenLayerView(this.tempGraphicsLayer).then(function(layerView){
-            console.log(this.tempGraphicsLayer.graphics.items);
+          view.whenLayerView(tempGraphicsLayer).then(function(layerView){
+            console.log(tempGraphicsLayer.graphics.items);
             /*if(tempGraphicsLayer.graphics.items.length > 0){
               view.goTo({
                  target: tempGraphicsLayer.graphics.items,
@@ -196,15 +196,16 @@ export class LocationComponent implements OnInit {
               this.tempGraphicsLayer.add(pointGraphic);*/
             }
             //console.log(result);
-              //location.reload();
+              location.reload();
           });
           this.requestService.updateLocationPoly(new_polygons, this.request_id).subscribe(result => {
             if(result){
               document.querySelector("body").style.cssText = "cursor: auto";
               console.log(result);
+              location.reload();
             }
               //
-              //location.reload();
+              //
           });
       }
     });

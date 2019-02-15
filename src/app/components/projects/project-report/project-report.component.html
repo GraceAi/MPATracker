@@ -1,0 +1,48 @@
+
+<div class="detailContainer">
+  <div class="filter-container">
+    <div class="sub-navbar page-title">Report Filter</div>
+      <div class="form-row">
+        <div class="form-group row col-lg-8 col-md-12">
+          <label class="col-lg-3 col-md-3 col-sm-3 col-form-label">Start Date</label>
+          <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+            <input class="form-control" [matDatepicker]="dp_start_date" placeholder="mm/dd/yyyy" [(ngModel)]="filter.start_date">
+            <mat-datepicker-toggle matSuffix [for]="dp_start_date"></mat-datepicker-toggle>
+            <mat-datepicker #dp_start_date></mat-datepicker>
+          </div>
+          <label class="col-lg-1 col-md-1 col-sm-1 col-form-label form-label-center">to</label>
+          <div class="col-lg-4 col-md-4 col-sm-6 input-group">
+            <input class="form-control" [matDatepicker]="dp_end_date" placeholder="mm/dd/yyyy" [(ngModel)]="filter.end_date">
+            <mat-datepicker-toggle matSuffix [for]="dp_end_date"></mat-datepicker-toggle>
+            <mat-datepicker #dp_end_date></mat-datepicker>
+          </div>
+        </div>
+      </div>
+      <div class="center-div">
+        <button class="btn btn-secondary" (click)="generateProjectReport()" title="Generate report"><i class="fa fa-bar-chart"></i>Generate Report</button>
+        <button class="btn btn-secondary" (click)="resetFilter()" title="Reset filter"><i class="fa fa-undo"></i>Reset</button>
+      </div>
+   </div>
+
+  <div class="sidenav-container mat-elevation-z8">
+    <!-- names -->
+    <div class="sidenav">
+      <div class="sidenav-header header-cell">Projects</div>
+      <mat-nav-list>
+        <a mat-list-item *ngFor="let project of projects">{{project.project_id}}</a>
+      </mat-nav-list>
+    </div>
+    <!-- calendar -->
+    <div class="sidenav-content calendar">
+      <div style="display:flex;">
+        <div *ngFor="let date of dates" class="header-cell calendar-cell" [ngClass]="{today:date===today}">{{date.slice(5)}}</div>
+      </div>
+      <div class="calendar-row" *ngFor="let project of projects">
+        <div *ngFor="let date of dates" class="calendar-cell" [attr.date-inside]="getAttribute(project, date)" [ngClass]="{today:date===today}">
+          <p class="description">{{getDescription(project, date)}}</p>
+          <div [ngClass]="getPointClass(project, date)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
