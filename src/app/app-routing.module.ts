@@ -49,11 +49,12 @@ import { ConstructionPhaseComponent } from './components/projects/project-detail
 
 import { IntroductionComponent } from './components/introduction/introduction.component';
 import { ProjectReportComponent } from './components/projects/project-report/project-report.component';
+import { ProjectReportPrintComponent } from './components/projects/project-report/project-report-print/project-report-print.component';
 
 const routes: Routes = [
   //{ path: '**', component: PageNotFoundComponent },
   { path: 'unauthorized', component: PageNotAuthorizedComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, resolve: { tabs: RequestResolver },
          children: [
            {path: '', redirectTo: 'tab/0', pathMatch: 'full' },
@@ -112,7 +113,8 @@ const routes: Routes = [
                 {path: 'procument', component: ProcurementPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'},
                 {path: 'construction', component: ConstructionPhaseComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'}
               ]
-  }
+  },
+  { path: 'projectreport/print', component: ProjectReportPrintComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

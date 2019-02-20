@@ -31,9 +31,6 @@ export class ProjectReportComponent implements OnInit {
 
       this.resetFilter();
     }
-
-
-
     loadReportData(){
       this.today = this.moment().format('YYYY-MM-DD');
       let range = this.moment.range(this.moment(this.filter.start_date, 'YYYY-MM-DD'), this.moment(this.filter.end_date, 'YYYY-MM-DD'));

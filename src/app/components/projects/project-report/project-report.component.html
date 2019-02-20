@@ -45,4 +45,12 @@
       </div>
     </div>
   </div>
+  <div class="center-div">
+    <a routerLink="/projectreport/print" [queryParams]="{start_date: filter.start_date | date: 'shortDate', end_date: filter.end_date | date: 'shortDate'}" target="_blank">
+      <button type="button" class="btn btn-secondary" title="View/Print report">
+        <i class="fa fa-files-o"></i>
+        View/Print Report
+      </button>
+    </a>
+  </div>
 </div>

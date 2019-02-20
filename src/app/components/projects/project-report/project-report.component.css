@@ -16,7 +16,7 @@
 }
 .sidenav-container{
     display: flex;
-    height:500px;
+    margin-bottom: 20px;
 }
 .sidenav {
   width: 400px;
