@@ -17,6 +17,7 @@ export class LocationMapDialog  {
       'esri/Map',
       'esri/Basemap',
       'esri/views/MapView',
+      'esri/geometry/Extent',
       'esri/widgets/Sketch/SketchViewModel',
       'esri/Graphic',
       'esri/layers/TileLayer',
@@ -24,7 +25,7 @@ export class LocationMapDialog  {
       'esri/layers/FeatureLayer',
       'esri/widgets/Track'
       ])
-      .then(([Map, Basemap, MapView, SketchViewModel, Graphic, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
+      .then(([Map, Basemap, MapView, Extent, SketchViewModel, Graphic, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
       let editGraphic;
       let deleted = false;
       // GraphicsLayer to hold graphics created via sketch view model
@@ -50,10 +51,17 @@ export class LocationMapDialog  {
       const view = new MapView({
         container: "map",
         map: this.map,
-        zoom: 2,
-        center: [-76.6, 39.2]
+        extent: new Extent({
+          xmin: -8539123.785019355,
+          ymin: 4744524.243404276,
+          xmax: -8502819.196583943,
+          ymax: 4767531.788918083,
+          spatialReference: {
+            wkid: 102100
+          }
+        })
+        //center: [-76.6, 39.2]
       });
-
       //geolocation
       let track = new Track({ view: view });
       view.ui.add(track, "bottom-left");

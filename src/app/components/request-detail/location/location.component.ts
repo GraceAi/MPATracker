@@ -41,6 +41,7 @@ export class LocationComponent implements OnInit {
       'esri/Map',
       'esri/Basemap',
       'esri/views/MapView',
+      'esri/geometry/Extent',
       'esri/Graphic',
       'esri/geometry/Point',
       'esri/layers/TileLayer',
@@ -48,7 +49,7 @@ export class LocationComponent implements OnInit {
       'esri/layers/FeatureLayer',
       'esri/widgets/Track'
       ])
-      .then(([Map,Basemap, MapView, Graphic, Point, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
+      .then(([Map,Basemap, MapView, Extent, Graphic, Point, TileLayer, GraphicsLayer, FeatureLayer, Track]) => {
         let tempGraphicsLayer = new GraphicsLayer();
         let ptFeatureLayer = new FeatureLayer({
           url: this.authService.appSettings.pt_feature_layer,
@@ -81,8 +82,15 @@ export class LocationComponent implements OnInit {
         let view = new MapView({
               container: "mapDiv",
               map: this.map,
-              zoom: 2,
-              center: [-76.6, 39.2]
+              extent: new Extent({
+                xmin: -8539123.785019355,
+                ymin: 4744524.243404276,
+                xmax: -8502819.196583943,
+                ymax: 4767531.788918083,
+                spatialReference: {
+                  wkid: 102100
+                }
+              })
             });
         let track = new Track({
             view: view
