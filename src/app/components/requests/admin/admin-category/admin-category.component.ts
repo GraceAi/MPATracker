@@ -31,6 +31,7 @@ export class AdminCategoryComponent implements OnInit {
       if(result.category_name!= null && result.category_code!= null && result.max_request_days!= null){
         this.requestService.addCategory(result).subscribe(result => {
           if(result.length >= 0){
+            this.authService.categories = result;
             this.categoryDataSource = new MatTableDataSource(result);
             this.categoryDataSource.sort = this.sort;
           }

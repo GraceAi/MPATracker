@@ -63,11 +63,11 @@ export class SearchPanelComponent implements OnInit {
         this.selectedStatus = status.status_desc;
         this.searchCriteria.status_id = status.status_id;
       }
-      else if(tab_id == 5){//assigner tab display submitted requests
-
-        let status = this.authService.statuses.find(status => status.status_id == 2);
+      else if(tab_id == 5){//assigner tab display submitted requests and assigned requests
+        this.selectedStatus = "All";
+        /*let status = this.authService.statuses.find(status => status.status_id == 2);
         this.selectedStatus = status.status_desc;
-        this.searchCriteria.status_id = status.status_id;
+        this.searchCriteria.status_id = status.status_id;*/
       }
       this.searchRequest.emit(this.searchCriteria);
     }

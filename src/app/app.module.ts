@@ -85,7 +85,9 @@ import { ReportTemplateComponent } from './components/requests/report/report-tem
 import { IntroductionComponent } from './components/introduction/introduction.component';
 import { ProjectReportComponent } from './components/projects/project-report/project-report.component';
 import { ProjectReportPrintComponent } from './components/projects/project-report/project-report-print/project-report-print.component';
-
+import { AdminReqDeptComponent } from './components/requests/admin/admin-req-dept/admin-req-dept.component';
+import { AddReqDeptDialog } from './components/modals/dialog-addreqdept/dialog-addreqdept';
+import { ReportStatusComponent } from './components/requests/report/report-status/report-status.component';
 
 @NgModule({
   declarations: [
@@ -155,8 +157,10 @@ import { ProjectReportPrintComponent } from './components/projects/project-repor
     ReportTemplateComponent,
     IntroductionComponent,
     ProjectReportComponent,
-    ProjectReportPrintComponent
-
+    ProjectReportPrintComponent,
+    AdminReqDeptComponent,
+    AddReqDeptDialog,
+    ReportStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -186,7 +190,7 @@ import { ProjectReportPrintComponent } from './components/projects/project-repor
     ],
   entryComponents: [
     NewRequestDialog, AddDocumentDialog, AddContractDialog, AddLinkDialog,AddCommentDialog,AddContactDialog,NewContactDialog,ConfirmationDialog,
-    NotificationDialog,LocationMapDialog,AddCategoryDialog, NewProjectDialog, NewFirmDialog
+    NotificationDialog,LocationMapDialog,AddCategoryDialog, NewProjectDialog, NewFirmDialog, AddReqDeptDialog
   ],
   bootstrap: [AppComponent]
 })

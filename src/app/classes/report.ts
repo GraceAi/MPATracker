@@ -5,6 +5,7 @@ export class ReportData{
   Code:string;
   Requester:string;
   Reviewer:string;
+  Status:string;
   No_Of_Requests:number;
   Min_Days:number;
   Max_Days:number;

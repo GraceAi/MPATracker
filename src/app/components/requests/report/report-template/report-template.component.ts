@@ -55,6 +55,9 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     else if (this.reportType == "Response Time By Reviewer") {
       this.displayReviewerResponseReport();
     }
+    else if (this.reportType == "Requests by Status") {
+      this.displayStatusReport();
+    }
   }
 
   loadReportData(filter:any){
@@ -72,6 +75,9 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     }
     else if (this.reportType == "Response Time By Reviewer") {
         return this.requestService.getReviewerReponseReportData(filter);
+    }
+    else if (this.reportType == "Requests by Status") {
+      return this.requestService.getStatusReportData(filter);
     }
   }
 
@@ -195,6 +201,33 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
       }
       this.authService.setReportData(reportData);
       this.authService.setResponseTimeChartData(this.reportData, chartLabel, "bar");
+    }
+    else {
+      this.resetData();
+    }
+  }
+
+  displayStatusReport(){
+    let reportData = [];
+    let chartData = [];
+    let chartLabel = [];
+    let chartColor = [];
+    let columns = ['Status', 'No_Of_Requests'];
+    this.authService.setReportColumn(columns);
+    if(this.reportData.length > 0){
+      let index = 0;
+      for (let reportdata of this.reportData) {
+        const row = new ReportData();
+        row.Status = reportdata.status;
+        row.No_Of_Requests = reportdata.request_count;
+        reportData.push(row);
+        chartData.push(reportdata.request_count);
+        chartLabel.push(reportdata.status);
+        chartColor.push(this.authService.COLORS[index % this.authService.COLORS.length]);
+        index++;
+      }
+      this.authService.setReportData(reportData);
+      this.authService.setPieChartData(chartData, chartLabel, chartColor);
     }
     else {
       this.resetData();

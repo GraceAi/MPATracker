@@ -22,10 +22,9 @@
       <div class="col-lg-8 col-md-2 col-sm-8"><input type="checkbox" class="form-check-input" [disabled] = "assignerDisabled" [(ngModel)]="generalInfo.high_priority"></div>
     </div>
   </div>
-  <div class="form-row">
+  <!-- <div class="form-row">
     <div class="form-group row col-lg-4 col-md-9">
       <label class="col-lg-4 col-md-4 col-sm-4 col-form-label form-label-sm">Location</label>
-      <!-- <div class="col-sm-9"><input class="form-control" [disabled] = "disabled" value={{generalInfo.location_name}}></div> -->
       <div ngbDropdown class="col-lg-8 col-md-6 col-sm-8">
         <button class="btn btn-outline" id="locMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedLoc}}</button>
          <div ngbDropdownMenu aria-labelledby="locMenu">
@@ -36,6 +35,23 @@
     <div class="form-group row col-lg-8 col-md-9">
       <label class="col-lg-4 col-md-4 col-sm-4 col-form-label">Request Date</label>
       <div class="col-lg-8 col-md-6 col-sm-8"><input class="form-control" [disabled] = true value={{create_date}}></div>
+    </div>
+  </div> -->
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-2 col-md-3 col-sm-4 col-form-label form-label-sm">Location</label>
+      <div ngbDropdown class="col-lg-8 col-md-8 col-sm-8">
+        <button class="btn btn-outline" id="locMenu" ngbDropdownToggle [disabled] = "disabled">{{selectedLoc}}</button>
+         <div ngbDropdownMenu aria-labelledby="locMenu">
+          <button class="dropdown-item" *ngFor="let loc of locs" (click)="onChangeLoc(loc)">{{loc.location_name}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group row col-lg-8 col-md-12">
+      <label class="col-lg-2 col-md-3 col-sm-4 col-form-label form-label-sm">Request Date</label>
+      <div class="col-lg-8 col-md-8 col-sm-8"><input class="form-control" [disabled] = true value={{create_date}}></div>
     </div>
   </div>
   <div class="form-row">

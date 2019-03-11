@@ -32,6 +32,11 @@ export class Category {
   category_code: string;
 }
 
+export class RequesterDept {
+  requester_dept_id:number;
+  requester_dept_name:string;
+}
+
 export class Contact {
   contact_id: number;
   contact_details: string;

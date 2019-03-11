@@ -106,6 +106,14 @@ export class DomainService {
     );
   }
 
+  getRequesterDepts(service_url:string):Observable<any>{
+    const url = service_url + "Domain/GetRequesterDepts";
+    return this.http.get<any>(url)
+    .pipe(
+      catchError(this.handleError('getRequesterDepts', []))
+    );
+  }
+
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 

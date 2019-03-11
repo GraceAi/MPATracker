@@ -19,6 +19,7 @@ import { AdminComponent } from './components/requests/admin/admin.component';
 import { AdminRolesComponent } from './components/requests/admin/admin-roles/admin-roles.component';
 import { AdminCategoryComponent } from './components/requests/admin/admin-category/admin-category.component';
 import { AdminSidetabsComponent } from './components/requests/admin/admin-sidetabs/admin-sidetabs.component';
+import { AdminReqDeptComponent } from './components/requests/admin/admin-req-dept/admin-req-dept.component';
 import { ReportComponent } from './components/requests/report/report.component';
 import { RequestResolver }   from './services/request-resolver.service';
 import { RequestDetailResolver }   from './services/request-detail-resolver.service';
@@ -37,6 +38,7 @@ import { ReportReviewerComponent } from './components/requests/report/report-rev
 import { ReportResponseCategoryComponent } from './components/requests/report/report-response-category/report-response-category.component';
 import { ReportResponseReviewerComponent } from './components/requests/report/report-response-reviewer/report-response-reviewer.component';
 import { ReportRequesterComponent } from './components/requests/report/report-requester/report-requester.component';
+import { ReportStatusComponent } from './components/requests/report/report-status/report-status.component';
 
 import { AdminProjectComponent } from './components/projects/admin-project/admin-project.component';
 import { ManagerProjectComponent } from './components/projects/manager-project/manager-project.component';
@@ -75,14 +77,16 @@ const routes: Routes = [
                  {path: 'requester', component: ReportRequesterComponent, pathMatch: 'full', data : { subtitle : 'Requests by Requester'}},
                  {path: 'reviewer', component: ReportReviewerComponent, pathMatch: 'full', data : { subtitle : 'Assigned Request By Reviewer'}},
                  {path: 'categorytime', component: ReportResponseCategoryComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Category'}},
-                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Reviewer'}}
+                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Reviewer'}},
+                 {path: 'status', component: ReportStatusComponent, pathMatch: 'full', data : { subtitle : 'Requests by Status'}},
                ]},
            {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Admin Settings'},
                children: [
                  {path: '', redirectTo: 'roles', pathMatch: 'full'},
                  {path: 'roles', component: AdminRolesComponent, pathMatch: 'full'},
                  {path: 'category', component: AdminCategoryComponent, pathMatch: 'full'},
-                 {path: 'sidetabs', component: AdminSidetabsComponent, pathMatch: 'full'}
+                 {path: 'sidetabs', component: AdminSidetabsComponent, pathMatch: 'full'},
+                 {path: 'reqdepts', component: AdminReqDeptComponent, pathMatch: 'full'}
                ]
          },
          {path: 'tab/7', component: AdminProjectComponent, pathMatch: 'full', data : { title : 'All Project List'}},

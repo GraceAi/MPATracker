@@ -430,6 +430,22 @@ export class RequestService {
     );
   }
 
+  addRequesterDept(dept_name:string): Observable<any>{
+    const url = this.erdTrackerServicesUrl + "Admin/AddRequesterDept/?dept_name=" + dept_name;
+    return this.http.post(url, this.httpOptions)
+    .pipe(
+      catchError(this.handleError('addRequesterDept', []))
+    );
+  }
+
+  deleteRequesterDept(dept_id:number): Observable<any>{
+    const url = this.erdTrackerServicesUrl + "Admin/DeleteRequesterDept/?dept_id=" + dept_id;
+    return this.http.post(url, this.httpOptions)
+    .pipe(
+      catchError(this.handleError('deleteRequesterDept', []))
+    );
+  }
+
   getCategoryRequestReportData(criteria:any): Observable<any>{
     let body = JSON.stringify(criteria);
     const url = this.erdTrackerServicesUrl + "Report/GetReportByCategory";
@@ -507,6 +523,14 @@ export class RequestService {
     const url = this.erdTrackerServicesUrl + "Report/GetResponseTimeByCategory";
     return this.http.post(url, body, this.httpOptions).pipe(
       catchError(this.handleError('getCategoryReponseReportData', []))
+    );
+  }
+
+  getStatusReportData(criteria:any): Observable<any>{
+    let body = JSON.stringify(criteria);
+    const url = this.erdTrackerServicesUrl + "Report/GetReportByStatus";
+    return this.http.post(url, body, this.httpOptions).pipe(
+      catchError(this.handleError('getStatusReportData', []))
     );
   }
 
