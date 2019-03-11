@@ -23,10 +23,8 @@ export class AdminReqDeptComponent implements OnInit {
     public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.domainService.getRequesterDepts(this.authService.appSettings.service_url).subscribe(result => {
-      this.reqDeptDataSource = new MatTableDataSource(result);
-      this.reqDeptDataSource.sort = this.sort;
-    });
+    this.reqDeptDataSource = new MatTableDataSource(this.authService.departments);
+    this.reqDeptDataSource.sort = this.sort;
   }
 
   openAddReqDeptDialog() {
@@ -36,6 +34,7 @@ export class AdminReqDeptComponent implements OnInit {
       if(name != null && name.trim().length > 0){
         this.requestService.addRequesterDept(name).subscribe(result => {
           if(result.length >= 0){
+            this.authService.departments = result;
             this.reqDeptDataSource = new MatTableDataSource(result);
             this.reqDeptDataSource.sort = this.sort;
           }
@@ -51,8 +50,9 @@ export class AdminReqDeptComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if(result){
-        this.requestService.deleteRequesterDept(element.requester_dept_id).subscribe(result => {
+        this.requestService.deleteRequesterDept(element.deptmt_id).subscribe(result => {
           if(result.length >= 0){
+            this.authService.departments = result;
             this.reqDeptDataSource = new MatTableDataSource(result);
             this.reqDeptDataSource.sort = this.sort;
           }
