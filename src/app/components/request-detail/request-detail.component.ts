@@ -96,7 +96,7 @@ export class RequestDetailComponent implements OnInit {
       //if (this.componentRef.generalInfo.notes !== this.componentRef.origGeneralInfo.notes || this.componentRef.generalInfo.high_priority !== this.componentRef.origGeneralInfo.high_priority
       //  || this.componentRef.generalInfo.description !== this.componentRef.origGeneralInfo.description
       //  || this.componentRef.generalInfo.location_id !== this.componentRef.origGeneralInfo.location_id || this.componentRef.generalInfo.deptmt_id !== this.componentRef.origGeneralInfo.deptmt_id) {
-      if (JSON.stringify(this.componentRef.generalInfo) === JSON.stringify(this.componentRef.origGeneralInfo)) {
+      if (JSON.stringify(this.componentRef.generalInfo) !== JSON.stringify(this.componentRef.origGeneralInfo)) {
           this.requestService.updateRequestGeneral(this.componentRef.generalInfo).subscribe(result => {
             if(result == "Success"){
               //this.componentRef.origGeneralInfo = this.componentRef.generalInfo;
@@ -109,6 +109,9 @@ export class RequestDetailComponent implements OnInit {
               const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
             }
           });
+        }
+        else {
+          this.openSubmitRequestDialog();
         }
     }
     else {
