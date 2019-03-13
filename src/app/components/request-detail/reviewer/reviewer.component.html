@@ -1,19 +1,19 @@
-<ng-template #popContent>To add or remove a Reviewer to or from a Request:
-<br>1. Select the <b>Reviewer</b> from either the Assigned Reviewers table or Available Reviewers table.
+<ng-template #popContent>To add or remove a task manager to or from a Request:
+<br>1. Select the <b>task manager</b> from either the Assigned Task Manager table or Available Task Managers table.
 <br>2. Click <b>Add</b> button or <b>Remove</b> button.
 <br>3. Click <b>Save</b> button.</ng-template>
-<div class="page-title sub-navbar">Reviewer
+<div class="page-title sub-navbar">Task Managers
     <i class="fa fa-question-circle" placement="right" [ngbPopover]="popContent" popoverClass="my-popover-class" autoClose="true" container="body"></i>
 </div>
 <div class = "container">
   <div class="row assign-table">
     <div class="col-md-4">
-      <input class="form-control" (keyup)="applyAssignedFilter($event.target.value)" placeholder="Search assigned reviewers" style="margin-bottom:10px">
+      <input class="form-control" (keyup)="applyAssignedFilter($event.target.value)" placeholder="Search assigned task manager" style="margin-bottom:10px">
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="reviewerDataSource" matSort>
 
         <ng-container matColumnDef="reviewer">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Reviewers </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned Task Managers </th>
           <td mat-cell *matCellDef="let element"> {{element.fname}}  {{element.lname}} </td>
         </ng-container>
 
@@ -26,18 +26,18 @@
 
     <div class="col-md-2 assign-btn-group" [hidden]="hide">
       <div class = "btn-group-vertical">
-        <button type="button" class="btn btn-secondary" (click)="addAssignedReviewer()" title="Add reviewers to assigned reviewers table on the left"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i>Add</button>
+        <button type="button" class="btn btn-secondary" (click)="addAssignedReviewer()" title="Add task managers to assigned task managers table on the left"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i>Add</button>
         <br>
-        <button type="button" class="btn btn-secondary" (click)="removeAssignedReviewer()" title="Remove reviewers from available reviewers table on the right"> <i class="fa fa-chevron-right" aria-hidden="true"></i>Remove</button>
+        <button type="button" class="btn btn-secondary" (click)="removeAssignedReviewer()" title="Remove task managers from available task managers table on the right"> <i class="fa fa-chevron-right" aria-hidden="true"></i>Remove</button>
       </div>
     </div>
 
     <div class="col-md-4">
-      <input class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="Search available reviewers" style="margin-bottom:10px">
+      <input class="form-control" (keyup)="applyFilter($event.target.value)" placeholder="Search available task managers" style="margin-bottom:10px">
       <div class="table-container mat-elevation-z8">
         <table mat-table [dataSource]="availableReviewerDataSource" matSort>
           <ng-container matColumnDef="reviewer">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Available Reviewers </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Available Task Managers </th>
             <td mat-cell *matCellDef="let element"> {{element.fname}}  {{element.lname}} </td>
           </ng-container>
 
@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="right-div" [hidden]="hide">
-    <button type="button" class="btn btn-secondary" (click)="assignReviewers()" title="Save assigned reviewers" title="Save assigned reviewers"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
+    <button type="button" class="btn btn-secondary" (click)="assignReviewers()" title="Save assigned task managers" title="Save assigned task managers"><i class="fa fa-save" aria-hidden="true"></i> Save </button>
     <button type="button" class="btn btn-secondary" (click)="cancelAssign()" title="Cancel" title="Cancel"><i class="fa fa-undo" aria-hidden="true"></i> Cancel </button>
   </div>
 </div>

@@ -64,7 +64,7 @@ const routes: Routes = [
            {path: 'tab/1', component: RequesterRequestComponent, canActivate: [RequesterAuthGuard], pathMatch: 'full', data : { title : 'My Request List'}},
            {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'Requests for Review'}},
            {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'Requests for Assignment'}},
-           {path: 'tab/4', component: AssignerRequestComponent,canActivate: [AssignerAuthGuard], data : { title : 'Assign Default Reviewers'},
+           {path: 'tab/4', component: AssignerRequestComponent,canActivate: [AssignerAuthGuard], data : { title : 'Assign Default Task Managers'},
                children: [
                      {path: '', redirectTo: 'rules', pathMatch: 'full'},
                      {path: 'rules', component: AssignerRulesComponent, pathMatch: 'full'}
@@ -75,9 +75,9 @@ const routes: Routes = [
                  {path: '', redirectTo: 'category', pathMatch: 'full'},
                  {path: 'category', component: ReportCategoryComponent, pathMatch: 'full', data : { subtitle : 'Requests by Category'}},
                  {path: 'requester', component: ReportRequesterComponent, pathMatch: 'full', data : { subtitle : 'Requests by Requester'}},
-                 {path: 'reviewer', component: ReportReviewerComponent, pathMatch: 'full', data : { subtitle : 'Assigned Request By Reviewer'}},
+                 {path: 'reviewer', component: ReportReviewerComponent, pathMatch: 'full', data : { subtitle : 'Assigned Request By Task Manager'}},
                  {path: 'categorytime', component: ReportResponseCategoryComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Category'}},
-                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Reviewer'}},
+                 {path: 'reviewertime', component: ReportResponseReviewerComponent, pathMatch: 'full', data : { subtitle : 'Response Time By Task Manager'}},
                  {path: 'status', component: ReportStatusComponent, pathMatch: 'full', data : { subtitle : 'Requests by Status'}},
                ]},
            {path: 'tab/3', component: AdminComponent,canActivate: [AdminAuthGuard], data : { title : 'Admin Settings'},
@@ -105,7 +105,7 @@ const routes: Routes = [
                 {path: 'comments', component: CommentComponent, pathMatch: 'full'},
                 {path: 'links', component: PwlinkComponent, pathMatch: 'full'},
                 {path: 'location', component: LocationComponent, pathMatch: 'full'},
-                {path: 'reviewers', component: ReviewerComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'}
+                {path: 'task managers', component: ReviewerComponent, canDeactivate: [CanDeactivateGuard], pathMatch: 'full'}
               ]
   },
   { path: 'project/:projectId/role/:roleId', component: ProjectDetailComponent, canActivate: [RequestDetailAuthGuard], data : { title : 'Project Detail'},

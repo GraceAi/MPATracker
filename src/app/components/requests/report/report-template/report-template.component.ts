@@ -46,13 +46,13 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     else if (this.reportType == "Requests by Category") {
       this.displayCategoryReport();
     }
-    else if (this.reportType == "Assigned Request By Reviewer") {
+    else if (this.reportType == "Assigned Request By Task Manager") {
       this.displayReviewerReport();
     }
     else if (this.reportType == "Response Time By Category") {
       this.displayCatResponseReport();
     }
-    else if (this.reportType == "Response Time By Reviewer") {
+    else if (this.reportType == "Response Time By Task Manager") {
       this.displayReviewerResponseReport();
     }
     else if (this.reportType == "Requests by Status") {
@@ -67,13 +67,13 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     else if (this.reportType == "Requests by Category") {
         return this.requestService.getCategoryRequestReportData(filter);
     }
-    else if (this.reportType == "Assigned Request By Reviewer") {
+    else if (this.reportType == "Assigned Request By Task Manager") {
         return this.requestService.getReviewerRequestReportData(filter);
     }
     else if (this.reportType == "Response Time By Category") {
         return this.requestService.getCategoryReponseReportData(filter);
     }
-    else if (this.reportType == "Response Time By Reviewer") {
+    else if (this.reportType == "Response Time By Task Manager") {
         return this.requestService.getReviewerReponseReportData(filter);
     }
     else if (this.reportType == "Requests by Status") {
@@ -140,12 +140,12 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     let reportData = [];
     let chartData = [];
     let chartLabel = [];
-    let columns = ['Reviewer', 'No_Of_Requests'];
+    let columns = ['Task_Manager', 'No_Of_Requests'];
     this.authService.setReportColumn(columns);
     if(this.reportData.length > 0){
       for (let reportdata of this.reportData) {
         const row = new ReportData();
-        row.Reviewer = reportdata.user_name;
+        row.Task_Manager = reportdata.user_name;
         row.No_Of_Requests = reportdata.open_assigned_count;
         reportData.push(row);
         chartLabel.push(reportdata.user_name);
@@ -187,12 +187,12 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
     let reportData = [];
     let chartData = [];
     let chartLabel = [];
-    let columns = ['Reviewer', 'Min_Days', 'Max_Days', 'Avg_Days'];
+    let columns = ['Task_Manager', 'Min_Days', 'Max_Days', 'Avg_Days'];
     this.authService.setReportColumn(columns);
     if(this.reportData.length > 0){
       for (let reportdata of this.reportData) {
         const row = new ReportData();
-        row.Reviewer = reportdata.name;
+        row.Task_Manager = reportdata.name;
         row.Min_Days = reportdata.min_response_days;
         row.Max_Days = reportdata.max_response_days;
         row.Avg_Days = reportdata.avg_response_days;

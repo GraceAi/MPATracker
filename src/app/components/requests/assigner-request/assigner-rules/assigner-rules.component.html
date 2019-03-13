@@ -1,6 +1,6 @@
-<ng-template #popContent>To auto-assign reviewer(s) to specific categories:
+<ng-template #popContent>To auto-assign task manager(s) to specific categories:
 <br>1. Select a <b>category</b> from the dropdown menu.
-<br>2. Select the <b>reviewer</b> from either the auto-assigned reviewers or available reviewers.
+<br>2. Select the <b>task manager</b> from either the auto-assigned task managers or available task managers.
 <br>3. Click <b>Add</b> button or <b>Remove</b> button from that specific category.
 <br>4. Click <b>Save</b> button.</ng-template>
 
@@ -12,7 +12,7 @@
     <div class="form-group row">
       <label class="col-sm-2 col-form-label">Category</label>
       <div ngbDropdown class="col-sm-10">
-        <button class="btn btn-outline" id="categoryMenu" ngbDropdownToggle title="Select a category to view/add/remove auto-assigned reviewers.">
+        <button class="btn btn-outline" id="categoryMenu" ngbDropdownToggle title="Select a category to view/add/remove auto-assigned task managers.">
           {{selectedCategory.category_name}}</button>
         <div ngbDropdownMenu aria-labelledby="categoryMenu">
           <button class="dropdown-item" *ngFor="let category of categories" (click)="onChangeCategory(category)">{{category.category_name}}</button>
@@ -25,7 +25,7 @@
       <div class="table-container mat-elevation-z8">
           <table mat-table [dataSource]="autoAssignedReviewerDataSource">
           <ng-container matColumnDef="reviewer">
-            <th mat-header-cell *matHeaderCellDef> Assigned Reviewers </th>
+            <th mat-header-cell *matHeaderCellDef> Assigned Task Managers </th>
             <td mat-cell *matCellDef="let element"> {{element.fname}} {{element.lname}}</td>
           </ng-container>
 
@@ -47,7 +47,7 @@
       <div class="table-container mat-elevation-z8">
           <table mat-table [dataSource]="availableReviewerDataSource">
             <ng-container matColumnDef="reviewer">
-              <th mat-header-cell *matHeaderCellDef> Available Reviewers </th>
+              <th mat-header-cell *matHeaderCellDef> Available Task Managers </th>
               <td mat-cell *matCellDef="let element"> {{element.fname}}  {{element.lname}} </td>
             </ng-container>
 

@@ -4,7 +4,7 @@ export class ReportData{
   Category:string;
   Code:string;
   Requester:string;
-  Reviewer:string;
+  Task_Manager:string;
   Status:string;
   No_Of_Requests:number;
   Min_Days:number;

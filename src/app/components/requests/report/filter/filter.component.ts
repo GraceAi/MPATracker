@@ -38,7 +38,7 @@ export class FilterComponent implements OnInit {
     this.authService.reportFilter.subscribe(
       filter => {
         if(filter!= null){
-          this.searchCriteria = filter;
+          this.searchCriteria = Object.assign({}, filter);
           if(filter.category_name != null)
             this.selectedCategory = filter.category_name;
           if(filter.requestor_name != null)
