@@ -66,10 +66,9 @@ export class LocationMapDialog  {
       let track = new Track({ view: view });
       view.ui.add(track, "bottom-left");
       view.when(function() {
-        /*view.goTo({
-           target: data,
-           zoom: 10
-         });*/
+        view.goTo({
+           target: data.graphics
+         });
         //track geolocation
         //track.start();
         // create a new sketch view model
@@ -78,27 +77,20 @@ export class LocationMapDialog  {
           layer: tempGraphicsLayer,
           pointSymbol: {
             type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-            style: "square",
-            color: "#8A2BE2",
-            size: "16px",
-            outline: { // autocasts as new SimpleLineSymbol()
-              color: [255, 255, 255],
-              width: 3
-            }
-          },
-          polylineSymbol: {
-            type: "simple-line", // autocasts as new SimpleLineSymbol()
-            color: "#8A2BE2",
-            width: "4",
-            style: "dash"
+            //style: "diamond",
+            size: 16,
+            color: [0, 112, 255],
+            outline: {  // autocasts as new SimpleLineSymbol()
+                width: 0  // points
+              }
           },
           polygonSymbol: {
-            type: "simple-fill", // autocasts as new SimpleFillSymbol()
-            color: "rgba(138,43,226, 0.8)",
-            style: "solid",
-            outline: {
-              color: "white",
-              width: 1
+            type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+            color: [0, 112, 255],
+            style: "none",
+            outline: {  // autocasts as new SimpleLineSymbol()
+              color: [0, 112, 255],
+              width: 2
             }
           }
         });

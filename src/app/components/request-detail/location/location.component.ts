@@ -76,8 +76,8 @@ export class LocationComponent implements OnInit {
         /*this.map = new Map({
                 basemap: 'streets'
               });*/
-        this.map.add(ptFeatureLayer);
-        this.map.add(polyFeatureLayer);
+        //this.map.add(ptFeatureLayer);
+        //this.map.add(polyFeatureLayer);
         this.map.add(tempGraphicsLayer);
         let view = new MapView({
               container: "mapDiv",
@@ -97,69 +97,57 @@ export class LocationComponent implements OnInit {
           });
         view.ui.add(track, "bottom-left");
         let requestId = this.request_id;
-          view.whenLayerView(ptFeatureLayer).then(function(layerView){
-           let query = ptFeatureLayer.createQuery();
-           query.where = "REQUEST_ID = " + requestId;
-           ptFeatureLayer.queryFeatures(query).then(function(result){
-             if(result.features.length > 0){
-                // center the feature
-                let features = result.features.map(function(graphic) {
-                  graphic.symbol = {
-                    type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
-                    style: "diamond",
-                    size: 10,
-                    color: "darkorange"
-                  };
-                  return graphic;
-                });
-                tempGraphicsLayer.addMany(features);
-                /*view.goTo({
-                   target: result.features,
-                   zoom: 10
-                 });*/
-             }
-           })
-          });
-          view.whenLayerView(polyFeatureLayer).then(function(layerView){
-           let query = polyFeatureLayer.createQuery();
-           query.where = "REQUEST_ID = " + requestId;
-           polyFeatureLayer.queryFeatures(query).then(function(result){
-             if(result.features.length > 0){
-                // center the feature
-                let features = result.features.map(function(graphic) {
-                  graphic.symbol = {
-                    type: "simple-fill",  // autocasts as new SimpleFillSymbol()
-                    color: "darkorange",
-                    style: "solid",
-                    outline: {  // autocasts as new SimpleLineSymbol()
-                      color: "gray",
-                      width: 1
-                    }
-                  };
-                  return graphic;
-                });
-                tempGraphicsLayer.addMany(features);
-                /*view.goTo({
-                   target: result.features,
-                   zoom: 10
-                 });*/
-             }
-           })
-          });
 
-          view.whenLayerView(tempGraphicsLayer).then(function(layerView){
-            console.log(tempGraphicsLayer.graphics.items);
-            /*if(tempGraphicsLayer.graphics.items.length > 0){
-              view.goTo({
-                 target: tempGraphicsLayer.graphics.items,
-                 zoom: 20
+        let query1 = ptFeatureLayer.createQuery();
+        query1.where = "REQUEST_ID = " + requestId;
+
+        let query2 = polyFeatureLayer.createQuery();
+        query2.where = "REQUEST_ID = " + requestId;
+
+        //let promise0 = view.whenLayerView(tempGraphicsLayer);
+        let promise1 = ptFeatureLayer.queryFeatures(query1);
+        let promise2 = polyFeatureLayer.queryFeatures(query2);
+
+        Promise.all([promise1, promise2]).then(function(values) {
+            let newExtent = new Extent();
+            if(values[0].features.length > 0){
+               // center the feature
+               let features = values[0].features.map(function(graphic) {
+                 graphic.symbol = {
+                   type: "simple-marker", // autocasts as new SimpleMarkerSymbol()
+                   //style: "diamond",
+                   size: 16,
+                   color: [0, 112, 255],
+                   outline: {  // autocasts as new SimpleLineSymbol()
+                       width: 0  // points
+                     }
+                 };
+                 return graphic;
                });
-            }*/
-          });
+               tempGraphicsLayer.addMany(features);
+            }
+            if(values[1].features.length > 0){
+               // center the feature
+               let features = values[1].features.map(function(graphic) {
+                 graphic.symbol = {
+                   type: "simple-fill",  // autocasts as new SimpleFillSymbol()
+                   color: [0, 112, 255],
+                   style: "none",
+                   outline: {  // autocasts as new SimpleLineSymbol()
+                     color: [0, 112, 255],
+                     width: 2
+                   }
+                 };
+                 return graphic;
+               });
+               tempGraphicsLayer.addMany(features);
+            }
+            view.goTo(tempGraphicsLayer.graphics);
+        });
       })
   }
   openLocationDialog() {
-    const dialogRef = this.dialog.open(LocationMapDialog, { data: { graphics: this.map.layers.items[2].graphics.items, baselayer: this.authService.appSettings.base_layer }, width: '900px', height: '700px'});
+    const dialogRef = this.dialog.open(LocationMapDialog, { data: { graphics: this.map.layers.items[0].graphics.items, baselayer: this.authService.appSettings.base_layer }, width: '900px', height: '700px'});
     dialogRef.afterClosed().subscribe(result => {
       if(result){
         document.querySelector("body").style.cssText = "cursor: wait";
