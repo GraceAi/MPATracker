@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import {MatSort, MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import { RequestDetail, RequestPwLink } from '../../../classes/request';
@@ -26,6 +27,7 @@ export class PwlinkComponent implements OnInit {
    private route: ActivatedRoute,
    private requestService: RequestService,
    private authService: AuthenticationService,
+   private sanitizer:DomSanitizer,
    public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -39,6 +41,10 @@ export class PwlinkComponent implements OnInit {
         });
     this.authService.unlocked.subscribe(unlocked => { this.setLayout(unlocked); });
   }
+
+  sanitize(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+}
 
   setLayout(unlocked:boolean){
     if(this.role_id == 1){
