@@ -58,6 +58,7 @@ import { RemoveUnderscorePipe } from './components/directives/remove-underscore.
 import { RequesterAuthGuard }   from './services/requester-auth-guard.service';
 import { ReviewerAuthGuard}   from './services/reviewer-auth-guard.service';
 import { AssignerAuthGuard}   from './services/assigner-auth-guard.service';
+import { AssignmentTabAuthGuard}   from './services/assignment-auth-guard.service';
 import { AdminAuthGuard}   from './services/admin-auth-guard.service';
 import { ReportViewerAuthGuard}   from './services/reportviewer-auth-guard.service';
 import { RequestDetailAuthGuard}   from './services/request-detail-auth-guard.service';
@@ -182,7 +183,7 @@ import { ReportStatusComponent } from './components/requests/report/report-statu
   ],
   providers: [
     //WinAuthInterceptor,
-    RequesterAuthGuard, ReviewerAuthGuard,AssignerAuthGuard, AdminAuthGuard, ReportViewerAuthGuard,RequestDetailAuthGuard,
+    RequesterAuthGuard, ReviewerAuthGuard,AssignerAuthGuard, AssignmentTabAuthGuard, AdminAuthGuard, ReportViewerAuthGuard,RequestDetailAuthGuard,
     AuthenticationService, DatePipe,
     { provide: APP_INITIALIZER, useFactory: (authService: AuthenticationService) => () => authService.getSettings(), deps: [AuthenticationService], multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: WinAuthInterceptor, multi: true},

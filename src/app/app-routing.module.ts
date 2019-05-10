@@ -32,6 +32,7 @@ import { ReportViewerAuthGuard}   from './services/reportviewer-auth-guard.servi
 import { RequestDetailAuthGuard}   from './services/request-detail-auth-guard.service';
 import { PageNotAuthorizedComponent }    from './components/page-not-valid/page-not-authorized.component';
 import { AssignerRulesComponent } from './components/requests/assigner-request/assigner-rules/assigner-rules.component';
+import { AssignmentTabAuthGuard } from './services/assignment-auth-guard.service';
 import { CanDeactivateGuard}   from './services/can-deactivate.guard';
 import { ReportCategoryComponent } from './components/requests/report/report-category/report-category.component';
 import { ReportReviewerComponent } from './components/requests/report/report-reviewer/report-reviewer.component';
@@ -63,7 +64,7 @@ const routes: Routes = [
            {path: 'tab/0', component: IntroductionComponent, pathMatch: 'full', data : { title : 'Overview'}},
            {path: 'tab/1', component: RequesterRequestComponent, canActivate: [RequesterAuthGuard], pathMatch: 'full', data : { title : 'My Request List'}},
            {path: 'tab/2', component: ReviewerRequestComponent,canActivate: [ReviewerAuthGuard], pathMatch: 'full', data : { title : 'Requests for Review'}},
-           {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignerAuthGuard],  pathMatch: 'full', data : { title : 'Requests for Assignment'}},
+           {path: 'tab/5', component: AllRequestComponent,canActivate: [AssignmentTabAuthGuard],  pathMatch: 'full', data : { title : 'Requests for Assignment'}},
            {path: 'tab/4', component: AssignerRequestComponent,canActivate: [AssignerAuthGuard], data : { title : 'Assign Default Task Managers'},
                children: [
                      {path: '', redirectTo: 'rules', pathMatch: 'full'},
