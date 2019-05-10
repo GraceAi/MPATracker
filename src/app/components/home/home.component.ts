@@ -11,7 +11,6 @@ import { AuthenticationService } from '../../services/authentication.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   tabs: Tab[] = [];
   //selectedTab:any;
   constructor(private authService: AuthenticationService,

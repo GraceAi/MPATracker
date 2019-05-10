@@ -221,7 +221,7 @@ export class RequestDetailComponent implements OnInit {
       this.router.navigate(['/home/tab/1']);
     else if(this.role_id == 2)
       this.router.navigate(['/home/tab/2']);
-    else if(this.role_id == 3)
+    else if(this.role_id == 3 || this.role_id == 4)
       this.router.navigate(['/home/tab/5']);
   }
 

@@ -61,7 +61,7 @@ export class RequestTableComponent implements OnInit, OnChanges{
         }
       });
     }
-    if(this.role_id == 3){
+    if(this.role_id == 3 || this.role_id == 4){
       this.requestService.getAllRequests().subscribe(result => {
         if(result.length >= 0){
           this.displayRequest(result);

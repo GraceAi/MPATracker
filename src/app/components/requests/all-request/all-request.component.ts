@@ -11,7 +11,7 @@ import { AuthenticationService } from '../../../services/authentication.service'
 })
 export class AllRequestComponent implements OnInit {
   searchCriteria: string;
-  role_id:number = 3;
+  role_id:number;
   resultCount:string;
   constructor(private authService: AuthenticationService,
               private router: Router,
@@ -22,6 +22,12 @@ export class AllRequestComponent implements OnInit {
         .subscribe((data: { title: string }) => {
           this.authService.setTitle(data.title);
         });
+      if(this.authService.currentUserRoles.some(role => role.role_id === 4)){
+        this.role_id = 4; //Admin user has the privilege
+      }
+      else if (this.authService.currentUserRoles.some(role => role.role_id === 3)){
+        this.role_id = 3; //Assigner role
+      }
   }
 
   searchRequesterRequest(criteria:ReturnedRequest) {
