@@ -23,6 +23,7 @@ export class DocumentComponent implements OnInit {
   sequence_id:string;
   status_id:number;
   hide:boolean = true;
+  sidetabs:any;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -40,6 +41,7 @@ export class DocumentComponent implements OnInit {
           this.status_id = data.requestDetail.generalInfo.status_id;
         });
     this.authService.unlocked.subscribe(unlocked => { this.setLayout(unlocked); });
+    this.authService.sidetabData.subscribe(data => { this.sidetabs = data; });
   }
 
   setLayout(unlocked:boolean){
@@ -113,6 +115,7 @@ export class DocumentComponent implements OnInit {
             this.documentDataSource = new MatTableDataSource(result);
             this.documentDataSource.sort = this.sort;
             document.querySelector("body").style.cssText = "cursor: auto";
+            this.updateSideTabCount('decrease');
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -167,10 +170,18 @@ export class DocumentComponent implements OnInit {
             this.documents.push(result);
             this.documentDataSource = new MatTableDataSource(this.documents);
             this.documentDataSource.sort = this.sort;
+            this.updateSideTabCount('increase');
           }
         });
       }
     });
+  }
+
+  updateSideTabCount(action:string){
+    if(action == "increase")
+      this.sidetabs.find(item => item.sidetab_id == 3).sidetab_count++;
+    if(action == "decrease")
+      this.sidetabs.find(item => item.sidetab_id == 3).sidetab_count--;
   }
 
 }

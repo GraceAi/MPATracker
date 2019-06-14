@@ -124,7 +124,8 @@ export class ReportTemplateComponent implements OnInit, OnDestroy {
         row.No_Of_Requests = reportdata.request_count;
         reportData.push(row);
         chartData.push(reportdata.request_count);
-        chartLabel.push(reportdata.category_code);
+        //chartLabel.push(reportdata.category_code);
+        chartLabel.push(reportdata.category_name);
         chartColor.push(this.authService.COLORS[index % this.authService.COLORS.length]);
         index++;
       }

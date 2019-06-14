@@ -65,7 +65,7 @@ export class RequestService {
         mergeMap((generalInfo: any) => {
           return forkJoin(
            of(generalInfo),
-           this.http.get(sidetaburl + generalInfo.category_id + "&role_id=" + role_id)
+           this.http.get(sidetaburl + generalInfo.category_id + "&role_id=" + role_id + "&request_id=" + request_id)
           )
           .pipe(
             map((data: any[]) => {

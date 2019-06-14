@@ -21,6 +21,7 @@ export class ContractComponent implements OnInit {
   status_id:number;
   role_id:number;
   hide:boolean = true;
+  sidetabs:any;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -36,6 +37,7 @@ export class ContractComponent implements OnInit {
           this.status_id = data.requestDetail.generalInfo.status_id;
         });
     this.authService.unlocked.subscribe(unlocked => { this.setLayout(unlocked); });
+    this.authService.sidetabData.subscribe(data => { this.sidetabs = data; });
   }
 
   setLayout(unlocked:boolean){
@@ -78,6 +80,7 @@ export class ContractComponent implements OnInit {
           if(result.length >= 0){
             this.contractDataSource = new MatTableDataSource(result);
             this.contractDataSource.sort = this.sort;
+            this.updateSideTabCount('decrease');
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -99,6 +102,7 @@ export class ContractComponent implements OnInit {
           if(result.length >= 0){
             this.contractDataSource = new MatTableDataSource(result);
             this.contractDataSource.sort = this.sort;
+            this.updateSideTabCount('increase');
           }
           else if(result.ok == false){
             //const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -112,5 +116,12 @@ export class ContractComponent implements OnInit {
         });
       }
     });
+  }
+
+  updateSideTabCount(action:string){
+    if(action == "increase")
+      this.sidetabs.find(item => item.sidetab_id == 5).sidetab_count++;
+    if(action == "decrease")
+      this.sidetabs.find(item => item.sidetab_id == 5).sidetab_count--;
   }
 }

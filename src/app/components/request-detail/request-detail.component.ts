@@ -41,7 +41,6 @@ export class RequestDetailComponent implements OnInit {
         .subscribe((data: { requestDetail: RequestDetail }) => {
           if(data.requestDetail != null && data.requestDetail != undefined){
             this.sideTabs = data.requestDetail.sideTabs;
-            //this.selectedSideTab = this.sideTabs[0];
             this.category_id = data.requestDetail.generalInfo.category_id;
             this.request_id = data.requestDetail.generalInfo.request_id;
             this.status_id = data.requestDetail.generalInfo.status_id;
@@ -54,9 +53,11 @@ export class RequestDetailComponent implements OnInit {
               this.authService.setTitle(pageTitle);
             }
             this.setLayout();
+            this.setSideTabs();
             //this.setSelectedTab(this.router.url);
           }
         });
+
   }
   /*setSelectedTab(url:string){
     let lastslashindex = url.lastIndexOf('/');
@@ -66,6 +67,10 @@ export class RequestDetailComponent implements OnInit {
   }*/
   onActivate(componentRef){
     this.componentRef = componentRef;//to access child component: request general component
+  }
+
+  setSideTabs(){
+    this.authService.setSidetabs(this.sideTabs);
   }
 
   setLayout(){

@@ -22,6 +22,7 @@ export class PwlinkComponent implements OnInit {
   status_id:number;
   role_id:number;
   hide:boolean = true;
+  sidetabs:any;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -40,6 +41,7 @@ export class PwlinkComponent implements OnInit {
           //this.setLayout();
         });
     this.authService.unlocked.subscribe(unlocked => { this.setLayout(unlocked); });
+    this.authService.sidetabData.subscribe(data => { this.sidetabs = data; });
   }
 
   sanitize(url:string){
@@ -87,6 +89,8 @@ export class PwlinkComponent implements OnInit {
           if(result.length >= 0){
             this.pwLinkDataSource = new MatTableDataSource(result);
             this.pwLinkDataSource.sort = this.sort;
+
+            this.updateSideTabCount('decrease');
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -106,12 +110,14 @@ export class PwlinkComponent implements OnInit {
           if(result.length >= 0){
             this.pwLinkDataSource = new MatTableDataSource(result);
             this.pwLinkDataSource.sort = this.sort;
+
+            this.updateSideTabCount('increase');
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
           }
         });
-      }
+    }
     });
   }
   editLink(element:any){
@@ -130,5 +136,11 @@ export class PwlinkComponent implements OnInit {
         });
       }
     });
+  }
+  updateSideTabCount(action:string){
+    if(action == "increase")
+      this.sidetabs.find(item => item.sidetab_id == 7).sidetab_count++;
+    if(action == "decrease")
+      this.sidetabs.find(item => item.sidetab_id == 7).sidetab_count--;
   }
 }

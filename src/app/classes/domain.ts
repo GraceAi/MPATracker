@@ -14,6 +14,7 @@ export class SideTab {
   sidetab_id: number;
   sidetab_name: string;
   category_id:number;
+  sidetab_count:number;
 }
 export class Status {
   status_id: number;

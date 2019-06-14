@@ -20,6 +20,7 @@ export class CommentComponent implements OnInit {
    status_id:number;
    comments:RequestComment[];
    hide:boolean = false;
+   sidetabs:any;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -34,6 +35,7 @@ export class CommentComponent implements OnInit {
           this.status_id = data.requestDetail.generalInfo.status_id;
           this.setLayout();
         });
+    this.authService.sidetabData.subscribe(data => { this.sidetabs = data; });
   }
 
   getRequestComments(){
@@ -60,6 +62,7 @@ export class CommentComponent implements OnInit {
         this.requestService.addRequestComment(new_comment).subscribe(result => {
         if(result.length >= 0){
           this.comments = result;
+          this.updateSideTabCount('increase');
           }
           else if(result.ok == false){
             const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
@@ -67,6 +70,11 @@ export class CommentComponent implements OnInit {
         });
       }
     });
+  }
+
+  updateSideTabCount(action:string){
+    if(action == "increase")
+      this.sidetabs.find(item => item.sidetab_id == 2).sidetab_count++;
   }
 
 }

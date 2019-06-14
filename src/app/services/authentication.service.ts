@@ -37,6 +37,9 @@ export class AuthenticationService {
   private projectFilterDataSource = new BehaviorSubject(new Project());
   projectFilter = this.projectFilterDataSource.asObservable();
 
+  private sidetabDataSource = new BehaviorSubject([]);
+  sidetabData = this.sidetabDataSource.asObservable();
+
   public COLORS = [
     'rgb(255, 99, 132)',
     'rgb(75, 192, 192)',
@@ -145,6 +148,10 @@ export class AuthenticationService {
     return this.http.get<any>(url);
   }
 
+  setSidetabs(data:any){
+    this.sidetabDataSource.next(data);
+  }
+
   setReportData(data:any){
     this.reportDataSource.next(data);
   }
@@ -168,9 +175,11 @@ export class AuthenticationService {
   setBarChartData(data:any, labels:any, type: string){
     let dataLabels = [];
     for(let cat_count of data){
-      for(let category of cat_count){
-        if(!dataLabels.includes(category.category_code))
-          dataLabels.push(category.category_code);
+      if(cat_count != null){
+        for(let category of cat_count){
+          if(!dataLabels.includes(category.category_code))
+            dataLabels.push(category.category_code);
+        }
       }
     }
     let datasetsArray = [];
@@ -179,11 +188,13 @@ export class AuthenticationService {
       let subArray = [];
       for(let cat_count of data){
         let catexist = false;
-        for(let category of cat_count){
-          if(category.category_code == dataLabel){
-            subArray.push(category.request_count);
-            catexist = true;
-            break;
+        if(cat_count != null){
+          for(let category of cat_count){
+            if(category.category_code == dataLabel){
+              subArray.push(category.request_count);
+              catexist = true;
+              break;
+            }
           }
         }
         if(!catexist)
