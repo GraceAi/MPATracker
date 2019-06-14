@@ -26,7 +26,8 @@ export class ReviewerComponent implements OnInit {
   filteredReviewers:User[];
   selectedAssignedReviewer:any;
   selectedAvailableReviewer:any;
-  hide:boolean = false;  
+  hide:boolean = false;
+  sidetabs:any;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -40,7 +41,8 @@ export class ReviewerComponent implements OnInit {
     this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
           this.status_id = data.requestDetail.generalInfo.status_id;
           this.setLayout();
-        });
+    });
+    this.authService.sidetabData.subscribe(data => { this.sidetabs = data; });
   }
 
   setLayout(){
@@ -112,6 +114,7 @@ export class ReviewerComponent implements OnInit {
       if(result.length > 0){
         this.origAssignedReviewers =  this.assignedReviewers.map(x => Object.assign({}, x));//Object.assign({}, this.info);
         this.toastr.success('', 'Changes Saved', {timeOut: 3000});
+        this.updateSideTabCount(this.origAssignedReviewers.length);
         //const dialogRef = this.dialog.open(NotificationDialog, { data: result, width: '600px'});
       }
       else if(result.ok == false){
@@ -122,6 +125,10 @@ export class ReviewerComponent implements OnInit {
 
   cancelAssign(){
     this.getRequestReviewers();
+  }
+
+  updateSideTabCount(count:number){
+      this.sidetabs.find(item => item.sidetab_id == 6).sidetab_count = count;
   }
 
   canDeactivate(): Observable<boolean> | boolean {
