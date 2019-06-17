@@ -15,8 +15,19 @@
       </ng-container>
 
       <ng-container matColumnDef="visibility">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header title="Indicates whether users can see requests from their own departments"> Department Requests Visibility </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header title="Indicates whether users can see requests from their own departments">Requests Visibility </th>
         <td mat-cell *matCellDef="let element">{{element.deptmt_visibility}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header title="All Users in the department"> Users </th>
+        <td mat-cell *matCellDef="let element">{{element.str_users}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element" (click) = "editReqDept(element)"><i class="fa fa-pencil" aria-hidden="true" style="font-size:18px;"
+          title="Edit Requester Department"></i></td>
       </ng-container>
 
       <ng-container matColumnDef="delete">

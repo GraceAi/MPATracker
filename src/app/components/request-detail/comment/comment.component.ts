@@ -21,6 +21,7 @@ export class CommentComponent implements OnInit {
    comments:RequestComment[];
    hide:boolean = false;
    sidetabs:any;
+   canEdit:boolean;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -28,6 +29,7 @@ export class CommentComponent implements OnInit {
    public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.canEdit = this.route.snapshot.queryParams["canEdit"] == "true";
     this.request_id = +this.route.parent.snapshot.paramMap.get('requestId');
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
     this.getRequestComments();
@@ -46,7 +48,7 @@ export class CommentComponent implements OnInit {
   }
 
   setLayout(){
-    if(this.status_id == 4){
+    if(this.status_id == 4 || !this.canEdit){
       this.hide = true;
     }
   }

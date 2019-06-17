@@ -24,7 +24,9 @@ export class Status {
 export class Department {
   deptmt_id: number;
   deptmt_name: string;
-  deptmt_visibility:string;
+  deptmt_visibility:boolean;
+  users:any;
+  str_users:string;
 }
 
 export class Category {

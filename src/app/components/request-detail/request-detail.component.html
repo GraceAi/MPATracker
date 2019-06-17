@@ -2,7 +2,7 @@
 <mat-sidenav-container class="detailContainer">
   <mat-sidenav mode="side" opened>
     <mat-nav-list>
-      <a mat-list-item [routerLinkActive]="['active']" routerLink="./{{sidetab.sidetab_name.toLowerCase()}}"
+      <a mat-list-item [routerLinkActive]="['active']" routerLink="./{{sidetab.sidetab_name.toLowerCase()}}" [queryParams]="role_id == 1? {canEdit: canEdit}:null"
       *ngFor="let sidetab of sideTabs" title={{sidetab.sidetab_name}}>{{sidetab.sidetab_name}} <b [hidden] = 'sidetab.sidetab_id === 1'>({{sidetab.sidetab_count}})</b></a>
     </mat-nav-list>
   </mat-sidenav>

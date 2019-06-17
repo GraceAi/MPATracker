@@ -430,11 +430,21 @@ export class RequestService {
     );
   }
 
-  addRequesterDept(dept_name:string, dept_visibility:boolean): Observable<any>{
-    const url = this.erdTrackerServicesUrl + "Admin/AddRequesterDept/?dept_name=" + dept_name + "&dept_visibility=" + dept_visibility;
+  addRequesterDept(dept:any): Observable<any>{
+    let body = JSON.stringify(dept);
+    const url = this.erdTrackerServicesUrl + "Admin/AddRequesterDept";
     return this.http.post(url, this.httpOptions)
     .pipe(
       catchError(this.handleError('addRequesterDept', []))
+    );
+  }
+
+  editRequesterDept(dept:any): Observable<any>{
+    let body = JSON.stringify(dept);
+    const url = this.erdTrackerServicesUrl + "Admin/EditRequesterDept";
+    return this.http.post(url, this.httpOptions)
+    .pipe(
+      catchError(this.handleError('editRequesterDept', []))
     );
   }
 

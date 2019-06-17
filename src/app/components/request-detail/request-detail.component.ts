@@ -25,7 +25,7 @@ export class RequestDetailComponent implements OnInit {
   hideSubmitBtn:boolean = true;
   hideCompleteBtn:boolean = true;
   hideDeleteBtn:boolean = true;
-
+  canEdit:boolean;
   componentRef:any;
 
   constructor(private router: Router,
@@ -36,6 +36,7 @@ export class RequestDetailComponent implements OnInit {
    public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.canEdit = this.route.snapshot.queryParams["canEdit"] == "true";
     this.role_id = +this.route.snapshot.paramMap.get('roleId');
     this.route.data
         .subscribe((data: { requestDetail: RequestDetail }) => {
@@ -75,7 +76,7 @@ export class RequestDetailComponent implements OnInit {
 
   setLayout(){
     this.authService.setUnlock(false);
-    if(this.role_id == 1){
+    if(this.role_id == 1 && this.canEdit){
       if(this.status_id == 1){
         this.hideSubmitBtn = false;
         this.hideDeleteBtn = false;

@@ -28,6 +28,7 @@ export class GeneralInfoComponent implements OnInit {
   assignerDisabled:boolean = true;
   hide:boolean = true;
   status_id:number;
+  canEdit:boolean = true;
   constructor(private router: Router,
    private route: ActivatedRoute,
    private requestService: RequestService,
@@ -36,6 +37,7 @@ export class GeneralInfoComponent implements OnInit {
    public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.canEdit = this.route.snapshot.queryParams["canEdit"] == "true";
     let request_id = +this.route.parent.snapshot.paramMap.get('requestId');
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
     this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
@@ -73,7 +75,7 @@ export class GeneralInfoComponent implements OnInit {
       this.selectedDept = this.generalInfo.deptmt_name;
   }
   setLayout(unlocked:boolean){
-    if(this.role_id == 1){
+    if(this.role_id == 1 && this.canEdit){
       if(this.status_id == 1 || unlocked){
         this.disabled = false;
         this.hide = false;

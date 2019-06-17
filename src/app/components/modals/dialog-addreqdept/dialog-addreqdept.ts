@@ -9,10 +9,19 @@ import { Department } from '../../../classes/domain';
 export class AddReqDeptDialog {
   title:string = "Add Requester Department";
   dept:Department = new Department();
+  editMode:boolean = false;
   constructor(
-    public dialogRef: MatDialogRef<AddReqDeptDialog>
+    public dialogRef: MatDialogRef<AddReqDeptDialog>,
+    @Inject(MAT_DIALOG_DATA) data
     ) {
-      this.dept.deptmt_visibility = false;
+      if(data){
+        this.dept = data;
+        this.editMode = true;
+        this.title = "Edit Requester Department";
+      }
+      else{
+        this.dept.deptmt_visibility = false;
+      }
     }
     save() {
       this.dialogRef.close(this.dept);

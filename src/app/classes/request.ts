@@ -16,6 +16,7 @@ export class Request {
   complete_date:string;
   notes:string;
   high_priority:boolean;
+  can_edit:boolean;
 }
 export class RequestGeneral {
   request_id: number;

@@ -15,7 +15,7 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 })
 export class AdminReqDeptComponent implements OnInit {
   reqDeptDataSource:any;
-  columns: string[] = ['name', 'visibility', 'delete'];
+  columns: string[] = ['name', 'visibility', 'user', 'edit', 'delete'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private domainService: DomainService,
     private authService: AuthenticationService,
@@ -28,11 +28,11 @@ export class AdminReqDeptComponent implements OnInit {
   }
 
   openAddReqDeptDialog() {
-    const dialogRef = this.dialog.open(AddReqDeptDialog, {width: '600px'});
+    const dialogRef = this.dialog.open(AddReqDeptDialog, {width: '800px'});
 
     dialogRef.afterClosed().subscribe(dept => {
       if(dept.deptmt_name != null && dept.deptmt_name.trim().length > 0){
-        this.requestService.addRequesterDept(dept.deptmt_name, dept.deptmt_visibility).subscribe(result => {
+        this.requestService.addRequesterDept(dept).subscribe(result => {
           if(result.length >= 0){
             this.authService.departments = result;
             this.reqDeptDataSource = new MatTableDataSource(result);
@@ -45,6 +45,26 @@ export class AdminReqDeptComponent implements OnInit {
       }
     });
   }
+  editReqDept(element:any){
+    let dept = Object.assign({}, element);
+    const dialogRef = this.dialog.open(AddReqDeptDialog, {data: dept, width: '800px'});
+
+    dialogRef.afterClosed().subscribe(dept => {
+      if(dept.deptmt_name != null && dept.deptmt_name.trim().length > 0){
+        this.requestService.editRequesterDept(dept).subscribe(result => {
+          if(result.length >= 0){
+            this.authService.departments = result;
+            this.reqDeptDataSource = new MatTableDataSource(result);
+            this.reqDeptDataSource.sort = this.sort;
+          }
+          else if(result.ok == false){
+            const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
+          }
+        });
+      }
+    });
+  }
+
   deleteReqDept(element:any){
     const dialogRef = this.dialog.open(ConfirmationDialog, { data: {title: "Delete Requester Dept Confirmation", message: "Are you sure you want to delete this requester department?"}, width: '600px'});
 

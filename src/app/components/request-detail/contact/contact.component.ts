@@ -23,6 +23,7 @@ export class ContactComponent implements OnInit {
   role_id:number;
   hide:boolean = true;
   sidetabs:any;
+  canEdit:boolean;
   @ViewChild(MatSort) sort: MatSort;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -33,6 +34,7 @@ export class ContactComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.canEdit = this.route.snapshot.queryParams["canEdit"] == "true";
     this.request_id = +this.route.parent.snapshot.paramMap.get('requestId');
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
     this.getRequestContacts();
@@ -44,7 +46,7 @@ export class ContactComponent implements OnInit {
   }
 
   setLayout(unlocked:boolean){
-    if(this.role_id == 1){ //requester
+    if(this.role_id == 1  && this.canEdit){ //requester
       if(this.status_id == 1 || unlocked){ //new
         this.hide = false;
         this.displayedColumns.push("edit");

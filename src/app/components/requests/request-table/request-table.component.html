@@ -8,7 +8,7 @@
 
     <ng-container matColumnDef="sequence_id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ER No. </th>
-      <td mat-cell *matCellDef="let element"><a routerLink="/request/{{element.request_id}}/role/{{role_id}}" title="Click the ER No. to view request details"> {{element.sequence_id}} </a></td>
+      <td mat-cell *matCellDef="let element"><a routerLink="/request/{{element.request_id}}/role/{{role_id}}" [queryParams]="role_id == 1? {canEdit: element.can_edit}:null" title="Click the ER No. to view request details"> {{element.sequence_id}} </a></td>
     </ng-container>
 
     <ng-container matColumnDef="create_date">

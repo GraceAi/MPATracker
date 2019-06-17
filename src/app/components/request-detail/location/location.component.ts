@@ -20,6 +20,7 @@ export class LocationComponent implements OnInit {
   category_id:number;
   hide:boolean = true;
   map: any;
+  canEdit:boolean;
   //tempGraphicsLayer:any;
   constructor(private router: Router,
    private route: ActivatedRoute,
@@ -28,6 +29,7 @@ export class LocationComponent implements OnInit {
    public dialog: MatDialog) {}
 
   ngOnInit() {
+    this.canEdit = this.route.snapshot.queryParams["canEdit"] == "true";
     this.request_id = +this.route.parent.snapshot.paramMap.get('requestId');
     this.role_id = +this.route.parent.snapshot.paramMap.get('roleId');
     this.route.parent.data.subscribe((data: { requestDetail: RequestDetail }) => {
@@ -208,7 +210,7 @@ export class LocationComponent implements OnInit {
   }
 
   setLayout(unlocked:boolean){
-    if(this.role_id == 1){
+    if(this.role_id == 1 && this.canEdit){
       if(this.status_id == 1  || unlocked){
         this.hide = false;
       }
