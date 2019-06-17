@@ -15,7 +15,7 @@ import { NotificationDialog } from '../../../../components/modals/dialog-notific
 })
 export class AdminReqDeptComponent implements OnInit {
   reqDeptDataSource:any;
-  columns: string[] = ['name', 'delete'];
+  columns: string[] = ['name', 'visibility', 'delete'];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private domainService: DomainService,
     private authService: AuthenticationService,
@@ -30,9 +30,9 @@ export class AdminReqDeptComponent implements OnInit {
   openAddReqDeptDialog() {
     const dialogRef = this.dialog.open(AddReqDeptDialog, {width: '600px'});
 
-    dialogRef.afterClosed().subscribe(name => {
-      if(name != null && name.trim().length > 0){
-        this.requestService.addRequesterDept(name).subscribe(result => {
+    dialogRef.afterClosed().subscribe(dept => {
+      if(dept.deptmt_name != null && dept.deptmt_name.trim().length > 0){
+        this.requestService.addRequesterDept(dept.deptmt_name, dept.deptmt_visibility).subscribe(result => {
           if(result.length >= 0){
             this.authService.departments = result;
             this.reqDeptDataSource = new MatTableDataSource(result);

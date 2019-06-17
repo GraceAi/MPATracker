@@ -8,7 +8,7 @@
   <div class="form-group row required">
     <label class="col-sm-5 col-form-label">Requester Dept Name</label>
     <div class="col-sm-7">
-      <input #name="ngModel" required class="form-control" [(ngModel)]="dept_name">
+      <input #name="ngModel" required class="form-control" [(ngModel)]="dept.deptmt_name">
       <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validate-error">
         <div *ngIf="name.errors.required">
           Requester Dept Name is required.
@@ -16,8 +16,12 @@
       </div>
     </div>
   </div>
+  <div class="form-group row">
+    <label class="col-sm-5 col-form-label">Dept Requests Visibility</label>
+    <div class="col-sm-7"><input type="checkbox" class="form-check-input" [(ngModel)]="dept.deptmt_visibility"></div>
+  </div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" [disabled] = "name.invalid"  mat-dialog-close={{dept_name}}>OK</button>
+  <button type="button" class="btn btn-secondary" [disabled] = "name.invalid" (click)="save()">OK</button>
   <button type="button" class="btn btn-secondary" mat-dialog-close cdkFocusInitial>Cancel</button>
 </div>

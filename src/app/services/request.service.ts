@@ -430,8 +430,8 @@ export class RequestService {
     );
   }
 
-  addRequesterDept(dept_name:string): Observable<any>{
-    const url = this.erdTrackerServicesUrl + "Admin/AddRequesterDept/?dept_name=" + dept_name;
+  addRequesterDept(dept_name:string, dept_visibility:boolean): Observable<any>{
+    const url = this.erdTrackerServicesUrl + "Admin/AddRequesterDept/?dept_name=" + dept_name + "&dept_visibility=" + dept_visibility;
     return this.http.post(url, this.httpOptions)
     .pipe(
       catchError(this.handleError('addRequesterDept', []))
