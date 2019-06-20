@@ -52,6 +52,7 @@ export class User{
   lname:string;
   email:string;
   login:string;
+  deptmt_id:number;
 }
 
 export class Location{

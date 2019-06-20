@@ -433,7 +433,7 @@ export class RequestService {
   addRequesterDept(dept:any): Observable<any>{
     let body = JSON.stringify(dept);
     const url = this.erdTrackerServicesUrl + "Admin/AddRequesterDept";
-    return this.http.post(url, this.httpOptions)
+    return this.http.post(url, body, this.httpOptions)
     .pipe(
       catchError(this.handleError('addRequesterDept', []))
     );
@@ -442,7 +442,7 @@ export class RequestService {
   editRequesterDept(dept:any): Observable<any>{
     let body = JSON.stringify(dept);
     const url = this.erdTrackerServicesUrl + "Admin/EditRequesterDept";
-    return this.http.post(url, this.httpOptions)
+    return this.http.post(url, body, this.httpOptions)
     .pipe(
       catchError(this.handleError('editRequesterDept', []))
     );

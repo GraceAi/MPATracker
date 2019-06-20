@@ -35,10 +35,9 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="element-row" [class.selected-row]="selectedDeptUser === row" (click)="onSelectDeptUser(row)"></tr>
       </table>
       </div>
-
     </div>
 
-    <div class="col-md-2 assign-btn-group" [hidden]="hide">
+    <div class="col-md-2 assign-btn-group">
       <div class = "btn-group-vertical">
         <button type="button" class="btn btn-secondary" (click)="addDeptUser()" title="Add users to dept users table on the left"><i class="fa fa-chevron-left" aria-hidden="true" style="margin-right:20px"></i>Add</button>
         <br>
