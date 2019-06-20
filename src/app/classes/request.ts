@@ -38,6 +38,7 @@ export class RequestGeneral {
   str_reviewers:string;
   deptmt_id:number;
   deptmt_name:string;
+  inprocess_late:boolean;
 }
 export class RequestContact{
   contact_id: number;

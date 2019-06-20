@@ -59,9 +59,10 @@ export class RequestService {
   }
 
   getRequestDetail(request_id: number, role_id:number): Observable<RequestDetail>{
-      const generalurl = this.erdTrackerServicesUrl + "Request/GetTaskGenerals/" + request_id;
+      //update status to be in-progress if a reviewer opens the assigned request
+      const generalurl = this.erdTrackerServicesUrl + "Request/UpdateRequestStatus/?request_id=" + request_id + "&role_id=" + role_id;
       const sidetaburl = this.erdTrackerServicesUrl + "Request/GetSideTabsByCategoryAndRole/?cat_id=";
-      return this.http.get(generalurl).pipe(
+      return this.http.post(generalurl, this.httpOptions).pipe(
         mergeMap((generalInfo: any) => {
           return forkJoin(
            of(generalInfo),

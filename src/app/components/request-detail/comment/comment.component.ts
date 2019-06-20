@@ -48,7 +48,7 @@ export class CommentComponent implements OnInit {
   }
 
   setLayout(){
-    if(this.status_id == 4 || !this.canEdit){
+    if(this.status_id == 4 || (this.role_id == 1 && !this.canEdit)){
       this.hide = true;
     }
   }

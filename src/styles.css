@@ -203,7 +203,7 @@ tr.mat-header-row{
   height:38px!important;
 }
 
-.mat-row:nth-child(even):not(.selected-row){
+.mat-row:nth-child(even):not(.selected-row.inprogress-row.inprogresslate-row){
   background-color:#D9D9D9;
 }
 

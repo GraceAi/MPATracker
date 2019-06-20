@@ -82,7 +82,7 @@ export class GeneralInfoComponent implements OnInit {
       }
     }
     else if(this.role_id == 3 || this.role_id == 4){
-      if(this.status_id == 2 || this.status_id == 3 ){
+      if(this.status_id == 2 || this.status_id == 3 || this.status_id == 5){
         this.assignerDisabled = false;
         this.hide = false;
       }

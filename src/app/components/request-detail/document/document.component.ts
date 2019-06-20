@@ -55,7 +55,7 @@ export class DocumentComponent implements OnInit {
       }
     }
     else if(this.role_id == 2){
-      if(this.status_id == 2 || this.status_id == 3){
+      if(this.status_id == 2 || this.status_id == 3 || this.status_id == 5){
         this.hide = false;
         this.displayedColumns.push('edit');
         this.displayedColumns.push('delete');

@@ -63,7 +63,9 @@
     </ng-container> -->
 
     <tr mat-header-row *matHeaderRowDef="columns; sticky: true"></tr>
-    <tr mat-row [class.overdue-row]="(row.status_id === 2 || row.status_id === 3) && row.is_overdue" *matRowDef="let row; columns: columns;" class="element-row"></tr>
+    <tr mat-row [class.overdue-row]="(row.status_id === 2 || row.status_id === 3) && row.is_overdue" [class.inprogress-row]="row.status_id === 5"
+    [class.inprogresslate-row]="row.status_id === 5 && row.inprocess_late"
+    *matRowDef="let row; columns: columns;" class="element-row"></tr>
     <!-- <tr mat-row [ngClass]="{'overdue-row': (row.status_id === 2 || row.status_id === 3) && row.is_overdue}" *matRowDef="let row; columns: requesterColumns;" class="element-row" [class.selected-row]="selectedRow === row" (click)="selectedRow = row"></tr> -->
   </table>
   <div *ngIf="isLoading" class="table-spinner">

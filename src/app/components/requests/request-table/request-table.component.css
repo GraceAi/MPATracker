@@ -2,18 +2,32 @@ a{
   text-decoration: underline;
 }
 
-tr.element-row:hover {
+tr.element-row:not(.inprogress-row):hover {
   background: #f5f5f5;
 }
 
-tr.element-row:active {
+tr.element-row:not(.inprogress-row):active {
   background: #efefef;
 }
 .overdue-row .mat-cell{
   color:rgba(244,67,54);
   font-weight:bold;
 }
-
 .table-container{
   height:600px;
+}
+
+.inprogress-row{
+  background: #5f9eb1;
+}
+
+.inprogresslate-row{
+  background: rgba(244,67,54);
+}
+
+.inprogress-row .mat-cell{
+  color:white;
+}
+.inprogress-row .mat-cell a{
+  color:white;
 }

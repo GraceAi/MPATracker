@@ -81,12 +81,12 @@ export class RequestDetailComponent implements OnInit {
         this.hideSubmitBtn = false;
         this.hideDeleteBtn = false;
       }
-      else if(this.status_id == 2 || this.status_id == 3){
+      else if(this.status_id == 2 || this.status_id == 3 || this.status_id == 5){
         this.hideUnlockBtn = false;
       }
     }
     else if(this.role_id == 2){
-      if(this.status_id == 2 || this.status_id == 3){
+      if(this.status_id == 2 || this.status_id == 3 || this.status_id == 5){
         this.hideCompleteBtn = false;
       }
     }
