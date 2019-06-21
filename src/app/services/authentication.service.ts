@@ -215,10 +215,12 @@ export class AuthenticationService {
         datasets : datasetsArray
       },
       options: {
-        //responsive: true,
           scales: {
             xAxes: [{
               stacked: true,
+              ticks: {
+                autoSkip: false
+              }
             }],
             yAxes: [{
               stacked: true
