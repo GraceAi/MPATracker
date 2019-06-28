@@ -53,7 +53,7 @@ export class RequesterRequestComponent implements OnInit {
               const dialogRef = this.dialog.open(NotificationDialog, { data: "Error: " + result.message, width: '600px'});
             }
             else if(request != null){
-              this.router.navigate(['/request/' + request.request_id + '/role/' + this.role_id]);
+              this.router.navigate(['/request/' + request.request_id + '/role/' + this.role_id], { queryParams: { canEdit: true}});
             }
           });
         }

@@ -46,6 +46,7 @@ export class AddContactDialog {
             else if(contact!= null){
               this.domainService.getContacts(this.authService.appSettings.service_url)
                   .subscribe(result => {
+                    this.authService.contacts = result;
                     this.contacts = result;
                     this.selectedContact = result.find(x => x.contact_id === contact.contact_id);
                   });
