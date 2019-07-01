@@ -267,6 +267,16 @@ export class AuthenticationService {
       data: {
         labels : labels,
         datasets : datasetsArray
+      },
+      options: {
+          scales: {
+            xAxes: [{
+              stacked: true,
+              ticks: {
+                autoSkip: false
+              }
+            }]
+          }
       }
     }
     this.chartDataSource.next(chartData);
